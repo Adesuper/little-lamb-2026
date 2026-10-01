@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lost and Found — Little Lamb Meeting 2</title>
+<style>
+/* ============================ BASE ============================ */
+* { box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent; }
+body {
+  font-family:"Comic Sans MS","Chalkboard SE",system-ui,sans-serif;
+  background:linear-gradient(180deg,#bfe3ff 0%,#eafbe7 55%,#fffbe8 100%);
+  color:#2d3142; min-height:100vh; overflow-x:hidden;
+}
+/* ============================ TOPBAR ============================ */
+#topbar {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:10px 18px; background:rgba(255,255,255,.75); backdrop-filter:blur(6px);
+  border-bottom:3px solid #7ec4ff; position:sticky; top:0; z-index:50;
+}
+#topbar .brand { font-weight:800; color:#1d4ed8; font-size:1.05rem; }
+#topbar .tools { display:flex; gap:8px; }
+.tbtn {
+  background:#fff; border:2px solid #1d4ed8; color:#1d4ed8; font-family:inherit;
+  font-weight:800; font-size:.9rem; padding:7px 14px; border-radius:999px; cursor:pointer;
+}
+.tbtn:hover { background:#1d4ed8; color:#fff; }
+/* ============================ PAGES ============================ */
+.page { display:none; max-width:1140px; margin:0 auto; padding:22px 18px 110px; }
+.page.active { display:block; animation:fade .35s ease; }
+@keyframes fade { from { opacity:0; transform:translateY(12px);} to { opacity:1; transform:none; } }
+.page h1 { font-size:2.1rem; color:#1d4ed8; text-align:center; margin-bottom:6px; }
+.page .sub { text-align:center; color:#4b5563; font-size:1.05rem; margin-bottom:18px; }
+.teach {
+  max-width:820px; margin:0 auto 18px; background:rgba(255,255,255,.72); border:2px dashed #94a3b8;
+  border-radius:14px; padding:9px 16px; font-size:.92rem; color:#475569; text-align:center;
+}
+.teach b { color:#1d4ed8; }
+.center { text-align:center; }
+/* ============================ BUTTONS ============================ */
+.big {
+  display:inline-block; background:linear-gradient(135deg,#34d399,#059669); color:#fff;
+  border:none; font-family:inherit; font-weight:800; font-size:1.3rem;
+  padding:16px 38px; border-radius:999px; cursor:pointer; box-shadow:0 6px 0 #047857; margin:4px;
+}
+.big:active { transform:translateY(4px); box-shadow:0 2px 0 #047857; }
+.big.blue { background:linear-gradient(135deg,#60a5fa,#1d4ed8); box-shadow:0 6px 0 #1e40af; }
+.big.pink { background:linear-gradient(135deg,#f9a8d4,#be185d); box-shadow:0 6px 0 #9d174d; }
+.big.gold { background:linear-gradient(135deg,#fcd34d,#d97706); box-shadow:0 6px 0 #b45309; }
+.big.purple { background:linear-gradient(135deg,#c4b5fd,#7c3aed); box-shadow:0 6px 0 #5b21b6; }
+/* ============================ WELCOME ============================ */
+.hero { text-align:center; padding:10px 0 0; }
+.hero .lamb { font-size:7.5rem; line-height:1; animation:bob 2.4s ease-in-out infinite; }
+@keyframes bob { 0%,100%{transform:translateY(0) rotate(-2deg);} 50%{transform:translateY(-14px) rotate(2deg);} }
+.hero .kicker { letter-spacing:4px; font-weight:800; color:#b45309; font-size:.95rem; }
+.hero h2 { font-size:3rem; color:#1d4ed8; margin:4px 0 8px; }
+.hero .meta { color:#4b5563; font-size:1.05rem; margin-bottom:18px; }
+.starbar {
+  background:#fffbeb; border:3px dashed #f59e0b; border-radius:20px;
+  padding:14px 26px; max-width:700px; margin:0 auto 22px; font-size:1.2rem; color:#92400e; font-weight:700;
+}
+.howto {
+  max-width:780px; margin:26px auto 0; background:rgba(255,255,255,.8);
+  border:2px solid #cbd5e1; border-radius:16px; padding:16px 22px; text-align:left; font-size:.95rem; color:#334155;
+}
+.howto b { color:#1d4ed8; }
+.howto li { margin:5px 0 5px 18px; }
+.namebox { margin:16px auto 0; font-size:1rem; color:#334155; }
+.namebox input {
+  font-family:inherit; font-size:1.1rem; padding:8px 14px; border-radius:999px;
+  border:3px solid #93c5fd; width:220px; text-align:center; margin-left:6px;
+}
+/* ============================ HIDE & SEEK ============================ */
+.bushgrid { display:grid; grid-template-columns:repeat(4,1fr); gap:18px; max-width:860px; margin:0 auto 18px; }
+.bush {
+  height:150px; border-radius:50% 50% 22px 22px; background:radial-gradient(circle at 40% 35%,#86efac,#16a34a);
+  border:5px solid #15803d; font-size:4.4rem; display:flex; align-items:center; justify-content:center;
+  cursor:pointer; transition:transform .15s; position:relative; user-select:none;
+}
+.bush:hover { transform:scale(1.05); }
+.bush.rustle { animation:rustle .45s; }
+@keyframes rustle { 0%,100%{transform:rotate(0);} 25%{transform:rotate(-8deg);} 75%{transform:rotate(8deg);} }
+.bush.empty { background:#f1f5f9; border-color:#cbd5e1; font-size:1.2rem; color:#94a3b8; font-weight:800; }
+.bush.found { background:#fffbeb; border-color:#f59e0b; animation:pop .5s; }
+@keyframes pop { 0%{transform:scale(.6);} 70%{transform:scale(1.15);} 100%{transform:scale(1);} }
+.status { text-align:center; font-size:1.5rem; font-weight:800; color:#059669; min-height:1.6em; margin-bottom:12px; }
+/* ============================ THUMBS QUIZ ============================ */
+.quizbox {
+  background:#fff; border:6px solid #a78bfa; border-radius:28px; padding:36px 26px;
+  text-align:center; max-width:780px; margin:0 auto 20px; min-height:240px;
+  display:flex; flex-direction:column; justify-content:center; gap:14px;
+}
+.quizbox .emoji { font-size:4rem; }
+.quizbox .q { font-size:2rem; font-weight:800; color:#1d4ed8; line-height:1.3; }
+.quizbox .fb { font-size:1.4rem; font-weight:800; min-height:1.6em; }
+.fb.good { color:#059669; }
+.fb.bad { color:#dc2626; }
+.thumbrow { display:flex; gap:20px; justify-content:center; }
+.thumb {
+  font-family:inherit; font-size:3rem; padding:14px 42px; border-radius:24px;
+  border:5px solid #cbd5e1; background:#fff; cursor:pointer; transition:transform .12s;
+}
+.thumb:hover { transform:scale(1.08); }
+.thumb.yes:hover { border-color:#34d399; }
+.thumb.no:hover  { border-color:#f87171; }
+.score { text-align:center; font-size:1.2rem; font-weight:800; color:#059669; margin-bottom:12px; }
+/* ============================ STORY ============================ */
+.storybox {
+  background:#fff; border:6px solid #fcd34d; border-radius:28px; padding:30px 28px;
+  text-align:center; max-width:860px; margin:0 auto 18px; min-height:330px;
+  display:flex; flex-direction:column; justify-content:center; gap:16px;
+}
+.storybox .e { font-size:5.5rem; line-height:1.1; }
+.storybox .t { font-size:1.9rem; font-weight:800; color:#1e3a8a; line-height:1.35; }
+.storybox .cue { font-size:1.05rem; color:#7c3aed; font-weight:800; }
+.dots { display:flex; gap:8px; justify-content:center; margin-bottom:14px; }
+.dot { width:14px; height:14px; border-radius:50%; background:#cbd5e1; }
+.dot.on { background:#f59e0b; }
+/* ============================ COUNT THE FLOCK ============================ */
+.field {
+  background:linear-gradient(180deg,#dcfce7,#bbf7d0); border:5px solid #86efac; border-radius:28px;
+  max-width:900px; margin:0 auto 16px; min-height:200px; padding:22px;
+  display:flex; flex-wrap:wrap; gap:14px; justify-content:center; align-items:center; position:relative;
+}
+.fsheep {
+  width:100px; height:100px; border-radius:50%; background:#fff; border:5px solid #e5e7eb;
+  font-size:3.3rem; display:flex; align-items:center; justify-content:center; cursor:pointer;
+  position:relative; transition:transform .15s, opacity .8s, border-color .2s;
+}
+.fsheep .n {
+  position:absolute; top:-12px; right:-6px; width:36px; height:36px; border-radius:50%;
+  background:#1d4ed8; color:#fff; font-size:1.2rem; font-weight:800; display:none; align-items:center; justify-content:center;
+}
+.fsheep.counted { border-color:#60a5fa; }
+.fsheep.counted .n { display:flex; }
+.fsheep.gone { opacity:0; transform:translateX(260px) scale(.4); pointer-events:none; }
+.fsheep.hiding { font-size:3.3rem; border-color:#f59e0b; background:#fffbeb; animation:wig 1s infinite; }
+@keyframes wig { 0%,100%{transform:rotate(0);} 25%{transform:rotate(-10deg);} 75%{transform:rotate(10deg);} }
+.numrow { display:flex; gap:16px; justify-content:center; margin:6px 0 14px; }
+.numbtn {
+  font-family:inherit; font-size:2.4rem; font-weight:800; width:96px; height:96px; border-radius:24px;
+  border:5px solid #cbd5e1; background:#fff; color:#1d4ed8; cursor:pointer;
+}
+.numbtn.bad { animation:shake .4s; border-color:#ef4444; background:#fef2f2; }
+.numbtn.right { border-color:#34d399; background:#ecfdf5; }
+@keyframes shake { 0%,100%{transform:translateX(0);} 20%{transform:translateX(-10px);} 60%{transform:translateX(10px);} }
+/* ============================ SEQUENCE ============================ */
+.seqrow { display:flex; gap:14px; justify-content:center; flex-wrap:wrap; margin-bottom:22px; }
+.seqcard {
+  background:#fff; border:5px solid #cbd5e1; border-radius:20px; width:170px; padding:16px 10px;
+  text-align:center; cursor:pointer; transition:transform .15s, border-color .2s, background .2s; position:relative;
+}
+.seqcard:hover { transform:translateY(-6px); }
+.seqcard .e { font-size:3.4rem; }
+.seqcard .t { font-weight:800; font-size:1.1rem; color:#334155; margin-top:4px; }
+.seqcard.done { border-color:#34d399; background:#ecfdf5; }
+.seqcard.bad { animation:shake .4s; border-color:#ef4444; background:#fef2f2; }
+.seqcard .ord {
+  position:absolute; top:-14px; left:50%; transform:translateX(-50%);
+  width:34px; height:34px; border-radius:50%; background:#059669; color:#fff;
+  font-weight:800; font-size:1.1rem; display:none; align-items:center; justify-content:center;
+}
+.seqcard.done .ord { display:flex; }
+.chant { text-align:center; font-size:1.4rem; font-weight:800; color:#047857; min-height:1.5em; margin-bottom:10px; }
+/* ============================ SHEPHERD SAYS ============================ */
+.callbox {
+  background:#fff; border:6px solid #60a5fa; border-radius:28px; padding:30px 24px;
+  text-align:center; max-width:820px; margin:0 auto 14px; min-height:260px;
+  display:flex; flex-direction:column; justify-content:center; gap:10px;
+}
+.callbox .e { font-size:5rem; }
+.callbox .pre { font-size:1.6rem; font-weight:800; color:#059669; min-height:1.3em; }
+.callbox .cmd { font-size:2.3rem; font-weight:800; color:#1e3a8a; }
+.callbox .hint { font-size:1rem; color:#dc2626; font-weight:800; min-height:1.3em; }
+.trickrow { text-align:center; font-size:1rem; color:#475569; margin-bottom:12px; }
+.trickrow input { transform:scale(1.4); margin-right:8px; vertical-align:middle; }
+/* ============================ DRESS-UP ============================ */
+.dresswrap { display:grid; grid-template-columns:1.1fr 1fr; gap:22px; max-width:1000px; margin:0 auto; align-items:start; }
+.scene {
+  background:linear-gradient(180deg,#fde68a 0%,#fef3c7 45%,#bbf7d0 46%,#86efac 100%);
+  border:5px solid #f59e0b; border-radius:26px; min-height:330px; padding:18px;
+  display:flex; flex-wrap:wrap; gap:10px; align-content:flex-end; justify-content:center;
+}
+.scene .item { font-size:3.6rem; animation:pop .5s; text-align:center; }
+.scene .item small { display:block; font-size:.85rem; font-weight:800; color:#78350f; }
+.scene .empty { width:100%; text-align:center; color:#92400e; font-weight:800; font-size:1.1rem; align-self:center; }
+.choice {
+  background:#fff; border:5px solid #a78bfa; border-radius:24px; padding:20px; text-align:center;
+}
+.choice .q { font-size:1.6rem; font-weight:800; color:#1d4ed8; margin-bottom:14px; min-height:2.6em; }
+.opts { display:flex; gap:14px; justify-content:center; }
+.opt {
+  font-family:inherit; background:#fff; border:5px solid #cbd5e1; border-radius:22px;
+  padding:12px 16px; cursor:pointer; width:46%; transition:transform .12s;
+}
+.opt:hover { transform:scale(1.05); }
+.opt .e { font-size:3.4rem; display:block; }
+.opt .t { font-size:1.1rem; font-weight:800; color:#334155; }
+.opt.bad { animation:shake .4s; border-color:#ef4444; background:#fef2f2; }
+/* ============================ PAINTING ============================ */
+.paintwrap { max-width:760px; margin:0 auto; text-align:center; }
+#paint {
+  width:100%; max-width:720px; aspect-ratio:720/460; background:#fff; border:6px solid #fda4af;
+  border-radius:24px; touch-action:none; cursor:crosshair; box-shadow:0 6px 18px rgba(0,0,0,.08);
+}
+.colors { display:flex; gap:12px; justify-content:center; margin:12px 0; }
+.sw { width:48px; height:48px; border-radius:50%; border:4px solid #fff; box-shadow:0 0 0 3px #cbd5e1; cursor:pointer; }
+.sw.on { box-shadow:0 0 0 4px #be185d; }
+/* ============================ BOTTLE ============================ */
+.rhyme {
+  background:#fff; border:6px solid #f9a8d4; border-radius:28px; padding:24px;
+  max-width:820px; margin:0 auto 16px; text-align:center;
+}
+.rhyme .l { font-size:1.8rem; font-weight:800; color:#9d174d; line-height:1.5; }
+.bsteps { max-width:840px; margin:0 auto; }
+/* ============================ STEPS (shared) ============================ */
+.cstep {
+  background:#fff; border:4px solid #fda4af; border-radius:22px; padding:14px 22px;
+  display:flex; align-items:center; gap:18px; margin-bottom:10px; opacity:.5;
+  transition:opacity .3s, transform .2s; cursor:pointer;
+}
+.cstep.on { opacity:1; transform:scale(1.02); border-color:#be185d; background:#fff1f2; }
+.cstep .n {
+  min-width:48px; height:48px; border-radius:50%; background:#be185d; color:#fff;
+  display:flex; align-items:center; justify-content:center; font-size:1.4rem; font-weight:800;
+}
+.cstep .b { font-size:1.18rem; }
+.cstep .e { font-size:2.2rem; }
+/* ============================ SONG ============================ */
+.lyrics { max-width:760px; margin:0 auto; }
+.lyr {
+  background:#fff; border:4px solid #fcd34d; border-radius:18px; padding:12px 22px;
+  margin-bottom:9px; cursor:pointer; display:flex; align-items:center; gap:18px;
+  transition:transform .15s, background .2s;
+}
+.lyr:hover { transform:translateX(8px); }
+.lyr.on { background:#fffbeb; border-color:#d97706; }
+.lyr .w { font-size:1.45rem; font-weight:800; color:#92400e; flex:1; }
+.lyr .act { font-size:.95rem; color:#475569; text-align:right; }
+.qs { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; max-width:980px; margin:0 auto 22px; }
+.qcard {
+  background:#fff; border:5px solid #93c5fd; border-radius:22px; padding:16px; text-align:center; cursor:pointer;
+}
+.qcard .q { font-size:1.25rem; font-weight:800; color:#1d4ed8; }
+.qcard .a { font-size:1.15rem; font-weight:800; color:#cbd5e1; margin-top:10px; }
+.qcard.on { border-color:#34d399; background:#f0fdf4; }
+.qcard.on .a { color:#059669; }
+.finish { text-align:center; padding:22px 0; }
+.finish .big-emo { font-size:6rem; animation:bob 2s ease-in-out infinite; }
+/* ============================ NAV ============================ */
+#nav {
+  position:fixed; bottom:0; left:0; right:0; display:flex; gap:12px; justify-content:center;
+  padding:14px; background:rgba(255,255,255,.9); backdrop-filter:blur(6px); border-top:3px solid #7ec4ff; z-index:50;
+}
+.nbtn { font-family:inherit; font-weight:800; font-size:1.05rem; padding:12px 30px; border-radius:999px; border:none; cursor:pointer; }
+.nbtn.back { background:#e5e7eb; color:#374151; }
+.nbtn.next { background:linear-gradient(135deg,#34d399,#059669); color:#fff; box-shadow:0 4px 0 #047857; }
+.nbtn:disabled { opacity:.35; cursor:not-allowed; }
+.pill { align-self:center; font-weight:800; color:#6b7280; font-size:.9rem; }
+/* ============================ CONFETTI ============================ */
+#confetti { position:fixed; inset:0; pointer-events:none; z-index:99; }
+.conf { position:absolute; font-size:1.8rem; animation:fall 2.6s linear forwards; }
+@keyframes fall { to { transform:translateY(110vh) rotate(620deg); opacity:0; } }
+/* ============================ RESPONSIVE ============================ */
+@media (max-width:860px) {
+  .bushgrid { grid-template-columns:repeat(3,1fr); }
+  .bush { height:110px; font-size:3.2rem; }
+  .dresswrap, .qs { grid-template-columns:1fr; }
+  .hero h2 { font-size:2.1rem; }
+  .hero .lamb { font-size:5.5rem; }
+  .page h1 { font-size:1.6rem; }
+  .quizbox .q, .storybox .t { font-size:1.4rem; }
+  .callbox .cmd { font-size:1.7rem; }
+  .seqcard { width:140px; }
+  .fsheep { width:78px; height:78px; font-size:2.5rem; }
+}
+</style></head>
+<body>
+
+<div id="topbar">
+  <div class="brand">🔍 Lost and Found · Meeting 2</div>
+  <div class="tools">
+    <button class="tbtn" onclick="go(0)">🏠 Home</button>
+    <button class="tbtn" onclick="fs()">🖥️ Full Screen</button>
+  </div>
+</div>
+
+<!-- ============ 0 · WELCOME ============ -->
+<section class="page active" id="p0">
+  <div class="hero">
+    <div class="lamb">🐑</div>
+    <div class="kicker">LITTLE LAMB · 2026–2027</div>
+    <h2>Lost and Found</h2>
+    <div class="meta">Meeting 2 · Ages 4–5 · Sabbath, October 3</div>
+    <div class="starbar">💛 Jesus is the Good Shepherd — He always looks for me! &nbsp;·&nbsp; Requirement: My God I</div>
+    <button class="big" onclick="go(1)">🚀 Let's Start!</button>
+    <button class="big blue" onclick="fs()">🖥️ Full Screen</button>
+    <div class="namebox">🐑 Our lamb mascot's name is <input id="mascotIn" placeholder="type the name" oninput="setMascot(this.value)"></div>
+    <div class="howto">
+      <b>📖 How to use this app (1 minute, read first)</b>
+      <ul>
+        <li>Type in the <b>name the class voted for</b> last week — the app uses it on every page.</li>
+        <li>Tap <b>Full Screen</b>, then <b>Let's Start!</b> — <b>11 pages</b>. Next with the green <b>Next ➡</b> button or the <b>→</b> key.</li>
+        <li>Real games with right/wrong answers: <b>Find the Lamb</b>, <b>Shepherd Thumbs</b>, <b>Count the Flock</b>, <b>Story in Order</b>, <b>Shepherd Quiz</b> and the <b>Magic Painting</b>. Let a different child take each turn.</li>
+        <li>The app supports the Leader's Guide (pp. 37–42); the tents, the puppet, the paint and the baby bottle are still the lesson. The pages follow the lesson plan's order (the painting comes straight after the story).</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 1 · FIND THE LOST LAMB ============ -->
+<section class="page" id="p1">
+  <h1>🔍 Oh no! <span class="mascot">Our lamb</span> is lost!</h1>
+  <div class="sub">Which bush is the little lamb hiding behind? Tap to look!</div>
+  <div class="teach">Leader's Guide · <b>Gather the Flock</b> (5 min) — hide the real puppet before they arrive and let them find it first. Then the puppet greets each child by name. This screen is for a second round.</div>
+  <div class="status" id="hideStatus"></div>
+  <div class="bushgrid" id="bushGrid"></div>
+  <div class="center"><button class="big gold" onclick="buildHide()">🔄 Hide Again</button></div>
+</section>
+
+<!-- ============ 2 · SHEPHERD THUMBS ============ -->
+<section class="page" id="p2">
+  <h1>👍 What Does a Shepherd Do?</h1>
+  <div class="sub">Thumbs UP if it's true. Thumbs DOWN if it's silly!</div>
+  <div class="teach">Leader's Guide · <b>Lamb Tales</b> — show a picture of a shepherd first: <b>he feeds the lambs, cuts their wool, and finds them when they're lost.</b> Then play this.</div>
+  <div class="score" id="quizScore">Question 1</div>
+  <div class="quizbox">
+    <div class="emoji" id="qEmoji">🧑‍🌾</div>
+    <div class="q" id="qText">Ready?</div>
+    <div class="fb" id="qFb"></div>
+  </div>
+  <div class="thumbrow">
+    <button class="thumb yes" onclick="answer(true)">👍</button>
+    <button class="thumb no"  onclick="answer(false)">👎</button>
+  </div>
+  <div class="center" style="margin-top:16px"><button class="big gold" onclick="buildQuiz()">🔄 Play Again</button></div>
+</section>
+
+<!-- ============ 3 · THE STORY ============ -->
+<section class="page" id="p3">
+  <h1>📖 David the Shepherd Boy</h1>
+  <div class="sub">A true story from the Bible — 1 Samuel 16–17 &amp; Psalm 23</div>
+  <div class="teach">Leader's Guide · <b>Lamb Tales</b> (10 min) — read the printed <b>read-aloud-david-shepherd.pdf</b>, or tell it from here. Purple lines are the class's cue to join in — roars, growls and baas!</div>
+  <div class="dots" id="storyDots"></div>
+  <div class="storybox">
+    <div class="e" id="stE"></div>
+    <div class="t" id="stT"></div>
+    <div class="cue" id="stC"></div>
+  </div>
+  <div class="center">
+    <button class="big blue" onclick="storyStep(-1)">⬅ Back</button>
+    <button class="big" onclick="storyStep(1)">Turn the page ➡</button>
+  </div>
+</section>
+
+<!-- ============ 4 · COUNT THE FLOCK ============ -->
+<section class="page" id="p4">
+  <h1>🔢 Count the Flock</h1>
+  <div class="sub" id="countSub">Tap each sheep to count them!</div>
+  <div class="teach">A good shepherd counts his sheep every night — that's how he knew one was missing. Count out loud <b>together</b> as each child taps.</div>
+  <div class="status" id="countStatus"></div>
+  <div class="field" id="field"></div>
+  <div class="numrow" id="numRow"></div>
+  <div class="center" id="countBtns"></div>
+</section>
+
+<!-- ============ 5 · STORY IN ORDER ============ -->
+<section class="page" id="p5">
+  <h1>🃏 Tell the Story in Order</h1>
+  <div class="sub">What happened FIRST? Tap them in order!</div>
+  <div class="teach">The story of <b>David the Shepherd Boy</b> — same pictures as the printed <b>story-cards.pdf</b>. Do it on the floor with the cards, then here, or both.</div>
+  <div class="chant" id="chant"></div>
+  <div class="seqrow" id="seqRow"></div>
+  <div class="center"><button class="big gold" onclick="buildSeq()">🔄 Shuffle &amp; Try Again</button></div>
+</section>
+
+<!-- ============ 6 · THE SHEPHERD SAYS ============ -->
+<section class="page" id="p7">
+  <h1>🗣️ The Shepherd Says</h1>
+  <div class="sub">Only move if the shepherd says so!</div>
+  <div class="teach">Leader's Guide · <b>Activity 2</b> (15 min) — children behind the tape line, an adult holding the lamb puppet several feet away. Say a child's name, then read the command. <b>If there's no "the shepherd says", nobody moves!</b></div>
+  <div class="trickrow"><label><input type="checkbox" id="trickOn" checked>Include trick commands (no "shepherd says")</label></div>
+  <div class="callbox">
+    <div class="e" id="cE">🧑‍🌾</div>
+    <div class="pre" id="cPre"></div>
+    <div class="cmd" id="cCmd">Press the button!</div>
+    <div class="hint" id="cHint"></div>
+  </div>
+  <div class="center"><button class="big blue" onclick="callCmd()">📣 Next Command</button></div>
+</section>
+
+<!-- ============ 7 · SHEPHERD DRESS-UP QUIZ ============ -->
+<section class="page" id="p8">
+  <h1>⛺ How Did Shepherds Live?</h1>
+  <div class="sub">Pick the right one — and build our shepherd's camp!</div>
+  <div class="teach">Leader's Guide · <b>Activity 1 — Shepherd Dress-up</b> (15 min). Play this <i>before</i> they dress up, so they know why they're taking their shoes off!</div>
+  <div class="dresswrap">
+    <div class="scene" id="scene"></div>
+    <div class="choice">
+      <div class="q" id="dQ"></div>
+      <div class="opts" id="dOpts"></div>
+      <div class="fb" id="dFb" style="margin-top:12px;font-size:1.2rem;font-weight:800;min-height:1.5em"></div>
+    </div>
+  </div>
+  <div class="center" style="margin-top:16px"><button class="big gold" onclick="buildDress()">🔄 Start Over</button></div>
+</section>
+
+<!-- ============ 8 · MAGIC PAINTING ============ -->
+<section class="page" id="p6">
+  <h1>🎨 Find the Lamb in the Painting!</h1>
+  <div class="sub">A lamb is hiding on this white paper. Paint to find it!</div>
+  <div class="teach">Leader's Guide · <b>Activity 3 — Lost Lamb Painting</b>. Show this <b>before</b> they paint, so they know what's going to happen — then the real paper does the same magic (white crayon + watery paint).</div>
+  <div class="paintwrap">
+    <canvas id="paint" width="720" height="460"></canvas>
+    <div class="colors" id="colors"></div>
+    <div class="status" id="paintStatus"></div>
+    <button class="big pink" onclick="resetPaint()">🔄 Hide a New Lamb</button>
+  </div>
+</section>
+
+<!-- ============ 9 · WHO'S GOT YOUR BOTTLE ============ -->
+<section class="page" id="p9">
+  <h1>🍼 Little Lamb, Who's Got Your Bottle?</h1>
+  <div class="sub">Shepherd — turn around and guess!</div>
+  <div class="teach">Leader's Guide · <b>Activity 4</b> (10 min) — like <i>Doggy, Doggy, Who's Got Your Bone?</i> Tap each step as you go. Everyone gets a turn as the shepherd.</div>
+  <div class="rhyme">
+    <div class="l">🐑 Little lamb, little lamb,<br>who's got your bottle?<br>Somebody took it —<br>baa, baa, baa!</div>
+  </div>
+  <div class="bsteps" id="bSteps"></div>
+  <div class="center" style="margin-top:10px">
+    <button class="big purple" onclick="chorus()">🐑🐑🐑 Baa Chorus!</button>
+    <button class="big gold" onclick="bReset()">🔄 Next Shepherd</button>
+  </div>
+</section>
+
+<!-- ============ 10 · SONG & GOOD-BAA ============ -->
+<section class="page" id="p10">
+  <h1>🎵 Good-baa, Little Lambs!</h1>
+  <div class="sub">Tap a question — then tap to see the answer</div>
+  <div class="teach">Leader's Guide · <b>Good-baa Little Lambs</b> (5 min) — ask what a shepherd does and <b>why we call Jesus the Good Shepherd</b>. Then sing and rejoin the Adventurers.</div>
+  <div class="qs" id="qs"></div>
+  <div class="lyrics" id="songLines"></div>
+  <div class="center" style="margin-top:16px">
+    <button class="big" onclick="songAll()">▶️ Sing the Whole Song</button>
+    <button class="big gold" onclick="songReset()">🔄 Again</button>
+  </div>
+  <div class="finish">
+    <div class="big-emo">🧑‍🌾🐑💛</div>
+    <h1>Jesus always looks for YOU!</h1>
+    <p style="font-size:1.4rem;color:#059669;font-weight:800;margin:14px 0">Well done, Little Lambs! 🎉</p>
+    <button class="big gold" onclick="party()">🎉 Celebrate!</button>
+    <button class="big blue" onclick="go(0)">🏠 Back to Start</button>
+  </div>
+</section>
+
+<div id="nav">
+  <button class="nbtn back" id="btnBack" onclick="go(cur-1)">⬅ Back</button>
+  <span class="pill" id="pagePill">1 / 11</span>
+  <button class="nbtn next" id="btnNext" onclick="go(cur+1)">Next ➡</button>
+</div>
+
+<div id="confetti"></div>
+
+<script>
+/* ===================== HELPERS ===================== */
+const $ = id => document.getElementById(id);
+const shuffle = arr => arr.map(v => [Math.random(), v]).sort((a,b) => a[0]-b[0]).map(p => p[1]);
+const rnd = n => Math.floor(Math.random() * n);
+
+/* ===================== MASCOT NAME ===================== */
+let mascot = '';
+function setMascot(v){
+  mascot = v.trim();
+  try { localStorage.setItem('ll-mascot', mascot); } catch(e) {}
+  document.querySelectorAll('.mascot').forEach(s => s.textContent = mascot || 'Our lamb');
+}
+function lambName(){ return mascot || 'the little lamb'; }
+
+/* ===================== NAVIGATION ===================== */
+const PAGES = 11;
+let cur = 0;
+function go(n){
+  if (n < 0 || n >= PAGES) return;
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  $('p' + n).classList.add('active');
+  cur = n;
+  $('pagePill').textContent = (n + 1) + ' / ' + PAGES;
+  $('btnBack').disabled = (n === 0);
+  $('btnNext').disabled = (n === PAGES - 1);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+function fs(){
+  if (!document.fullscreenElement) document.documentElement.requestFullscreen().catch(()=>{});
+  else document.exitFullscreen();
+}
+document.addEventListener('keydown', e => {
+  if (e.target.tagName === 'INPUT') return;
+  if (e.key === 'ArrowRight') go(cur + 1);
+  if (e.key === 'ArrowLeft')  go(cur - 1);
+});
+
+/* ===================== SOUNDS (synthesized) ===================== */
+let ac = null;
+function ctx(){ return ac = ac || new (window.AudioContext || window.webkitAudioContext)(); }
+function baa(pitch, vol){
+  try {
+    const a = ctx(), t = a.currentTime, p = pitch || 1, v0 = vol || 0.18;
+    const o = a.createOscillator(), g = a.createGain(), v = a.createOscillator(), vg = a.createGain();
+    o.type = 'sawtooth';
+    o.frequency.setValueAtTime(420 * p, t);
+    o.frequency.exponentialRampToValueAtTime(300 * p, t + 0.45);
+    v.frequency.value = 18; vg.gain.value = 26 * p;        /* the wobbly bleat */
+    v.connect(vg); vg.connect(o.frequency);
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.exponentialRampToValueAtTime(v0, t + 0.05);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + 0.5);
+    const f = a.createBiquadFilter(); f.type = 'lowpass'; f.frequency.value = 1400;
+    o.connect(f); f.connect(g); g.connect(a.destination);
+    o.start(t); v.start(t); o.stop(t + 0.55); v.stop(t + 0.55);
+  } catch(e) {}
+}
+const tinyBaa = () => baa(1.45, 0.07);
+function tone(f1, f2, dur, type){
+  try {
+    const a = ctx(), t = a.currentTime, o = a.createOscillator(), g = a.createGain();
+    o.type = type || 'sine';
+    o.frequency.setValueAtTime(f1, t);
+    o.frequency.exponentialRampToValueAtTime(f2, t + dur * 0.8);
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.exponentialRampToValueAtTime(0.2, t + 0.02);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    o.connect(g); g.connect(a.destination); o.start(t); o.stop(t + dur + 0.05);
+  } catch(e) {}
+}
+const ding   = () => tone(880, 1320, 0.35);
+const buzz   = () => tone(200, 120, 0.3, 'square');
+const rustle = () => tone(300, 180, 0.18, 'triangle');
+const roar   = () => { tone(140, 70, 0.7, 'sawtooth'); tone(95, 60, 0.7, 'square'); };
+
+/* ===================== 1 · FIND THE LOST LAMB ===================== */
+let hideAt = 0, hideDone = false, tries = 0;
+function buildHide(){
+  const g = $('bushGrid');
+  g.innerHTML = '';
+  hideAt = rnd(8); hideDone = false; tries = 0;
+  $('hideStatus').textContent = '';
+  for (let i = 0; i < 8; i++) {
+    const b = document.createElement('div');
+    b.className = 'bush';
+    b.textContent = ['🌿','🌳','🪨','🌾'][i % 4];
+    b.onclick = () => {
+      if (hideDone || b.classList.contains('empty')) return;
+      tries++;
+      if (i === hideAt) {
+        hideDone = true;
+        b.className = 'bush found';
+        b.textContent = '🐑';
+        baa();
+        $('hideStatus').textContent = '🎉 You found ' + lambName() + '! Hooray!';
+        setTimeout(party, 300);
+      } else {
+        b.classList.add('rustle');
+        rustle();
+        setTimeout(() => { b.className = 'bush empty'; b.textContent = 'not here!'; }, 420);
+        $('hideStatus').textContent = tries === 3 ? '👂 Listen… can you hear a tiny baa?' : 'Keep looking!';
+        if (tries === 3) tinyBaa();
+      }
+    };
+    g.appendChild(b);
+  }
+}
+
+/* ===================== 2 · SHEPHERD THUMBS ===================== */
+const FACTS = [
+  { q:'A shepherd looks after the sheep.',         a:true,  e:'🧑‍🌾', why:'Yes! That’s his job.' },
+  { q:'A shepherd gives the sheep food and water.',a:true,  e:'🌿', why:'True — green grass and cool water.' },
+  { q:'A shepherd cuts the sheep’s wool.',         a:true,  e:'✂️', why:'Yes — like a haircut!' },
+  { q:'A shepherd forgets about his sheep.',       a:false, e:'🤔', why:'No! He knows every single one.' },
+  { q:'If a lamb gets lost, the shepherd looks for it.', a:true, e:'🔍', why:'Yes! He looks until he finds it.' },
+  { q:'David was a shepherd boy.',                a:true,  e:'👦', why:'Yes! He looked after his father’s sheep.' },
+  { q:'David ran AWAY from the lion.',            a:false, e:'🦁', why:'No! He ran after it and saved the lamb.' },
+  { q:'Jesus is the Good Shepherd.',               a:true,  e:'💛', why:'Yes! And we are His little lambs.' },
+  { q:'Jesus stops loving you if you get lost.',   a:false, e:'❤️', why:'Never! He always looks for you and loves you.' }
+];
+let qi = 0, qScore = 0, qLock = false;
+function buildQuiz(){ qi = 0; qScore = 0; qLock = false; renderQuiz(); }
+function renderQuiz(){
+  if (qi >= FACTS.length) {
+    $('qEmoji').textContent = '🏆';
+    $('qText').textContent = 'You got ' + qScore + ' out of ' + FACTS.length + '!';
+    $('qFb').textContent = 'You know all about shepherds!';
+    $('qFb').className = 'fb good';
+    $('quizScore').textContent = 'All done!';
+    party();
+    return;
+  }
+  const f = FACTS[qi];
+  $('qEmoji').textContent = f.e;
+  $('qText').textContent = f.q;
+  $('qFb').textContent = '';
+  $('qFb').className = 'fb';
+  $('quizScore').textContent = 'Question ' + (qi + 1) + ' of ' + FACTS.length;
+}
+function answer(said){
+  if (qLock || qi >= FACTS.length) return;
+  const f = FACTS[qi], fb = $('qFb');
+  qLock = true;
+  if (said === f.a) { qScore++; fb.textContent = '✅ ' + f.why; fb.className = 'fb good'; ding(); }
+  else              { fb.textContent = '❌ ' + f.why;            fb.className = 'fb bad';  buzz(); }
+  setTimeout(() => { qi++; qLock = false; renderQuiz(); }, 2100);
+}
+
+/* ===================== 3 · THE STORY ===================== */
+const STORY = [
+  { e:'👦🐑🐑🐑', t:'Long ago there was a boy called David. He had SEVEN big brothers — and he was the youngest.', c:'Everybody: count the brothers on your fingers — 1, 2, 3, 4, 5, 6, 7!' },
+  { e:'🐑🌿💧', t:'David was a SHEPHERD. Every day he led his father’s sheep to green grass and cool water.', c:'Everybody: nibble grass like a sheep — munch, munch!' },
+  { e:'🦯🎵', t:'He carried a long staff to guide the sheep — and a harp. He sang songs to God while they ate.', c:'Everybody: strum your harp — strum, strum, strum!' },
+  { e:'🗣️🐑', t:'David knew every sheep. The sheep knew his voice. “Come, little lambs!” — and they came running.', c:'Everybody: answer David — BAA!', s:'baa' },
+  { e:'🌙⭐🐑💤', t:'At night the sheep slept under the stars. But David stayed awake, keeping them safe.', c:'Everybody: sleepy sheep — heads on your hands, whisper “baa…”', s:'tiny' },
+  { e:'🦁🐑', t:'Then one night… ROAR! A lion crept out of the dark and grabbed a little lamb!', c:'Everybody: your biggest lion ROAR!', s:'roar' },
+  { e:'🏃‍♂️💨🐑', t:'Did David run away? NO! He ran AFTER the lion and took the little lamb right back. The lamb was safe!', c:'Everybody: run on the spot… then hug your lamb!', s:'baa' },
+  { e:'🐻🐑', t:'Another time — GRRRR! — a big bear came. And David saved that lamb too!', c:'Everybody: a bear GROWL — then “Hooray for David!”', s:'roar' },
+  { e:'🙏🎵', t:'David said, “God helped me.” Later he wrote a song: “The Lord is my shepherd. He gives me everything I need.”', c:'Everybody: arm hooked like a staff… then open your hands!', s:'party' },
+  { e:'💛🐑', t:'David looked after his sheep — and Jesus looks after YOU! Jesus is our Good Shepherd. He keeps you safe and He loves you.', c:'Everybody: point to yourself and say “Jesus loves ME!”' }
+];
+let si = 0;
+function renderStory(){
+  const s = STORY[si];
+  $('stE').textContent = s.e;
+  $('stT').textContent = s.t;
+  $('stC').textContent = '👉 ' + s.c;
+  $('storyDots').innerHTML = STORY.map((_, i) => '<span class="dot' + (i <= si ? ' on' : '') + '"></span>').join('');
+}
+function storyStep(d){
+  const n = si + d;
+  if (n < 0 || n >= STORY.length) return;
+  si = n; renderStory();
+  const s = STORY[si].s;
+  if (s === 'tiny') tinyBaa(); else if (s === 'baa') baa(); else if (s === 'roar') roar(); else if (s === 'party') party(); else ding();
+}
+
+/* ===================== 4 · COUNT THE FLOCK ===================== */
+let flock = 0, counted = 0, phase = 'count', lostEl = null, round = 0;
+const ROUNDS = [4, 5, 6, 7, 8];
+function buildCount(){
+  flock = ROUNDS[round % ROUNDS.length]; counted = 0; phase = 'count'; lostEl = null;
+  $('countSub').textContent = 'Tap each sheep to count them!';
+  $('countStatus').textContent = '';
+  $('numRow').innerHTML = '';
+  $('countBtns').innerHTML = '';
+  const f = $('field');
+  f.innerHTML = '';
+  for (let i = 0; i < flock; i++) {
+    const s = document.createElement('div');
+    s.className = 'fsheep';
+    s.innerHTML = '🐑<span class="n"></span>';
+    s.onclick = () => {
+      if (phase === 'count' && !s.classList.contains('counted')) {
+        counted++;
+        s.classList.add('counted');
+        s.querySelector('.n').textContent = counted;
+        baa(1 + counted * 0.03, 0.12);
+        $('countStatus').textContent = counted;
+        if (counted === flock) {
+          $('countStatus').textContent = '✅ ' + flock + ' sheep! All safe.';
+          $('countBtns').innerHTML = '<button class="big blue" onclick="nightFall()">🌙 Night-time…</button>';
+        }
+      } else if (phase === 'find' && s === lostEl) {
+        s.classList.remove('hiding');
+        s.querySelector('.n').style.display = 'none';
+        phase = 'done';
+        baa();
+        $('countStatus').textContent = '🎉 FOUND! All ' + flock + ' sheep are home!';
+        $('countSub').textContent = 'The shepherd never stops looking!';
+        $('countBtns').innerHTML = '<button class="big gold" onclick="round++;buildCount()">➕ More Sheep!</button>';
+        party();
+      }
+    };
+    f.appendChild(s);
+  }
+}
+function nightFall(){
+  phase = 'guess';
+  const sheep = [...document.querySelectorAll('#field .fsheep')];
+  lostEl = sheep[rnd(sheep.length)];
+  lostEl.classList.add('gone');
+  tinyBaa();
+  $('countBtns').innerHTML = '';
+  $('countSub').textContent = 'Uh-oh! One little lamb wandered away…';
+  $('countStatus').textContent = 'How many sheep are left?';
+  const ans = flock - 1;
+  const row = $('numRow');
+  row.innerHTML = '';
+  shuffle([ans - 1, ans, ans + 1]).forEach(n => {
+    const b = document.createElement('button');
+    b.className = 'numbtn';
+    b.textContent = n;
+    b.onclick = () => {
+      if (phase !== 'guess') return;
+      if (n === ans) {
+        b.classList.add('right'); ding();
+        phase = 'find';
+        $('countStatus').textContent = '✅ Yes, ' + ans + '! ONE IS MISSING! Let’s find it — tap the lost lamb!';
+        document.querySelectorAll('#field .fsheep').forEach(x => { x.classList.remove('counted'); });
+        setTimeout(() => {
+          lostEl.classList.remove('gone');
+          lostEl.classList.add('hiding');
+          lostEl.parentNode.appendChild(lostEl);
+        }, 900);
+      } else {
+        b.classList.add('bad'); buzz();
+        setTimeout(() => b.classList.remove('bad'), 420);
+        $('countStatus').textContent = 'Let’s count again together…';
+      }
+    };
+    row.appendChild(b);
+  });
+}
+
+/* ===================== 5 · STORY IN ORDER ===================== */
+const SEQ = [
+  { e:'🐑', t:'David feeds his sheep' },
+  { e:'🌙', t:'Night — David keeps watch' },
+  { e:'🦁', t:'A lion takes a lamb!' },
+  { e:'🏃‍♂️', t:'David runs after it' },
+  { e:'🤗', t:'The lamb is safe!' }
+];
+let seqNext = 0;
+function buildSeq(){
+  seqNext = 0;
+  $('chant').textContent = '';
+  const row = $('seqRow');
+  row.innerHTML = '';
+  shuffle(SEQ.map((s, i) => ({ ...s, idx:i }))).forEach(s => {
+    const d = document.createElement('div');
+    d.className = 'seqcard';
+    d.innerHTML = '<div class="ord"></div><div class="e">' + s.e + '</div><div class="t">' + s.t + '</div>';
+    d.onclick = () => {
+      if (d.classList.contains('done')) return;
+      if (s.idx === seqNext) {
+        d.classList.add('done');
+        d.querySelector('.ord').textContent = seqNext + 1;
+        seqNext++; ding();
+        $('chant').textContent = SEQ.slice(0, seqNext).map(x => x.e).join(' → ');
+        if (seqNext === SEQ.length) {
+          $('chant').textContent = '🎉 Brave David saved the lamb! Hooray!';
+          setTimeout(party, 300);
+        }
+      } else {
+        d.classList.add('bad'); buzz();
+        setTimeout(() => d.classList.remove('bad'), 420);
+      }
+    };
+    row.appendChild(d);
+  });
+}
+
+/* ===================== 6 · THE SHEPHERD SAYS ===================== */
+const CMDS = [
+  { e:'🦒', t:'take 2 GIANT steps' },
+  { e:'🐜', t:'take 3 baby steps' },
+  { e:'🐸', t:'do 1 frog hop' },
+  { e:'🔙', t:'take 1 step backwards' },
+  { e:'🐑', t:'skip like a happy lamb — 2 skips' },
+  { e:'🦶', t:'tiptoe 3 steps' },
+  { e:'🐧', t:'waddle like a penguin — 2 steps' },
+  { e:'🌀', t:'spin around, then 1 step' },
+  { e:'🦘', t:'do 2 kangaroo jumps' },
+  { e:'🐢', t:'take 1 slow, slow turtle step' }
+];
+let lastCmd = -1;
+function callCmd(){
+  let i; do { i = rnd(CMDS.length); } while (i === lastCmd);
+  lastCmd = i;
+  const trick = $('trickOn').checked && Math.random() < 0.3;
+  const c = CMDS[i];
+  $('cE').textContent = c.e;
+  $('cPre').textContent = trick ? '' : 'The shepherd says…';
+  $('cCmd').textContent = (trick ? c.t.charAt(0).toUpperCase() + c.t.slice(1) : c.t) + '!';
+  $('cHint').textContent = trick ? '(Trick! No “shepherd says” — did anyone move?)' : '';
+  trick ? buzz() : ding();
+}
+
+/* ===================== 7 · HOW DID SHEPHERDS LIVE ===================== */
+const DRESS = [
+  { q:'Where did shepherds sleep?',          ok:{e:'⛺', t:'In a tent'},       no:{e:'🏠', t:'In a house'},       win:'Yes! Out in the fields, near their sheep.' },
+  { q:'How did they cook their dinner?',     ok:{e:'🔥', t:'On a campfire'},   no:{e:'🍕', t:'Ordered pizza'},    win:'Yes! On a fire of sticks.' },
+  { q:'What did they wear?',                 ok:{e:'👘', t:'A long robe'},     no:{e:'🦸', t:'A superhero cape'}, win:'Yes! A long robe and a headscarf.' },
+  { q:'What was on their feet?',             ok:{e:'👡', t:'Sandals'},         no:{e:'👟', t:'Sneakers'},         win:'Yes! Sandals — or bare feet!' },
+  { q:'What did the shepherd carry?',        ok:{e:'🦯', t:'A staff'},         no:{e:'📱', t:'A phone'},          win:'Yes! A long staff to guide the sheep.' },
+  { q:'Who did the shepherd look after?',    ok:{e:'🐑', t:'Sheep'},           no:{e:'🦖', t:'Dinosaurs'},        win:'Yes! His sheep — every single one.' }
+];
+let di = 0, dLock = false;
+function buildDress(){
+  di = 0; dLock = false;
+  $('scene').innerHTML = '<div class="empty">Our shepherd’s camp is empty… answer to fill it!</div>';
+  $('dFb').textContent = '';
+  renderDress();
+}
+function renderDress(){
+  const box = $('dOpts');
+  box.innerHTML = '';
+  if (di >= DRESS.length) {
+    $('dQ').textContent = '🎉 Now YOU can be shepherds too!';
+    $('dFb').textContent = 'Shoes off — let’s dress up!';
+    $('dFb').className = 'fb good';
+    party();
+    return;
+  }
+  const d = DRESS[di];
+  $('dQ').textContent = d.q;
+  shuffle([ {...d.ok, right:true}, {...d.no, right:false} ]).forEach(o => {
+    const b = document.createElement('button');
+    b.className = 'opt';
+    b.innerHTML = '<span class="e">' + o.e + '</span><span class="t">' + o.t + '</span>';
+    b.onclick = () => {
+      if (dLock) return;
+      if (o.right) {
+        dLock = true; ding();
+        $('dFb').textContent = '✅ ' + d.win; $('dFb').className = 'fb good';
+        const sc = $('scene');
+        const empty = sc.querySelector('.empty'); if (empty) empty.remove();
+        const it = document.createElement('div');
+        it.className = 'item';
+        it.innerHTML = o.e + '<small>' + o.t + '</small>';
+        sc.appendChild(it);
+        setTimeout(() => { di++; dLock = false; $('dFb').textContent = ''; renderDress(); }, 1600);
+      } else {
+        b.classList.add('bad'); buzz();
+        $('dFb').textContent = '😄 Silly! Not in Jesus’ time!'; $('dFb').className = 'fb bad';
+        setTimeout(() => b.classList.remove('bad'), 420);
+      }
+    };
+    box.appendChild(b);
+  });
+}
+
+/* ===================== 8 · MAGIC PAINTING ===================== */
+const cv = $('paint'), pc = cv.getContext('2d');
+const PAINTS = ['#93c5fd', '#fde68a', '#c4b5fd', '#86efac'];
+let brush = PAINTS[0], painting = false, revealed = false, lamb = null;
+function lambPath(){
+  /* a fluffy lamb made of circles, head, ear and legs, placed at a random spot */
+  const p = new Path2D(), x = lamb.x, y = lamb.y, k = lamb.k;
+  const puffs = [[-60,-10,38],[-20,-34,38],[25,-34,38],[62,-12,36],[-50,26,34],[0,30,38],[48,26,34],[0,-2,48]];
+  puffs.forEach(([dx,dy,r]) => { p.moveTo(x+dx*k+r*k, y+dy*k); p.arc(x+dx*k, y+dy*k, r*k, 0, Math.PI*2); });
+  p.moveTo(x+129.4*k, y-46*k); p.ellipse(x+100*k, y-40*k, 30*k, 26*k, -0.2, 0, Math.PI*2);   /* head */
+  p.moveTo(x+93.55*k, y-73.9*k); p.ellipse(x+82*k, y-66*k, 14*k, 8*k, -0.6, 0, Math.PI*2);     /* ear */
+  [[-44],[-14],[22],[50]].forEach(([dx]) => p.rect(x+dx*k-8*k, y+50*k, 16*k, 52*k));        /* legs */
+  return p;
+}
+function resetPaint(){
+  pc.globalCompositeOperation = 'source-over';
+  pc.clearRect(0, 0, cv.width, cv.height);
+  const k = 0.9 + Math.random() * 0.35;
+  lamb = { k, x: 150 + Math.random() * 300, y: 170 + Math.random() * 120 };
+  revealed = false;
+  $('paintStatus').textContent = 'Where is the lamb hiding? Paint everywhere!';
+}
+function dab(ev){
+  const r = cv.getBoundingClientRect();
+  const x = (ev.clientX - r.left) * cv.width / r.width, y = (ev.clientY - r.top) * cv.height / r.height;
+  pc.globalCompositeOperation = 'source-over';
+  pc.fillStyle = brush;
+  pc.globalAlpha = 0.85;
+  pc.beginPath(); pc.arc(x, y, 34, 0, Math.PI * 2); pc.fill();
+  pc.globalAlpha = 1;
+  pc.globalCompositeOperation = 'destination-out';   /* the wax resists the paint */
+  pc.fill(lambPath());
+  pc.globalCompositeOperation = 'source-over';
+}
+function coverage(){
+  const d = pc.getImageData(0, 0, cv.width, cv.height).data;
+  let hit = 0, n = 0;
+  for (let i = 3; i < d.length; i += 4 * 97) { n++; if (d[i] > 0) hit++; }
+  return hit / n;
+}
+function checkReveal(){
+  if (revealed || coverage() < 0.42) return;
+  revealed = true;
+  /* outline + face so the found lamb is unmistakable */
+  pc.globalCompositeOperation = 'source-over';
+  pc.strokeStyle = 'rgba(100,116,139,.6)'; pc.lineWidth = 6;
+  pc.stroke(lambPath());
+  pc.globalCompositeOperation = 'destination-out';   /* keep only the outer edge of the outline */
+  pc.fill(lambPath());
+  pc.globalCompositeOperation = 'source-over';
+  pc.fillStyle = '#334155';
+  pc.beginPath(); pc.arc(lamb.x + 108 * lamb.k, lamb.y - 44 * lamb.k, 5 * lamb.k, 0, Math.PI * 2); pc.fill();
+  baa();
+  $('paintStatus').textContent = '🎉 I FOUND MY LAMB!';
+  party();
+}
+cv.addEventListener('pointerdown', e => { painting = true; cv.setPointerCapture(e.pointerId); dab(e); });
+cv.addEventListener('pointermove', e => { if (painting) dab(e); });
+['pointerup','pointercancel','pointerleave'].forEach(t => cv.addEventListener(t, () => { if (painting) { painting = false; checkReveal(); } }));
+function buildColors(){
+  const c = $('colors');
+  c.innerHTML = '';
+  PAINTS.forEach((p, i) => {
+    const s = document.createElement('div');
+    s.className = 'sw' + (i === 0 ? ' on' : '');
+    s.style.background = p;
+    s.onclick = () => { brush = p; c.querySelectorAll('.sw').forEach(x => x.classList.remove('on')); s.classList.add('on'); };
+    c.appendChild(s);
+  });
+}
+
+/* ===================== 9 · WHO'S GOT YOUR BOTTLE ===================== */
+const BSTEPS = [
+  { e:'🧑‍🌾', b:'The SHEPHERD sits at the end, back turned — no peeking!' },
+  { e:'🍼', b:'Teacher points to someone. They tiptoe, take the bottle, and hide it behind their back.' },
+  { e:'🐑', b:'Everybody say the rhyme, then BAA, BAA, BAA!' },
+  { e:'🤔', b:'Shepherd, turn around! Who has the bottle? You get 3 guesses.' },
+  { e:'🎉', b:'Show the bottle! Now it’s their turn to be the shepherd.' }
+];
+function buildBottle(){
+  const c = $('bSteps');
+  c.innerHTML = '';
+  BSTEPS.forEach((s, i) => {
+    const d = document.createElement('div');
+    d.className = 'cstep';
+    d.innerHTML = '<div class="n">' + (i + 1) + '</div><div class="e">' + s.e + '</div><div class="b">' + s.b + '</div>';
+    d.onclick = () => { d.classList.add('on'); i === 2 ? chorus() : ding(); if (i === 4) party(); };
+    c.appendChild(d);
+  });
+}
+function bReset(){ document.querySelectorAll('#bSteps .cstep').forEach(s => s.classList.remove('on')); }
+function chorus(){ for (let i = 0; i < 6; i++) setTimeout(() => baa(0.85 + Math.random() * 0.5, 0.12), i * 180); }
+
+/* ===================== 10 · QUESTIONS + SONG ===================== */
+const QS = [
+  { q:'Who is our Good Shepherd?', a:'JESUS! 💛' },
+  { q:'What did David do when the lion took a lamb?', a:'He ran after it and SAVED the lamb! 🦁🤗' },
+  { q:'How does Jesus take care of YOU?', a:'He keeps me safe, gives me what I need — and LOVES me! ❤️' }
+];
+function buildQs(){
+  const c = $('qs');
+  c.innerHTML = '';
+  QS.forEach(x => {
+    const d = document.createElement('div');
+    d.className = 'qcard';
+    d.innerHTML = '<div class="q">' + x.q + '</div><div class="a">tap for the answer</div>';
+    d.onclick = () => { d.classList.add('on'); d.querySelector('.a').textContent = x.a; ding(); };
+    c.appendChild(d);
+  });
+}
+const SONG = [
+  { w:'I’m a little lamb today;',            act:'Crouch down small' },
+  { w:'Jesus is my Shepherd.',               act:'Hook your arm like a staff' },
+  { w:'My Shepherd loves me day to day;',    act:'Hands on your heart' },
+  { w:'Jesus is my Shepherd.',               act:'Hook your arm like a staff' },
+  { w:'I will follow where He leads;',       act:'March on the spot' },
+  { w:'He gives me everything I need;',      act:'Open both hands' },
+  { w:'I’m a little lamb today,',            act:'Crouch down small' },
+  { w:'Jesus is my Shepherd.',               act:'Arms up high!' }
+];
+function buildSong(){
+  const c = $('songLines');
+  c.innerHTML = '';
+  SONG.forEach((s, i) => {
+    const d = document.createElement('div');
+    d.className = 'lyr';
+    d.id = 's' + i;
+    d.innerHTML = '<span class="w">' + s.w + '</span><span class="act">👉 ' + s.act + '</span>';
+    d.onclick = () => { d.classList.add('on'); ding(); };
+    c.appendChild(d);
+  });
+}
+function songAll(){
+  songReset();
+  SONG.forEach((_, i) => setTimeout(() => {
+    $('s' + i).classList.add('on');
+    ding();
+    if (i === SONG.length - 1) setTimeout(party, 400);
+  }, i * 1000));
+}
+function songReset(){ document.querySelectorAll('.lyr').forEach(v => v.classList.remove('on')); }
+
+/* ===================== CONFETTI ===================== */
+function party(){
+  const box = $('confetti');
+  const bits = ['🐑','⭐','🎉','💛','✨','🧑‍🌾'];
+  for (let i = 0; i < 32; i++) {
+    const s = document.createElement('span');
+    s.className = 'conf';
+    s.textContent = bits[rnd(bits.length)];
+    s.style.left = Math.random() * 100 + '%';
+    s.style.top = '-50px';
+    s.style.animationDelay = (Math.random() * 0.6) + 's';
+    box.appendChild(s);
+    setTimeout(() => s.remove(), 3400);
+  }
+  ding();
+}
+
+/* ===================== INIT ===================== */
+try { const m = localStorage.getItem('ll-mascot'); if (m) { $('mascotIn').value = m; } } catch(e) {}
+setMascot($('mascotIn').value);
+buildHide(); buildQuiz(); renderStory(); buildCount(); buildSeq(); buildDress();
+buildColors(); resetPaint(); buildBottle(); buildQs(); buildSong(); go(0);
+</script>
+</body></html>
