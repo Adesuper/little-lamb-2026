@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Skit Director's Guide — The Shepherd's Little Lambs</title>
+<style>
+  :root { --ink:#1f2937; --soft:#64748b; --line:#dbe3ea; --sky:#1d4ed8; --meadow:#047857; --sun:#b45309; --pink:#be185d; --bg:#ffffff; --tint:#f4f8fc; }
+  @media (prefers-color-scheme: dark) { @media screen {
+    :root { color-scheme:dark; --ink:#e6eef5; --soft:#9fb1c2; --line:#2a3b4b; --sky:#7fb6ee; --meadow:#6fcf9c; --sun:#f0c060; --pink:#f9a8d4; --bg:#0f1a24; --tint:#172532; }
+  } }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font-family:"Segoe UI",system-ui,sans-serif; font-size:15.5px; line-height:1.5; }
+  .wrap { max-width:820px; margin:0 auto; padding-inline:18px; padding-block:28px 60px; }
+  .crumb a { color:var(--sky); font-size:14px; }
+  .eyebrow { font-size:12.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--sun); font-weight:700; margin-top:10px; }
+  h1 { font-size:clamp(28px,6vw,40px); color:var(--sky); margin:4px 0 6px; line-height:1.1; }
+  h2 { font-size:22px; color:var(--sky); margin:34px 0 10px; padding-bottom:4px; border-bottom:2px solid var(--line); }
+  h3 { font-size:17px; margin:20px 0 6px; }
+  p { margin:6px 0; }
+  ul, ol { margin:6px 0; padding-left:22px; } li { margin:3px 0; }
+  .lead { color:var(--soft); font-size:16.5px; }
+  .toc { display:flex; flex-wrap:wrap; gap:6px 14px; font-size:14px; margin-top:10px; }
+  .toc a { color:var(--sky); }
+  .tablewrap { overflow-x:auto; }
+  table { border-collapse:collapse; width:100%; font-size:14.5px; }
+  th, td { text-align:left; vertical-align:top; padding:7px 9px; border-bottom:1px solid var(--line); }
+  th { font-size:12px; text-transform:uppercase; letter-spacing:.06em; color:var(--soft); }
+  .scene { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.1fr); gap:16px; align-items:start; margin-top:12px; }
+  .scene img { width:100%; border-radius:10px; border:1px solid var(--line); background:#fffbeb; }
+  .cue { background:var(--tint); border-left:4px solid var(--sky); border-radius:6px; padding:10px 14px; margin:8px 0; }
+  .script p { margin:7px 0; }
+  .who { font-weight:800; color:var(--sky); }
+  .kids { font-weight:800; color:var(--meadow); }
+  .aud { font-weight:800; color:var(--pink); }
+  .dir { color:var(--soft); font-style:italic; }
+  .say { font-size:17px; }
+  .cards { display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:10px; }
+  .lc { border:2px dashed #93c5fd; border-radius:12px; padding:12px 14px; text-align:center; background:#f8fbff; color:#1f2937; }
+  .lc .t { font-family:"Comic Sans MS","Chalkboard SE",system-ui,sans-serif; font-size:22px; font-weight:800; color:#1d4ed8; }
+  .lc .s { font-size:12px; color:#64748b; margin-top:4px; }
+  .tip { background:var(--tint); border-radius:10px; padding:12px 16px; }
+  .two { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  .box { display:inline-block; width:12px; height:12px; border:1.6px solid var(--soft); border-radius:2px; margin-right:7px; vertical-align:-1px; }
+  .checks { list-style:none; padding-left:0; }
+  footer { margin-top:40px; font-size:13px; color:var(--soft); border-top:1px dashed var(--line); padding-top:12px; }
+  @media (max-width:640px) { .scene, .two { grid-template-columns:1fr; } .cards { grid-template-columns:1fr; } }
+  @media print {
+    body { font-size:11.5pt; } .wrap { max-width:none; padding:0 .55in; } .crumb, .toc { display:none; }
+    h2 { page-break-after:avoid; margin-top:18px; } .pb { page-break-before:always; }
+    .scene, .lc, .cue, table, tr { page-break-inside:avoid; }
+    @page { size:letter; margin:.5in 0; }
+  }
+</style></head>
+<body><div class="wrap">
+
+<div class="crumb"><a href="./">← Investiture 2027</a></div>
+<div class="eyebrow">Investiture 2027 · Skit director's guide</div>
+<h1>The Shepherd's Little Lambs</h1>
+<p class="lead">Everything the leaders and helpers need to rehearse and run the skit: who does what, where everyone stands, the narrator's script, the children's lines, a rehearsal plan, and the run sheet for the day. About 6 minutes on stage.</p>
+<div class="toc"><a href="#roles">1 Roles</a><a href="#scenes">2 Scenes and stage maps</a><a href="#narrator">3 Narrator script</a><a href="#lines">4 Line cards</a><a href="#rehearse">5 Rehearsal plan</a><a href="#coach">6 Coaching tips</a><a href="#day">7 On the day</a></div>
+
+<h2 id="roles">1 · Roles: who does what</h2>
+<div class="tablewrap"><table>
+  <tr><th>Role</th><th>Who</th><th>Their job</th></tr>
+  <tr><td><b>Shepherd</b></td><td>The leader or a confident helper</td><td>On stage the whole time. Leads the lambs, counts them, finds the lost lamb, stands beside each child who speaks. Quietly prompts the children with gestures.</td></tr>
+  <tr><td><b>Narrator</b></td><td>A helper with a clear voice</td><td>Stands at the front corner with the script (section 3). Reads the story, starts each scene, and says any forgotten line <i>with</i> the child.</td></tr>
+  <tr><td><b>Lamb wrangler</b></td><td>A helper, crouched at the side, off stage</td><td>Calms nerves, fixes headbands, steers a wanderer back, holds a child who won't go on. Hands the lost lamb its cue to tiptoe off.</td></tr>
+  <tr><td><b>Sound helper</b></td><td>Anyone with the laptop or phone</td><td>Plays the song track at the finale (or signals the pianist). Plays nothing during the scenes.</td></tr>
+  <tr><td><b>Lion</b> (optional)</td><td>A playful helper or older sibling</td><td>Enters only in Scene 4. Soft, silly roar, slow moves, smiling. Exits the moment the Shepherd taps the staff.</td></tr>
+  <tr><td><b>Lambs</b></td><td>Every child</td><td>Baa, follow the Shepherd, say one line, count, sing with actions.</td></tr>
+  <tr><td><b>Lost lamb</b></td><td>One confident child</td><td>Tiptoes behind the bush in Scene 3 and gives the tiny "baa". Choose in April; keep a second child ready as backup.</td></tr>
+</table></div>
+
+<h3>Props and set</h3>
+<ul>
+  <li><b>The bush:</b> a chair with a green sheet over it, at the far side of the stage. The lost lamb must be able to crouch behind it, out of sight.</li>
+  <li><b>Hills:</b> a blanket over a low bench or cushions. <b>Water:</b> a blue cloth on the floor.</li>
+  <li><b>Floor marks:</b> one strip of coloured tape per child for the Scene 2 row and the finale row (the same row). Write each child's initial on their tape.</li>
+  <li><b>Shepherd:</b> robe, headscarf, staff (patterns in <a href="headgear-patterns.pdf">headgear-patterns.pdf</a>).</li>
+</ul>
+
+<h2 id="scenes" class="pb">2 · Scenes and stage maps</h2>
+<p>The audience sits at the bottom of each map. The pink lamb is the lost lamb. Keep the children <b>facing the audience</b> whenever they speak or sing.</p>
+
+<h3>Scene 1 · Wake up, little lambs <span class="dir">(about 1 min)</span></h3>
+<div class="scene"><img src="stage-maps/scene-1.png" alt="Scene 1 stage map">
+<div><ul>
+  <li><b>Start:</b> the lambs are curled up asleep in a group, centre stage, before the audience is quiet.</li>
+  <li>The Shepherd walks in from the side and teaches the audience their part: "BAA!"</li>
+  <li>"Come, little lambs!" → everyone baas → lambs stretch, stand, and follow the Shepherd once round the stage in a line, ending in the Scene 2 row.</li>
+  <li><b>Watch for:</b> the line bunching up. The Shepherd walks slowly, looking back.</li>
+</ul></div></div>
+
+<h3>Scene 2 · What my Shepherd gives me <span class="dir">(about 1½ min)</span></h3>
+<div class="scene"><img src="stage-maps/scene-2.png" alt="Scene 2 stage map">
+<div><ul>
+  <li>Lambs sit on their tape marks in one row, facing the audience.</li>
+  <li>The Shepherd walks along the row and stands beside each child in turn. The child stands, says their line <b>loudly, to the mums and dads</b>, and sits.</li>
+  <li>All stand for the last line together: "Jesus is my Shepherd!"</li>
+  <li><b>Watch for:</b> mumbling to the floor. Practise "chin up, look at the back wall".</li>
+</ul></div></div>
+
+<h3>Scene 3 · One is missing! <span class="dir">(about 1½ min)</span></h3>
+<div class="scene"><img src="stage-maps/scene-3.png" alt="Scene 3 stage map">
+<div><ul>
+  <li>On the Narrator's "butterfly" line, the lost lamb tiptoes behind the bush. The wrangler can give a small nod as the cue.</li>
+  <li>The Shepherd counts, touching each head; everyone counts aloud. Hands on cheeks: "ONE IS MISSING!"</li>
+  <li>The Shepherd searches: the hills, the water, asks the audience. Then a tiny "baa…" from the bush.</li>
+  <li>Found! Big hug, walk back holding hands. All: "HOORAY!"</li>
+  <li><b>Watch for:</b> the lost lamb popping out too early. Tell them: "Stay hidden until the Shepherd says your name."</li>
+</ul></div></div>
+
+<h3>Scene 4 · The lion <span class="dir">(optional, about 1 min)</span></h3>
+<div class="scene"><img src="stage-maps/scene-4.png" alt="Scene 4 stage map">
+<div><ul>
+  <li>The Lion creeps in from the far side with a soft, silly roar.</li>
+  <li>The lambs huddle behind the Shepherd. "Go away, lion! These are MY lambs!" Staff tap. The Lion runs off.</li>
+  <li>All: "Our Shepherd keeps us safe!"</li>
+  <li><b>Skip it</b> if any child is scared in rehearsal, or if the program runs long.</li>
+</ul></div></div>
+
+<h3>Scene 5 · Finale <span class="dir">(about 1 min)</span></h3>
+<div class="scene"><img src="stage-maps/scene-5.png" alt="Scene 5 stage map">
+<div><ul>
+  <li>Lambs stand on their tape marks in one row. The Shepherd stands at the end.</li>
+  <li>All: "The Lord is my shepherd. He gives me everything I need."</li>
+  <li>The song starts: "Jesus Is My Shepherd" with the actions. Arms up high on the last line.</li>
+  <li>Bow, one big "BAA!", and walk off following the Shepherd.</li>
+</ul></div></div>
+
+<h2 id="narrator" class="pb">3 · Narrator script</h2>
+<p class="dir">Print this page for the Narrator. Grey lines are stage directions, not read aloud. Pause after every line so the children can act.</p>
+<div class="script say">
+  <p class="dir">Lambs curled up asleep, centre stage. Wait for quiet.</p>
+  <p><span class="who">NARRATOR:</span> Once upon a time, a shepherd had a flock of little lambs. Every morning, he came to wake them up.</p>
+  <p class="dir">Shepherd walks in.</p>
+  <p><span class="who">SHEPHERD (to audience):</span> Mums and dads, when I say "Come, little lambs!", you help my lambs and say BAA! Let's practise… Come, little lambs!</p>
+  <p><span class="aud">AUDIENCE:</span> BAA!</p>
+  <p><span class="who">SHEPHERD:</span> Come, little lambs! &nbsp; <span class="kids">LAMBS + AUDIENCE:</span> BAA!</p>
+  <p class="dir">Lambs stand and follow the Shepherd round the stage, then sit on their tape marks.</p>
+  <p><span class="who">NARRATOR:</span> The shepherd took his lambs to green grass and cool water. The lambs were happy. Listen to what they say.</p>
+  <p class="dir">Each child stands, says their line, sits. The Shepherd stands beside each one.</p>
+  <p><span class="kids">ALL LAMBS (standing):</span> Jesus is my Shepherd!</p>
+  <p><span class="who">NARRATOR:</span> But one little lamb saw a butterfly… and followed it far, far away.</p>
+  <p class="dir">Lost lamb tiptoes behind the bush.</p>
+  <p><span class="who">NARRATOR:</span> At night, the shepherd counted his lambs.</p>
+  <p><span class="who">SHEPHERD:</span> Let's count them. Help me, lambs! &nbsp;<span class="dir">(everyone counts aloud)</span></p>
+  <p><span class="kids">ALL LAMBS (hands on cheeks):</span> ONE IS MISSING!</p>
+  <p><span class="who">SHEPHERD:</span> I will find my lost lamb! … <span class="dir">(searching)</span> Have you seen my lamb?</p>
+  <p><span class="kids">LOST LAMB (small voice):</span> Baa…</p>
+  <p class="dir">Shepherd finds the lamb, hugs, walks back holding hands.</p>
+  <p><span class="kids">ALL LAMBS:</span> HOORAY!</p>
+  <p class="dir">— Scene 4, only if you're doing it —</p>
+  <p><span class="who">NARRATOR:</span> One night, a lion came…</p>
+  <p class="dir">Lion creeps in, soft roar. Lambs huddle behind the Shepherd.</p>
+  <p><span class="who">SHEPHERD:</span> Go away, lion! These are MY lambs! <span class="dir">(staff tap; Lion runs off)</span></p>
+  <p><span class="kids">ALL LAMBS:</span> Our Shepherd keeps us safe!</p>
+  <p class="dir">— Finale —</p>
+  <p><span class="who">NARRATOR:</span> A good shepherd looks after his lambs. And Jesus is OUR Good Shepherd.</p>
+  <p class="dir">Lambs stand on their marks in one row.</p>
+  <p><span class="kids">ALL:</span> The Lord is my shepherd. He gives me everything I need.</p>
+  <p class="dir">Song starts: "Jesus Is My Shepherd" with actions. Bow.</p>
+  <p><span class="kids">ALL LAMBS:</span> BAA!</p>
+</div>
+
+<h2 id="lines" class="pb">4 · Line cards for Scene 2</h2>
+<p>One line per child. Cut out, write the child's name on the back, and send it home in January so parents can practise. Short lines go to the youngest or shyest children.</p>
+<div class="cards">
+  <div class="lc"><div class="t">"He gives me green grass!"</div><div class="s">Action: pretend to munch grass</div></div>
+  <div class="lc"><div class="t">"He gives me cool water!"</div><div class="s">Action: cup your hands and sip</div></div>
+  <div class="lc"><div class="t">"He keeps me safe!"</div><div class="s">Action: hug yourself</div></div>
+  <div class="lc"><div class="t">"He knows my name!"</div><div class="s">Action: point to yourself</div></div>
+  <div class="lc"><div class="t">"He gives me food!"</div><div class="s">Action: rub your tummy</div></div>
+  <div class="lc"><div class="t">"He gives me my family!"</div><div class="s">Action: arms wide open</div></div>
+  <div class="lc"><div class="t">"He carries me!"</div><div class="s">Action: rock a baby in your arms</div></div>
+  <div class="lc"><div class="t">"He is always with me!"</div><div class="s">Action: hold a friend's hand</div></div>
+  <div class="lc"><div class="t">"He finds me when I'm lost!"</div><div class="s">Action: hand over your eyes, looking</div></div>
+  <div class="lc"><div class="t">"He loves me!"</div><div class="s">Action: hands on your heart</div></div>
+  <div class="lc"><div class="t">"He leads me home!"</div><div class="s">Spare line, for an 11th child</div></div>
+  <div class="lc"><div class="t">"He never leaves me!"</div><div class="s">Spare line, for a 12th child</div></div>
+</div>
+
+<h2 id="rehearse" class="pb">5 · Rehearsal plan</h2>
+<p>Each rehearsal is <b>5 minutes inside a normal meeting</b>, unless marked. Stop while they're still enjoying it.</p>
+<div class="tablewrap"><table>
+  <tr><th>When</th><th>What to do</th><th>They're ready when…</th></tr>
+  <tr><td>Oct–Dec<br>every meeting</td><td>Song at Good-baa. Play "Come, little lambs!" → "BAA!" as a game (Scene 1). Play Find the Lost Lamb and Count the Flock as games (Scene 3). Don't call it a skit yet.</td><td>They sing the song and do the actions without you leading</td></tr>
+  <tr><td>January, week 1</td><td>Tell them: "We're going to do a play for the mums and dads!" Show the skit walkthrough video. Hand out line cards to take home.</td><td>Every child knows which line is theirs</td></tr>
+  <tr><td>Jan–Feb<br>weekly</td><td>Practise Scene 2 only: sit in a row, stand, say your line to the back wall, sit. Make the lamb headbands (one 15-min craft).</td><td>Every child says their line with only a small prompt</td></tr>
+  <tr><td>March, week 1</td><td>Put down the tape marks. Walk through Scenes 1–2–3 slowly, no costumes. Shepherd and Narrator read from the script.</td><td>Children know where to sit and stand</td></tr>
+  <tr><td>March<br>weekly</td><td>One scene per week, then the finale. Add Scene 4 only if no one is scared.</td><td>Each scene runs without stopping</td></tr>
+  <tr><td>April<br>once</td><td>First full run, in headbands. Choose the lost lamb (and a backup). Time it.</td><td>The skit runs start to end in about 6 min</td></tr>
+  <tr><td>May<br>2 sessions, 15 min</td><td>Dress rehearsals in the real room, full costume, with the sound helper. Film one and send it to parents.</td><td>Smooth enough to enjoy. Perfect is not the goal</td></tr>
+</table></div>
+
+<h2 id="coach">6 · Coaching 4- and 5-year-olds</h2>
+<div class="two">
+  <div class="tip"><b>What works</b>
+    <ul>
+      <li><b>Show, don't explain.</b> Do the move; they copy.</li>
+      <li><b>Say lines <i>with</i> them</b> the first few times, then mouth them, then just nod.</li>
+      <li><b>Tape marks</b> beat any instruction about where to stand.</li>
+      <li><b>Praise out loud and specifically:</b> "Lily, I heard every word!"</li>
+      <li><b>Keep it a game.</b> "Can the lambs be quieter than mice?"</li>
+      <li><b>Same order every time.</b> Repetition is what makes them confident.</li>
+    </ul>
+  </div>
+  <div class="tip"><b>When something goes wrong</b>
+    <ul>
+      <li><b>Shy child:</b> they stand next to the Shepherd, or say the line with a buddy. Some will only baa, and that's fine.</li>
+      <li><b>Forgot the line:</b> the Narrator says it with them. Never stop the skit.</li>
+      <li><b>Crying or won't go on:</b> the wrangler holds them at the side. Invite them in for the finale song only.</li>
+      <li><b>Wanderer:</b> the Shepherd gently takes their hand: "Stay with your shepherd, little lamb!" That's in character.</li>
+      <li><b>Giggles:</b> let them. The audience will laugh too.</li>
+      <li><b>Missing child on the day:</b> a neighbour takes their line, or the Narrator reads it.</li>
+    </ul>
+  </div>
+</div>
+
+<h2 id="day" class="pb">7 · On the day</h2>
+<div class="two">
+  <div>
+    <h3>Before the program</h3>
+    <ul class="checks">
+      <li><span class="box"></span>Tape marks down on the stage</li>
+      <li><span class="box"></span>Bush, hills and water in place</li>
+      <li><span class="box"></span>Headbands out of the bag, each by name</li>
+      <li><span class="box"></span>Shepherd robe, headscarf, staff</li>
+      <li><span class="box"></span>Lion mane (if doing Scene 4)</li>
+      <li><span class="box"></span>Laptop charged, speaker tested, song track cued</li>
+      <li><span class="box"></span>Narrator has the printed script</li>
+      <li><span class="box"></span>Toilet trip for every lamb 15 minutes before</li>
+      <li><span class="box"></span>One quick practice of "Come, little lambs!" backstage</li>
+    </ul>
+  </div>
+  <div>
+    <h3>Run sheet</h3>
+    <div class="tablewrap"><table>
+      <tr><th>Cue</th><th>What happens</th></tr>
+      <tr><td>Program leader introduces the Little Lambs</td><td>Wrangler leads the lambs in to curl up centre stage</td></tr>
+      <tr><td>Room quiet</td><td>Narrator: "Once upon a time…"</td></tr>
+      <tr><td>Scenes 1–4</td><td>About 5 min. Sound helper stands by</td></tr>
+      <tr><td>"…He gives me everything I need."</td><td>Sound helper starts the song track (or the pianist plays)</td></tr>
+      <tr><td>Last note</td><td>Bow, "BAA!", follow the Shepherd off</td></tr>
+      <tr><td>Off stage</td><td>Headbands back in the bag, then the investiture ceremony</td></tr>
+    </table></div>
+  </div>
+</div>
+
+<footer>Little Lamb 2026–2027 · Investiture skit "The Shepherd's Little Lambs" · Song: "Jesus Is My Shepherd", Mark Wakefield, arr. Joann Herrington, © 2006 NAD (Leader's Guide p. 175) · Walkthrough video: skit-walkthrough.mp4</footer>
+</div></body></html>
