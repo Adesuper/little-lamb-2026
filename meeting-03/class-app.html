@@ -1,0 +1,1129 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>God's World Rocks! — Little Lamb Meeting 3</title>
+<style>
+/* ============================ BASE ============================ */
+* { box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent; }
+body {
+  font-family:"Comic Sans MS","Chalkboard SE",system-ui,sans-serif;
+  background:linear-gradient(180deg,#bfe3ff 0%,#eafbe7 55%,#fff3dc 100%);
+  color:#2d3142; min-height:100vh; overflow-x:hidden;
+}
+/* ============================ TOPBAR ============================ */
+#topbar {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:10px 18px; background:rgba(255,255,255,.75); backdrop-filter:blur(6px);
+  border-bottom:3px solid #7ec4ff; position:sticky; top:0; z-index:50;
+}
+#topbar .brand { font-weight:800; color:#1d4ed8; font-size:1.05rem; }
+#topbar .tools { display:flex; gap:8px; }
+.tbtn {
+  background:#fff; border:2px solid #1d4ed8; color:#1d4ed8; font-family:inherit;
+  font-weight:800; font-size:.9rem; padding:7px 14px; border-radius:999px; cursor:pointer;
+}
+.tbtn:hover { background:#1d4ed8; color:#fff; }
+/* ============================ PAGES ============================ */
+.page { display:none; max-width:1140px; margin:0 auto; padding:22px 18px 110px; }
+.page.active { display:block; animation:fade .35s ease; }
+@keyframes fade { from { opacity:0; transform:translateY(12px);} to { opacity:1; transform:none; } }
+.page h1 { font-size:2.1rem; color:#1d4ed8; text-align:center; margin-bottom:6px; }
+.page .sub { text-align:center; color:#4b5563; font-size:1.05rem; margin-bottom:18px; }
+.teach {
+  max-width:820px; margin:0 auto 18px; background:rgba(255,255,255,.72); border:2px dashed #94a3b8;
+  border-radius:14px; padding:9px 16px; font-size:.92rem; color:#475569; text-align:center;
+}
+.teach b { color:#1d4ed8; }
+.center { text-align:center; }
+/* ============================ BUTTONS ============================ */
+.big {
+  display:inline-block; background:linear-gradient(135deg,#34d399,#059669); color:#fff;
+  border:none; font-family:inherit; font-weight:800; font-size:1.3rem;
+  padding:16px 38px; border-radius:999px; cursor:pointer; box-shadow:0 6px 0 #047857; margin:4px;
+}
+.big:active { transform:translateY(4px); box-shadow:0 2px 0 #047857; }
+.big.blue { background:linear-gradient(135deg,#60a5fa,#1d4ed8); box-shadow:0 6px 0 #1e40af; }
+.big.pink { background:linear-gradient(135deg,#f9a8d4,#be185d); box-shadow:0 6px 0 #9d174d; }
+.big.gold { background:linear-gradient(135deg,#fcd34d,#d97706); box-shadow:0 6px 0 #b45309; }
+.big.purple { background:linear-gradient(135deg,#c4b5fd,#7c3aed); box-shadow:0 6px 0 #5b21b6; }
+.big:disabled { opacity:.4; cursor:not-allowed; }
+/* ============================ WELCOME ============================ */
+.hero { text-align:center; padding:10px 0 0; }
+.hero .lamb { font-size:7rem; line-height:1; animation:bob 2.4s ease-in-out infinite; }
+@keyframes bob { 0%,100%{transform:translateY(0) rotate(-2deg);} 50%{transform:translateY(-14px) rotate(2deg);} }
+.hero .kicker { letter-spacing:4px; font-weight:800; color:#b45309; font-size:.95rem; }
+.hero h2 { font-size:3rem; color:#1d4ed8; margin:4px 0 8px; }
+.hero .meta { color:#4b5563; font-size:1.05rem; margin-bottom:18px; }
+.starbar {
+  background:#fffbeb; border:3px dashed #f59e0b; border-radius:20px;
+  padding:14px 26px; max-width:700px; margin:0 auto 22px; font-size:1.2rem; color:#92400e; font-weight:700;
+}
+.howto {
+  max-width:780px; margin:26px auto 0; background:rgba(255,255,255,.8);
+  border:2px solid #cbd5e1; border-radius:16px; padding:16px 22px; text-align:left; font-size:.95rem; color:#334155;
+}
+.howto b { color:#1d4ed8; }
+.howto li { margin:5px 0 5px 18px; }
+.namebox { margin:16px auto 0; font-size:1rem; color:#334155; }
+.namebox input {
+  font-family:inherit; font-size:1.1rem; padding:8px 14px; border-radius:999px;
+  border:3px solid #93c5fd; width:220px; text-align:center; margin-left:6px;
+}
+/* ============================ CSS ROCKS ============================ */
+.rock {
+  display:inline-block; width:80px; height:58px; position:relative;
+  border-radius:58% 42% 50% 46% / 60% 52% 48% 40%;
+  background:radial-gradient(circle at 32% 28%, rgba(255,255,255,.55), transparent 38%), var(--c, #9ca3af);
+  box-shadow:inset -6px -8px 0 rgba(0,0,0,.18), 0 4px 0 rgba(0,0,0,.12);
+}
+.rock.r2 { border-radius:45% 55% 40% 60% / 55% 45% 55% 45%; }
+.rock.r3 { border-radius:62% 38% 57% 43% / 48% 58% 42% 52%; }
+.rock.sparkle::after { content:'✨'; position:absolute; top:-8px; right:-6px; font-size:1.3rem; }
+/* ============================ ROCK HUNT ============================ */
+.huntgrid { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; max-width:820px; margin:0 auto 18px; }
+.tile {
+  height:110px; border-radius:22px; display:flex; align-items:center; justify-content:center;
+  cursor:pointer; user-select:none; position:relative; font-size:2.6rem; transition:transform .15s;
+  border:5px solid #d97706; background:radial-gradient(circle at 40% 35%,#fde68a,#f59e0b);
+}
+.tile.grass { border-color:#15803d; background:radial-gradient(circle at 40% 35%,#86efac,#16a34a); }
+.tile:hover { transform:scale(1.05); }
+.tile.dig { animation:rustle .45s; }
+@keyframes rustle { 0%,100%{transform:rotate(0);} 25%{transform:rotate(-8deg);} 75%{transform:rotate(8deg);} }
+.tile.empty { background:#f1f5f9; border-color:#cbd5e1; font-size:1.05rem; color:#94a3b8; font-weight:800; }
+.tile.found { background:#fffbeb; border-color:#059669; animation:pop .5s; }
+.tile.hint { animation:wig 1s infinite; }
+.tile .badge {
+  position:absolute; top:-12px; right:-8px; width:38px; height:38px; border-radius:50%;
+  background:#059669; color:#fff; font-size:1.3rem; font-weight:800; display:flex; align-items:center; justify-content:center;
+}
+@keyframes pop { 0%{transform:scale(.6);} 70%{transform:scale(1.15);} 100%{transform:scale(1);} }
+@keyframes wig { 0%,100%{transform:rotate(0);} 25%{transform:rotate(-10deg);} 75%{transform:rotate(10deg);} }
+.status { text-align:center; font-size:1.5rem; font-weight:800; color:#059669; min-height:1.6em; margin-bottom:12px; }
+.bigcount { text-align:center; font-size:1.3rem; font-weight:800; color:#92400e; margin-bottom:10px; }
+.bigcount .bag { display:inline-flex; gap:6px; vertical-align:middle; margin-left:8px; }
+/* ============================ THUMBS QUIZ ============================ */
+.quizbox {
+  background:#fff; border:6px solid #a78bfa; border-radius:28px; padding:36px 26px;
+  text-align:center; max-width:780px; margin:0 auto 20px; min-height:240px;
+  display:flex; flex-direction:column; justify-content:center; gap:14px;
+}
+.quizbox .emoji { font-size:4rem; }
+.quizbox .q { font-size:2rem; font-weight:800; color:#1d4ed8; line-height:1.3; }
+.quizbox .fb, .fb { font-size:1.4rem; font-weight:800; min-height:1.6em; text-align:center; }
+.fb.good { color:#059669; }
+.fb.bad { color:#dc2626; }
+.thumbrow { display:flex; gap:20px; justify-content:center; }
+.thumb {
+  font-family:inherit; font-size:3rem; padding:14px 42px; border-radius:24px;
+  border:5px solid #cbd5e1; background:#fff; cursor:pointer; transition:transform .12s;
+}
+.thumb:hover { transform:scale(1.08); }
+.thumb.yes:hover { border-color:#34d399; }
+.thumb.no:hover  { border-color:#f87171; }
+.score { text-align:center; font-size:1.2rem; font-weight:800; color:#059669; margin-bottom:12px; }
+/* ============================ STORY ============================ */
+.storybox {
+  background:#fff; border:6px solid #fcd34d; border-radius:28px; padding:30px 28px;
+  text-align:center; max-width:860px; margin:0 auto 18px; min-height:330px;
+  display:flex; flex-direction:column; justify-content:center; gap:16px;
+}
+.storybox .e { font-size:5.5rem; line-height:1.1; }
+.storybox .t { font-size:1.9rem; font-weight:800; color:#1e3a8a; line-height:1.35; }
+.storybox .ref { font-size:.95rem; color:#64748b; font-weight:700; }
+.storybox .cue { font-size:1.05rem; color:#7c3aed; font-weight:800; }
+.dots { display:flex; gap:8px; justify-content:center; margin-bottom:14px; }
+.dot { width:14px; height:14px; border-radius:50%; background:#cbd5e1; }
+.dot.on { background:#f59e0b; }
+/* ============================ COMPARE ============================ */
+.cmpq { text-align:center; font-size:2.2rem; font-weight:800; color:#1d4ed8; margin-bottom:16px; min-height:1.3em; }
+.cmprow { display:flex; gap:24px; justify-content:center; margin-bottom:14px; }
+.cmp {
+  font-family:inherit; background:#fff; border:6px solid #cbd5e1; border-radius:28px; width:280px; min-height:240px;
+  cursor:pointer; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px;
+  transition:transform .12s, border-color .2s, background .2s; padding:16px;
+}
+.cmp:hover { transform:scale(1.05); }
+.cmp .e { line-height:1; }
+.cmp .t { font-size:1.35rem; font-weight:800; color:#334155; }
+.cmp.right { border-color:#34d399; background:#ecfdf5; }
+.cmp.bad { animation:shake .4s; border-color:#ef4444; background:#fef2f2; }
+@keyframes shake { 0%,100%{transform:translateX(0);} 20%{transform:translateX(-10px);} 60%{transform:translateX(10px);} }
+/* ============================ SINK OR FLOAT ============================ */
+.tank {
+  position:relative; max-width:560px; height:300px; margin:0 auto 16px; border:6px solid #93c5fd; border-top:none;
+  border-radius:0 0 140px 140px; background:linear-gradient(180deg,transparent 0 30%, #bfdbfe 30%, #60a5fa 100%); overflow:hidden;
+}
+.tank .surface { position:absolute; left:0; right:0; top:30%; height:6px; background:#dbeafe; opacity:.9; }
+.tank .thing {
+  position:absolute; left:50%; top:4%; transform:translateX(-50%); font-size:4.2rem; line-height:1;
+  transition:top 1.4s cubic-bezier(.3,.7,.4,1);
+}
+.tank .thing.sunk { top:74%; }
+.tank .thing.float { top:20%; animation:bobw 1.4s ease-in-out infinite; }
+@keyframes bobw { 0%,100%{transform:translateX(-50%) translateY(0) rotate(-4deg);} 50%{transform:translateX(-50%) translateY(-6px) rotate(4deg);} }
+.thingname { text-align:center; font-size:1.9rem; font-weight:800; color:#1e3a8a; margin-bottom:10px; }
+.sfrow { display:flex; gap:20px; justify-content:center; }
+.sfbtn {
+  font-family:inherit; font-size:1.7rem; font-weight:800; padding:16px 34px; border-radius:24px;
+  border:5px solid #cbd5e1; background:#fff; cursor:pointer; color:#1e3a8a;
+}
+.sfbtn:hover { border-color:#60a5fa; }
+.sfbtn.bad { animation:shake .4s; border-color:#ef4444; background:#fef2f2; }
+.sfbtn.right { border-color:#34d399; background:#ecfdf5; }
+/* ============================ COLOUR SORT ============================ */
+.sortstage { text-align:center; min-height:120px; margin-bottom:14px; }
+.sortstage .rock { width:130px; height:94px; transition:transform .6s, opacity .6s; }
+.sortstage .rock.fly { transform:translateY(160px) scale(.4); opacity:0; }
+.papers { display:flex; gap:14px; justify-content:center; flex-wrap:wrap; max-width:960px; margin:0 auto; }
+.paper {
+  width:160px; height:130px; border-radius:10px; cursor:pointer; position:relative; border:5px solid rgba(0,0,0,.08);
+  box-shadow:0 5px 0 rgba(0,0,0,.12); display:flex; flex-wrap:wrap; gap:4px; align-content:flex-end; justify-content:center; padding:8px;
+  transition:transform .12s;
+}
+.paper:hover { transform:translateY(-5px); }
+.paper .lbl { position:absolute; top:6px; left:0; right:0; text-align:center; font-weight:800; font-size:1rem; }
+.paper .rock { width:30px; height:22px; }
+.paper.bad { animation:shake .4s; border-color:#ef4444; }
+/* ============================ BUILD ON THE ROCK ============================ */
+.buildwrap { display:grid; grid-template-columns:1.3fr 1fr; gap:22px; max-width:1000px; margin:0 auto; align-items:start; }
+.weather {
+  position:relative; height:340px; border:5px solid #93c5fd; border-radius:26px; overflow:hidden;
+  background:linear-gradient(180deg,#bae6fd,#e0f2fe);
+  transition:background 1s;
+}
+.weather.storm { background:linear-gradient(180deg,#64748b,#94a3b8); }
+.ground { position:absolute; left:0; right:0; bottom:0; height:80px; display:flex; align-items:flex-end; justify-content:center; }
+.ground .base {
+  width:230px; height:70px; display:flex; align-items:center; justify-content:center; font-weight:800; color:#1d4ed8; font-size:1.1rem;
+}
+.ground .base.rockbase, .ground .base.sandbase { color:#fff; }
+.ground .base.rockbase {
+  background:radial-gradient(circle at 35% 30%, #d1d5db, #6b7280); border-radius:50% 50% 12px 12px / 70% 70% 12px 12px;
+  box-shadow:inset -8px -10px 0 rgba(0,0,0,.2);
+}
+.ground .base.sandbase {
+  background:radial-gradient(circle at 40% 30%, #fde68a, #f59e0b); border-radius:60% 60% 0 0 / 100% 100% 0 0; color:#78350f;
+}
+.house { position:absolute; left:50%; bottom:58px; transform:translateX(-50%); font-size:6rem; line-height:1; transition:transform 1.2s, bottom 1.2s, opacity 1.2s; }
+.house.wobble { animation:wob .3s 4; }
+@keyframes wob { 0%,100%{transform:translateX(-50%) rotate(0);} 25%{transform:translateX(-50%) rotate(-8deg);} 75%{transform:translateX(-50%) rotate(8deg);} }
+.house.fall { transform:translateX(-50%) rotate(95deg) translateY(30px); bottom:0; opacity:.35; }
+.house.strong { animation:hpop .5s; }
+@keyframes hpop { 0%{transform:translateX(-50%) scale(.8);} 70%{transform:translateX(-50%) scale(1.15);} 100%{transform:translateX(-50%) scale(1);} }
+.flood { position:absolute; left:0; right:0; bottom:0; height:0; background:rgba(37,99,235,.45); transition:height 2.2s ease-in; }
+.flood.up { height:70px; }
+.drop { position:absolute; top:-20px; width:4px; height:18px; background:#1d4ed8; border-radius:3px; opacity:.7; animation:rain .7s linear infinite; }
+@keyframes rain { to { transform:translateY(380px); } }
+.choosebox { background:#fff; border:5px solid #a78bfa; border-radius:24px; padding:20px; text-align:center; }
+.choosebox .q { font-size:1.5rem; font-weight:800; color:#1d4ed8; margin-bottom:14px; }
+.choosebox .opts { display:flex; flex-direction:column; gap:10px; align-items:center; }
+.opt {
+  font-family:inherit; background:#fff; border:5px solid #cbd5e1; border-radius:22px;
+  padding:10px 16px; cursor:pointer; width:100%; transition:transform .12s; font-size:1.3rem; font-weight:800; color:#334155;
+}
+.opt:hover { transform:scale(1.04); }
+.opt.on { border-color:#7c3aed; background:#f5f3ff; }
+/* ============================ SEQUENCE ============================ */
+.seqrow { display:flex; gap:14px; justify-content:center; flex-wrap:wrap; margin-bottom:22px; }
+.seqcard {
+  background:#fff; border:5px solid #cbd5e1; border-radius:20px; width:170px; padding:16px 10px;
+  text-align:center; cursor:pointer; transition:transform .15s, border-color .2s, background .2s; position:relative;
+}
+.seqcard:hover { transform:translateY(-6px); }
+.seqcard .e { font-size:3.2rem; }
+.seqcard .t { font-weight:800; font-size:1.05rem; color:#334155; margin-top:4px; }
+.seqcard.done { border-color:#34d399; background:#ecfdf5; }
+.seqcard.bad { animation:shake .4s; border-color:#ef4444; background:#fef2f2; }
+.seqcard .ord {
+  position:absolute; top:-14px; left:50%; transform:translateX(-50%);
+  width:34px; height:34px; border-radius:50%; background:#059669; color:#fff;
+  font-weight:800; font-size:1.1rem; display:none; align-items:center; justify-content:center;
+}
+.seqcard.done .ord { display:flex; }
+.chant { text-align:center; font-size:1.4rem; font-weight:800; color:#047857; min-height:1.5em; margin-bottom:10px; }
+.actstrip { display:grid; grid-template-columns:repeat(5,1fr); gap:10px; max-width:1000px; margin:6px auto 0; }
+.act {
+  background:#fff; border:4px solid #fcd34d; border-radius:18px; padding:12px 8px; text-align:center; cursor:pointer;
+  transition:transform .15s, background .2s;
+}
+.act:hover { transform:translateY(-4px); }
+.act.on { background:#fffbeb; border-color:#d97706; }
+.act .e { font-size:2.4rem; }
+.act .w { font-size:.95rem; font-weight:800; color:#92400e; margin:4px 0; font-style:italic; }
+.act .d { font-size:.9rem; color:#475569; }
+h2.mini { text-align:center; color:#b45309; font-size:1.4rem; margin:18px 0 4px; }
+/* ============================ TOWER ============================ */
+.tower {
+  max-width:420px; height:280px; margin:0 auto 10px; background:linear-gradient(180deg,#fef3c7,#fde68a);
+  border:5px solid #f59e0b; border-radius:24px; display:flex; flex-direction:column-reverse; align-items:center; padding:10px; overflow:hidden;
+}
+.tower .rock { margin-top:-6px; animation:pop .4s; }
+.tower.shaky { animation:wig .5s 2; }
+/* ============================ STEPS (shared) ============================ */
+.csteps { max-width:840px; margin:0 auto; }
+.cstep {
+  background:#fff; border:4px solid #fda4af; border-radius:22px; padding:14px 22px;
+  display:flex; align-items:center; gap:18px; margin-bottom:10px; opacity:.5;
+  transition:opacity .3s, transform .2s; cursor:pointer;
+}
+.cstep.on { opacity:1; transform:scale(1.02); border-color:#be185d; background:#fff1f2; }
+.cstep .n {
+  min-width:48px; height:48px; border-radius:50%; background:#be185d; color:#fff;
+  display:flex; align-items:center; justify-content:center; font-size:1.4rem; font-weight:800;
+}
+.cstep .b { font-size:1.18rem; }
+.cstep .e { font-size:2.2rem; }
+/* ============================ SONG ============================ */
+.lyrics { max-width:760px; margin:0 auto; }
+.lyr {
+  background:#fff; border:4px solid #fcd34d; border-radius:18px; padding:12px 22px;
+  margin-bottom:9px; cursor:pointer; display:flex; align-items:center; gap:18px;
+  transition:transform .15s, background .2s;
+}
+.lyr:hover { transform:translateX(8px); }
+.lyr.on { background:#fffbeb; border-color:#d97706; }
+.lyr .w { font-size:1.45rem; font-weight:800; color:#92400e; flex:1; }
+.lyr .act2 { font-size:.95rem; color:#475569; text-align:right; }
+.qs { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; max-width:980px; margin:0 auto 22px; }
+.qcard {
+  background:#fff; border:5px solid #93c5fd; border-radius:22px; padding:16px; text-align:center; cursor:pointer;
+}
+.qcard .q { font-size:1.25rem; font-weight:800; color:#1d4ed8; }
+.qcard .a { font-size:1.15rem; font-weight:800; color:#cbd5e1; margin-top:10px; }
+.qcard.on { border-color:#34d399; background:#f0fdf4; }
+.qcard.on .a { color:#059669; }
+.finish { text-align:center; padding:22px 0; }
+.finish .big-emo { font-size:6rem; animation:bob 2s ease-in-out infinite; }
+/* ============================ NAV ============================ */
+#nav {
+  position:fixed; bottom:0; left:0; right:0; display:flex; gap:12px; justify-content:center;
+  padding:14px; background:rgba(255,255,255,.9); backdrop-filter:blur(6px); border-top:3px solid #7ec4ff; z-index:50;
+}
+.nbtn { font-family:inherit; font-weight:800; font-size:1.05rem; padding:12px 30px; border-radius:999px; border:none; cursor:pointer; }
+.nbtn.back { background:#e5e7eb; color:#374151; }
+.nbtn.next { background:linear-gradient(135deg,#34d399,#059669); color:#fff; box-shadow:0 4px 0 #047857; }
+.nbtn:disabled { opacity:.35; cursor:not-allowed; }
+.pill { align-self:center; font-weight:800; color:#6b7280; font-size:.9rem; }
+/* ============================ CONFETTI ============================ */
+#confetti { position:fixed; inset:0; pointer-events:none; z-index:99; }
+.conf { position:absolute; font-size:1.8rem; animation:fall 2.6s linear forwards; }
+@keyframes fall { to { transform:translateY(110vh) rotate(620deg); opacity:0; } }
+/* ============================ RESPONSIVE ============================ */
+@media (max-width:860px) {
+  .huntgrid { grid-template-columns:repeat(4,1fr); gap:8px; }
+  .tile { height:76px; font-size:1.8rem; }
+  .buildwrap, .qs { grid-template-columns:1fr; }
+  .actstrip { grid-template-columns:repeat(2,1fr); }
+  .hero h2 { font-size:2.1rem; }
+  .hero .lamb { font-size:5rem; }
+  .page h1 { font-size:1.6rem; }
+  .quizbox .q, .storybox .t { font-size:1.4rem; }
+  .cmpq { font-size:1.6rem; }
+  .cmp { width:46%; min-height:180px; }
+  .seqcard { width:140px; }
+  .paper { width:120px; height:100px; }
+  .sfbtn { font-size:1.3rem; padding:12px 20px; }
+  .tank { height:240px; }
+}
+</style></head>
+<body>
+
+<div id="topbar">
+  <div class="brand">🪨 God's World Rocks! · Meeting 3</div>
+  <div class="tools">
+    <button class="tbtn" onclick="go(0)">🏠 Home</button>
+    <button class="tbtn" onclick="fs()">🖥️ Full Screen</button>
+  </div>
+</div>
+
+<!-- ============ 0 · WELCOME ============ -->
+<section class="page active" id="p0">
+  <div class="hero">
+    <div class="lamb">🐑🪨</div>
+    <div class="kicker">LITTLE LAMB · 2026–2027</div>
+    <h2>God's World Rocks!</h2>
+    <div class="meta">Meeting 3 · Ages 4–5 · Sabbath, October 31</div>
+    <div class="starbar">🪨 God made the rocks — and He made ME! &nbsp;·&nbsp; Requirement: My World I</div>
+    <button class="big" onclick="go(1)">🚀 Let's Start!</button>
+    <button class="big blue" onclick="fs()">🖥️ Full Screen</button>
+    <div class="namebox">🐑 Our lamb mascot's name is <input id="mascotIn" placeholder="type the name" oninput="setMascot(this.value)"></div>
+    <div class="howto">
+      <b>📖 How to use this app (1 minute, read first)</b>
+      <ul>
+        <li>Type in the <b>mascot's name</b> — the app uses it on the pages.</li>
+        <li>Tap <b>Full Screen</b>, then <b>Let's Start!</b> — <b>11 pages</b>. Next with the green <b>Next ➡</b> button or the <b>→</b> key.</li>
+        <li>Real games with right/wrong answers: <b>Rock Thumbs</b>, <b>Rock Hunt</b>, <b>Big or Little? Heavy or Light?</b>, <b>Sink or Float?</b>, <b>Colour Sort</b>, <b>Build on the Rock!</b> and <b>Story in Order</b>. Let a different child take each turn.</li>
+        <li>The app supports the Leader's Guide (pp. 43–48); the <b>real rocks, sand tubs, magnifying glasses, water bowls and glue</b> are still the lesson. The pages follow the lesson plan's order.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 1 · ROCK THUMBS ============ -->
+<section class="page" id="p1">
+  <h1>👍 Rock Thumbs!</h1>
+  <div class="sub">Thumbs UP if it's true. Thumbs DOWN if it's silly!</div>
+  <div class="teach">Leader's Guide · <b>Lamb Tales</b> (10 min) — first <b>pass round the real rocks</b> to see and touch: big, little, smooth, rough, sparkly. Remind them <b>God created the land and the rocks</b>. Then play this.</div>
+  <div class="score" id="quizScore">Question 1</div>
+  <div class="quizbox">
+    <div class="emoji" id="qEmoji">🪨</div>
+    <div class="q" id="qText">Ready?</div>
+    <div class="fb" id="qFb"></div>
+  </div>
+  <div class="thumbrow">
+    <button class="thumb yes" onclick="answer(true)">👍</button>
+    <button class="thumb no"  onclick="answer(false)">👎</button>
+  </div>
+  <div class="center" style="margin-top:16px"><button class="big gold" onclick="buildQuiz()">🔄 Play Again</button></div>
+</section>
+
+<!-- ============ 2 · THE STORY ============ -->
+<section class="page" id="p2">
+  <h1>📖 God Made the Rocks!</h1>
+  <div class="sub">A story about the rocks God made — Genesis 1, 1 Samuel 17, Matthew 7, Psalm 18</div>
+  <div class="teach">Leader's Guide · <b>Lamb Tales</b> — read the printed read-aloud, or tell it from here. Purple lines are the class's cue to <b>join in</b> with an action.</div>
+  <div class="dots" id="storyDots"></div>
+  <div class="storybox">
+    <div class="e" id="stE"></div>
+    <div class="t" id="stT"></div>
+    <div class="ref" id="stR"></div>
+    <div class="cue" id="stC"></div>
+  </div>
+  <div class="center">
+    <button class="big blue" onclick="storyStep(-1)">⬅ Back</button>
+    <button class="big" onclick="storyStep(1)">Turn the page ➡</button>
+  </div>
+</section>
+
+<!-- ============ 3 · ROCK HUNT ============ -->
+<section class="page" id="p3">
+  <h1>🔎 Rock Hunt!</h1>
+  <div class="sub">5 rocks are hiding in the sand and grass. Tap to dig!</div>
+  <div class="teach">Leader's Guide · <b>Activity 2 — Rock Hunt</b> (10 min) — hide the real polished rocks / river rocks / crystals <b>not too well</b>, give each child a small bag, and go! This screen is a warm-up or a second round.</div>
+  <div class="bigcount" id="huntCount">We found 0 rocks!</div>
+  <div class="status" id="huntStatus"></div>
+  <div class="huntgrid" id="huntGrid"></div>
+  <div class="center"><button class="big gold" onclick="buildHunt()">🔄 Hide Again</button></div>
+</section>
+
+<!-- ============ 4 · BIG OR LITTLE? HEAVY OR LIGHT? ============ -->
+<section class="page" id="p4">
+  <h1>⚖️ Big or Little? Heavy or Light?</h1>
+  <div class="sub">Listen to the question — then tap the right one!</div>
+  <div class="teach">Leader's Guide · <b>Activity 3 — Geology 101</b> (10 min). Use this to start the centres, then <b>feel real rocks</b>: which is heavier in your hand? Weigh two on the <b>kitchen scale</b>.</div>
+  <div class="score" id="cmpScore">Round 1</div>
+  <div class="cmpq" id="cmpQ"></div>
+  <div class="cmprow" id="cmpRow"></div>
+  <div class="fb" id="cmpFb"></div>
+  <div class="center" style="margin-top:10px"><button class="big gold" onclick="buildCmp()">🔄 Play Again</button></div>
+</section>
+
+<!-- ============ 5 · SINK OR FLOAT ============ -->
+<section class="page" id="p5">
+  <h1>💧 Sink or Float?</h1>
+  <div class="sub">What will happen when we drop it in the water? Guess first!</div>
+  <div class="teach">Leader's Guide · <b>Geology 101, centre 4</b> — everyone guesses with a thumb (down = sink, up = float), then tap. Then try it with the <b>real bowl of water</b> — save the <b>lava rock</b> (pumice) for last. It floats!</div>
+  <div class="score" id="sfScore">Item 1</div>
+  <div class="thingname" id="sfName"></div>
+  <div class="tank"><div class="surface"></div><div class="thing" id="sfThing"></div></div>
+  <div class="fb" id="sfFb"></div>
+  <div class="sfrow" id="sfRow">
+    <button class="sfbtn" id="sfSink" onclick="sfGuess(false)">🔽 Sink</button>
+    <button class="sfbtn" id="sfFloat" onclick="sfGuess(true)">🛟 Float</button>
+  </div>
+  <div class="center" style="margin-top:14px"><button class="big gold" onclick="buildSF()">🔄 Play Again</button></div>
+</section>
+
+<!-- ============ 6 · COLOUR SORT ============ -->
+<section class="page" id="p6">
+  <h1>🎨 Colour Sort</h1>
+  <div class="sub">What colour is this rock? Put it on the paper that matches!</div>
+  <div class="teach">Leader's Guide · <b>Geology 101, centre 5</b> — sort rocks onto <b>construction paper</b> that matches their colour (or by size, through holes in a <b>shoe-box lid</b>). God made rocks in so many colours!</div>
+  <div class="score" id="sortScore">Rock 1 of 10</div>
+  <div class="sortstage" id="sortStage"></div>
+  <div class="fb" id="sortFb"></div>
+  <div class="papers" id="papers"></div>
+  <div class="center" style="margin-top:14px"><button class="big gold" onclick="buildSort()">🔄 Play Again</button></div>
+</section>
+
+<!-- ============ 7 · BUILD ON THE ROCK ============ -->
+<section class="page" id="p7">
+  <h1>🏠 Build on the Rock!</h1>
+  <div class="sub">Where should we build our house? Pick — then make it rain!</div>
+  <div class="teach">Leader's Guide · <b>Activity 1 — Building on the Rocks</b> (10 min) — Jesus' story in Matthew 7:24–27. Try both! Then sing <b>"The Wise Man Built His House Upon the Rock"</b> and <b>sift the sand tubs</b> to find the hidden rocks.</div>
+  <div class="buildwrap">
+    <div class="weather" id="weather">
+      <div id="rainBox"></div>
+      <div class="ground"><div class="base" id="base">pick a place →</div></div>
+      <div class="house" id="house" style="display:none">🏠</div>
+      <div class="flood" id="flood"></div>
+    </div>
+    <div class="choosebox">
+      <div class="q" id="bQ">Where will you build?</div>
+      <div class="opts">
+        <button class="opt" id="optRock" onclick="pickBase('rock')">🪨 On the ROCK</button>
+        <button class="opt" id="optSand" onclick="pickBase('sand')">🏖️ On the SAND</button>
+        <button class="big blue" id="rainBtn" onclick="makeRain()" disabled>🌧️ Make it rain!</button>
+      </div>
+      <div class="fb" id="bFb" style="margin-top:12px"></div>
+      <button class="big gold" onclick="resetBuild()">🔄 Build Again</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 8 · STORY IN ORDER + SONG ACTIONS ============ -->
+<section class="page" id="p8">
+  <h1>🃏 The Wise and Foolish Builders</h1>
+  <div class="sub">What happened FIRST? Tap them in order!</div>
+  <div class="teach">Jesus' story — <b>Matthew 7:24–27</b>. Tap the cards in order, then stand up for the song. <b>The wise man listens to Jesus and does what He says.</b></div>
+  <div class="chant" id="chant"></div>
+  <div class="seqrow" id="seqRow"></div>
+  <div class="center"><button class="big gold" onclick="buildSeq()">🔄 Shuffle &amp; Try Again</button></div>
+  <h2 class="mini">🎵 "The Wise Man Built His House Upon the Rock" — the actions</h2>
+  <div class="sub" style="margin-bottom:8px">Tap each one as you sing it</div>
+  <div class="actstrip" id="actStrip"></div>
+</section>
+
+<!-- ============ 9 · ROCK SCULPTURES ============ -->
+<section class="page" id="p9">
+  <h1>🗿 Rock Sculptures</h1>
+  <div class="sub">Tap each step as we go</div>
+  <div class="teach">Leader's Guide · <b>Activity 4 — Rock Sculptures</b> (10 min) — 6×6 in (15×15 cm) cardboard squares, craft glue in shallow lids, rocks and gravel, newspaper down. Acrylic paint is optional — smocks on!</div>
+  <div class="csteps" id="sculptSteps"></div>
+  <h2 class="mini">🧱 Build a Rock Tower!</h2>
+  <div class="sub" style="margin-bottom:8px">How tall can we stack it before it wobbles?</div>
+  <div class="tower" id="tower"></div>
+  <div class="bigcount" id="towerCount">0 rocks</div>
+  <div class="center">
+    <button class="big" onclick="addRock()">➕ Add a Rock</button>
+    <button class="big gold" onclick="resetTower()">🔄 Start Again</button>
+  </div>
+</section>
+
+<!-- ============ 10 · SONG & GOOD-BAA ============ -->
+<section class="page" id="p10">
+  <h1>🎵 Good-baa, Little Lambs!</h1>
+  <div class="sub">Tap a question — then tap to see the answer</div>
+  <div class="teach">Leader's Guide · <b>Good-baa Little Lambs</b> (5 min) — circle up and ask <b>"What did you learn about rocks?"</b> Give every child a turn. Sing "Jesus Is My Shepherd" (p. 175) and rejoin the Adventurers.</div>
+  <div class="qs" id="qs"></div>
+  <div class="lyrics" id="songLines"></div>
+  <div class="center" style="margin-top:16px">
+    <button class="big" onclick="songAll()">▶️ Sing the Whole Song</button>
+    <button class="big gold" onclick="songReset()">🔄 Again</button>
+  </div>
+  <div class="finish">
+    <div class="big-emo">🪨🐑💛</div>
+    <h1>God made the rocks — and He made YOU!</h1>
+    <p style="font-size:1.4rem;color:#059669;font-weight:800;margin:14px 0">Well done, Little Lambs! 🎉</p>
+    <button class="big gold" onclick="party()">🎉 Celebrate!</button>
+    <button class="big blue" onclick="go(0)">🏠 Back to Start</button>
+  </div>
+</section>
+
+<div id="nav">
+  <button class="nbtn back" id="btnBack" onclick="go(cur-1)">⬅ Back</button>
+  <span class="pill" id="pagePill">1 / 11</span>
+  <button class="nbtn next" id="btnNext" onclick="go(cur+1)">Next ➡</button>
+</div>
+
+<div id="confetti"></div>
+
+<script>
+/* ===================== HELPERS ===================== */
+const $ = id => document.getElementById(id);
+const shuffle = arr => arr.map(v => [Math.random(), v]).sort((a,b) => a[0]-b[0]).map(p => p[1]);
+const rnd = n => Math.floor(Math.random() * n);
+function rockHTML(color, extra, w, h){
+  const shape = ['', ' r2', ' r3'][rnd(3)];
+  const size = w ? ' style="--c:' + color + ';width:' + w + 'px;height:' + h + 'px"' : ' style="--c:' + color + '"';
+  return '<span class="rock' + shape + (extra ? ' ' + extra : '') + '"' + size + '></span>';
+}
+
+/* ===================== MASCOT NAME ===================== */
+let mascot = '';
+function setMascot(v){
+  mascot = v.trim();
+  try { localStorage.setItem('ll-mascot', mascot); } catch(e) {}
+  document.querySelectorAll('.mascot').forEach(s => s.textContent = mascot || 'Our lamb');
+}
+function lambName(){ return mascot || 'our little lamb'; }
+
+/* ===================== NAVIGATION ===================== */
+const PAGES = 11;
+let cur = 0;
+function go(n){
+  if (n < 0 || n >= PAGES) return;
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  $('p' + n).classList.add('active');
+  cur = n;
+  $('pagePill').textContent = (n + 1) + ' / ' + PAGES;
+  $('btnBack').disabled = (n === 0);
+  $('btnNext').disabled = (n === PAGES - 1);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+function fs(){
+  if (!document.fullscreenElement) document.documentElement.requestFullscreen().catch(()=>{});
+  else document.exitFullscreen();
+}
+document.addEventListener('keydown', e => {
+  if (e.target.tagName === 'INPUT') return;
+  if (e.key === 'ArrowRight') go(cur + 1);
+  if (e.key === 'ArrowLeft')  go(cur - 1);
+});
+
+/* ===================== SOUNDS (synthesized) ===================== */
+let ac = null;
+function ctx(){ return ac = ac || new (window.AudioContext || window.webkitAudioContext)(); }
+function baa(pitch, vol){
+  try {
+    const a = ctx(), t = a.currentTime, p = pitch || 1, v0 = vol || 0.18;
+    const o = a.createOscillator(), g = a.createGain(), v = a.createOscillator(), vg = a.createGain();
+    o.type = 'sawtooth';
+    o.frequency.setValueAtTime(420 * p, t);
+    o.frequency.exponentialRampToValueAtTime(300 * p, t + 0.45);
+    v.frequency.value = 18; vg.gain.value = 26 * p;        /* the wobbly bleat */
+    v.connect(vg); vg.connect(o.frequency);
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.exponentialRampToValueAtTime(v0, t + 0.05);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + 0.5);
+    const f = a.createBiquadFilter(); f.type = 'lowpass'; f.frequency.value = 1400;
+    o.connect(f); f.connect(g); g.connect(a.destination);
+    o.start(t); v.start(t); o.stop(t + 0.55); v.stop(t + 0.55);
+  } catch(e) {}
+}
+function tone(f1, f2, dur, type, vol){
+  try {
+    const a = ctx(), t = a.currentTime, o = a.createOscillator(), g = a.createGain();
+    o.type = type || 'sine';
+    o.frequency.setValueAtTime(f1, t);
+    o.frequency.exponentialRampToValueAtTime(f2, t + dur * 0.8);
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.exponentialRampToValueAtTime(vol || 0.2, t + 0.02);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    o.connect(g); g.connect(a.destination); o.start(t); o.stop(t + dur + 0.05);
+  } catch(e) {}
+}
+function noise(dur, freq, vol){
+  try {
+    const a = ctx(), t = a.currentTime, n = Math.floor(a.sampleRate * dur);
+    const buf = a.createBuffer(1, n, a.sampleRate), d = buf.getChannelData(0);
+    for (let i = 0; i < n; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / n, 3);
+    const s = a.createBufferSource(), f = a.createBiquadFilter(), g = a.createGain();
+    s.buffer = buf; f.type = 'bandpass'; f.frequency.value = freq || 1800; f.Q.value = 1.2;
+    g.gain.value = vol || 0.5;
+    s.connect(f); f.connect(g); g.connect(a.destination); s.start(t);
+  } catch(e) {}
+}
+const ding   = () => tone(880, 1320, 0.35);
+const buzz   = () => tone(200, 120, 0.3, 'square');
+const clack  = () => { noise(0.08, 2200, 0.6); tone(260, 180, 0.09, 'triangle', 0.25); };
+const dig    = () => noise(0.2, 700, 0.35);
+const plop   = () => tone(500, 140, 0.25, 'sine');
+const crash  = () => { noise(0.6, 400, 0.7); tone(160, 50, 0.6, 'sawtooth', 0.15); };
+const thunder= () => { noise(1.1, 180, 0.8); };
+
+/* ===================== 1 · ROCK THUMBS ===================== */
+const FACTS = [
+  { q:'God made the rocks.',                        a:true,  e:'🪨', why:'Yes! God made every single rock.' },
+  { q:'God made the dry land on Day 3.',            a:true,  e:'⛰️', why:'Yes! “Let the dry land appear!” — Genesis 1.' },
+  { q:'Rocks are soft like a pillow.',              a:false, e:'🛏️', why:'No! Rocks are hard — knock, knock!' },
+  { q:'Some rocks sparkle.',                        a:true,  e:'💎', why:'Yes! Crystals sparkle and shine.' },
+  { q:'A mountain is a GIANT rock.',                a:true,  e:'🏔️', why:'Yes! The biggest rocks of all.' },
+  { q:'All rocks are the same.',                    a:false, e:'🤔', why:'No! Big, little, smooth, rough — lots of colours!' },
+  { q:'Some rocks can float!',                      a:true,  e:'🌋', why:'Yes! Lava rock is full of tiny air holes.' },
+  { q:'We can eat rocks.',                          a:false, e:'🚫', why:'No! Never put rocks in your mouth!' },
+  { q:'A house built on rock stands strong.',       a:true,  e:'🏠', why:'Yes! Just like Jesus said.' }
+];
+let qi = 0, qScore = 0, qLock = false;
+function buildQuiz(){ qi = 0; qScore = 0; qLock = false; renderQuiz(); }
+function renderQuiz(){
+  if (qi >= FACTS.length) {
+    $('qEmoji').textContent = '🏆';
+    $('qText').textContent = 'You got ' + qScore + ' out of ' + FACTS.length + '!';
+    $('qFb').textContent = 'You know all about God’s rocks!';
+    $('qFb').className = 'fb good';
+    $('quizScore').textContent = 'All done!';
+    party();
+    return;
+  }
+  const f = FACTS[qi];
+  $('qEmoji').textContent = f.e;
+  $('qText').textContent = f.q;
+  $('qFb').textContent = '';
+  $('qFb').className = 'fb';
+  $('quizScore').textContent = 'Question ' + (qi + 1) + ' of ' + FACTS.length;
+}
+function answer(said){
+  if (qLock || qi >= FACTS.length) return;
+  const f = FACTS[qi], fb = $('qFb');
+  qLock = true;
+  if (said === f.a) { qScore++; fb.textContent = '✅ ' + f.why; fb.className = 'fb good'; ding(); }
+  else              { fb.textContent = '❌ ' + f.why;            fb.className = 'fb bad';  buzz(); }
+  setTimeout(() => { qi++; qLock = false; renderQuiz(); }, 2100);
+}
+
+/* ===================== 2 · THE STORY ===================== */
+const STORY = [
+  { e:'🌍✨', t:'In the beginning, God made the world. On Day 3 He said, “Let the dry land appear!” — and up came the land!', r:'Genesis 1:9–10', c:'Everybody: crouch down low… then POP up like the land!', s:'party' },
+  { e:'🏔️⛰️', t:'God made BIG rocks — mountains so tall they touch the clouds!', r:'', c:'Everybody: stretch up high, high, HIGH!' },
+  { e:'🪨🏖️', t:'And God made little rocks — tiny pebbles, and sand as small as can be.', r:'', c:'Everybody: pinch your fingers tiny-tiny!', s:'clack' },
+  { e:'🏞️🪨', t:'Some rocks are SMOOTH, rolled by the river. Some rocks are ROUGH and bumpy.', r:'', c:'Everybody: stroke your hand smooooth… now scratch-scratch rough!' },
+  { e:'💪🌋', t:'Some rocks are HEAVY. Heave-ho! And some are so light they even FLOAT — like lava rock!', r:'', c:'Everybody: heave-ho! … then float your hands like a feather.' },
+  { e:'💎🔴⚪⚫', t:'God made rocks of every colour — red, grey, white, black, pink — and sparkly crystals!', r:'', c:'Everybody: twinkle, twinkle with your fingers!' },
+  { e:'👦🪨🪨🪨🪨🪨', t:'Long ago, a shepherd boy named David picked FIVE smooth stones from a stream.', r:'1 Samuel 17:40', c:'Everybody: count them on your fingers — 1, 2, 3, 4, 5!', s:'clack' },
+  { e:'🏠🪨🌧️', t:'Jesus said a wise man builds his house on the ROCK. The rain came down… but the house stood firm!', r:'Matthew 7:24–25', c:'Everybody: pat-pat rain on your knees… then fists together — STRONG!' },
+  { e:'🪨💛🧒', t:'God made every rock — and God made YOU! The Bible says, “The LORD is my rock.”', r:'Psalm 18:2', c:'Everybody: give yourself a big hug!', s:'party' }
+];
+let si = 0;
+function renderStory(){
+  const s = STORY[si];
+  $('stE').textContent = s.e;
+  $('stT').textContent = s.t;
+  $('stR').textContent = s.r ? '📜 ' + s.r : '';
+  $('stC').textContent = '👉 ' + s.c;
+  $('storyDots').innerHTML = STORY.map((_, i) => '<span class="dot' + (i <= si ? ' on' : '') + '"></span>').join('');
+}
+function storyStep(d){
+  const n = si + d;
+  if (n < 0 || n >= STORY.length) return;
+  si = n; renderStory();
+  const s = STORY[si].s;
+  if (s === 'clack') clack(); else if (s === 'party') party(); else ding();
+}
+
+/* ===================== 3 · ROCK HUNT ===================== */
+const ROCKCOLS = ['#9ca3af','#b45309','#e5e7eb','#374151','#f9a8d4','#dc2626','#a8a29e'];
+let hidden = [], found = 0, misses = 0, huntDone = false;
+function buildHunt(){
+  const g = $('huntGrid');
+  g.innerHTML = '';
+  hidden = shuffle([...Array(16).keys()]).slice(0, 5);
+  found = 0; misses = 0; huntDone = false;
+  $('huntStatus').textContent = '';
+  updateHuntCount();
+  for (let i = 0; i < 16; i++) {
+    const t = document.createElement('div');
+    const grass = (i + Math.floor(i / 4)) % 3 === 0;
+    t.className = 'tile' + (grass ? ' grass' : '');
+    t.textContent = grass ? '🌱' : '';
+    t.onclick = () => {
+      if (huntDone || t.classList.contains('empty') || t.classList.contains('found')) return;
+      if (hidden.includes(i)) {
+        found++;
+        t.className = 'tile found';
+        const col = ROCKCOLS[rnd(ROCKCOLS.length)];
+        t.innerHTML = rockHTML(col, Math.random() < 0.3 ? 'sparkle' : '', 60, 44) + '<span class="badge">' + found + '</span>';
+        clack();
+        misses = 0;
+        document.querySelectorAll('#huntGrid .tile.hint').forEach(x => x.classList.remove('hint'));
+        updateHuntCount();
+        if (found === 5) {
+          huntDone = true;
+          $('huntStatus').textContent = '🎉 We found ALL 5 rocks! Great hunting!';
+          setTimeout(party, 300);
+        } else {
+          $('huntStatus').textContent = ['Yes! A rock!','Another one!','Wow, look at that!','Keep digging!'][rnd(4)];
+        }
+      } else {
+        misses++;
+        t.classList.add('dig');
+        dig();
+        setTimeout(() => { t.className = 'tile empty'; t.textContent = 'no rock'; }, 420);
+        $('huntStatus').textContent = 'Keep digging!';
+        if (misses >= 3) {
+          const left = hidden.filter(h => !g.children[h].classList.contains('found'));
+          if (left.length) { g.children[left[rnd(left.length)]].classList.add('hint'); $('huntStatus').textContent = '👀 Psst… look for the wiggling spot!'; }
+        }
+      }
+    };
+    g.appendChild(t);
+  }
+}
+function updateHuntCount(){
+  let bag = '';
+  for (let i = 0; i < found; i++) bag += rockHTML(ROCKCOLS[i % ROCKCOLS.length], '', 30, 22);
+  $('huntCount').innerHTML = 'We found <span style="font-size:1.8rem;color:#059669">' + found + '</span> rock' + (found === 1 ? '' : 's') + '! <span class="bag">' + bag + '</span>';
+}
+
+/* ===================== 4 · BIG/LITTLE · HEAVY/LIGHT ===================== */
+const CMP = [
+  { q:'Which is BIGGER?',  ok:{e:'🏔️', t:'a mountain', s:5}, no:{e:'🪨', t:'a pebble', s:2.2}, win:'Yes! A mountain is a GIANT rock!' },
+  { q:'Which is HEAVIER?', ok:{e:'🪨', t:'a big boulder', s:5}, no:{e:'🪶', t:'a feather', s:4}, win:'Yes! Heave-ho — boulders are SO heavy!' },
+  { q:'Which is SMALLER?', ok:{e:'🏖️', t:'a grain of sand', s:2}, no:{e:'⛰️', t:'a hill of rock', s:5}, win:'Yes! Sand is tiny, tiny rock!' },
+  { q:'Which is LIGHTER?', ok:{e:'🌋', t:'lava rock', s:3.5}, no:{e:'🧱', t:'a heavy stone block', s:4.5}, win:'Yes! Lava rock is full of air holes — so light!' },
+  { q:'Which is LITTLE?',  ok:{e:'💎', t:'a tiny crystal', s:2.2}, no:{e:'🗿', t:'a giant stone statue', s:5}, win:'Yes! A tiny sparkly crystal!' },
+  { q:'Which is HEAVIER?', ok:{e:'🪨', t:'a rock', s:4}, no:{e:'🍃', t:'a leaf', s:4}, win:'Yes! The rock is heavier than a leaf!' }
+];
+let ci = 0, cScore = 0, cLock = false;
+function buildCmp(){ ci = 0; cScore = 0; cLock = false; renderCmp(); }
+function renderCmp(){
+  const row = $('cmpRow');
+  row.innerHTML = '';
+  $('cmpFb').textContent = ''; $('cmpFb').className = 'fb';
+  if (ci >= CMP.length) {
+    $('cmpQ').textContent = '🏆 You got ' + cScore + ' out of ' + CMP.length + '!';
+    $('cmpScore').textContent = 'All done!';
+    $('cmpFb').textContent = 'Now feel the real rocks — which is heavier?'; $('cmpFb').className = 'fb good';
+    party();
+    return;
+  }
+  const c = CMP[ci];
+  let wrongs = 0;
+  $('cmpScore').textContent = 'Round ' + (ci + 1) + ' of ' + CMP.length;
+  $('cmpQ').textContent = c.q;
+  shuffle([{...c.ok, right:true}, {...c.no, right:false}]).forEach(o => {
+    const b = document.createElement('button');
+    b.className = 'cmp';
+    b.innerHTML = '<span class="e" style="font-size:' + o.s + 'rem">' + o.e + '</span><span class="t">' + o.t + '</span>';
+    b.onclick = () => {
+      if (cLock) return;
+      if (o.right) {
+        cLock = true; if (wrongs === 0) cScore++;
+        b.classList.add('right'); ding();
+        $('cmpFb').textContent = '✅ ' + c.win; $('cmpFb').className = 'fb good';
+        setTimeout(() => { ci++; cLock = false; renderCmp(); }, 1900);
+      } else {
+        wrongs++;
+        b.classList.add('bad'); buzz();
+        $('cmpFb').textContent = '❌ Hmm… look again!'; $('cmpFb').className = 'fb bad';
+        setTimeout(() => b.classList.remove('bad'), 420);
+      }
+    };
+    row.appendChild(b);
+  });
+}
+
+/* ===================== 5 · SINK OR FLOAT ===================== */
+const SF = [
+  { e:'🪨', n:'a pebble',          f:false, why:'It sinks! Most rocks are heavy for their size.' },
+  { e:'🍃', n:'a leaf',            f:true,  why:'It floats! Leaves are very light.' },
+  { e:'🔮', n:'a glass marble',    f:false, why:'It sinks — plop!' },
+  { e:'🍾', n:'a cork',            f:true,  why:'It floats! Cork is full of air.' },
+  { e:'🪙', n:'a coin',            f:false, why:'It sinks right to the bottom.' },
+  { e:'🧽', n:'a sponge',          f:true,  why:'It floats! (Until it gets very soggy.)' },
+  { e:'💎', n:'a crystal',         f:false, why:'It sinks — crystals are rocks too!' },
+  { e:'🌋', n:'LAVA ROCK (pumice)',f:true,  why:'SURPRISE! A rock that FLOATS! It’s full of tiny air bubbles.' }
+];
+let sfi = 0, sfScore = 0, sfLock = false;
+function buildSF(){ sfi = 0; sfScore = 0; sfLock = false; renderSF(); }
+function renderSF(){
+  const th = $('sfThing');
+  $('sfFb').textContent = ''; $('sfFb').className = 'fb';
+  $('sfSink').className = 'sfbtn'; $('sfFloat').className = 'sfbtn';
+  th.className = 'thing';
+  if (sfi >= SF.length) {
+    th.textContent = '🏆';
+    $('sfName').textContent = 'You got ' + sfScore + ' out of ' + SF.length + '!';
+    $('sfScore').textContent = 'All done!';
+    $('sfFb').textContent = 'Now try it with the real bowl of water!'; $('sfFb').className = 'fb good';
+    $('sfRow').style.visibility = 'hidden';
+    party();
+    return;
+  }
+  $('sfRow').style.visibility = 'visible';
+  const it = SF[sfi];
+  th.textContent = it.e;
+  $('sfName').textContent = 'Will ' + it.n + ' sink or float?';
+  $('sfScore').textContent = 'Item ' + (sfi + 1) + ' of ' + SF.length;
+}
+function sfGuess(said){
+  if (sfLock || sfi >= SF.length) return;
+  sfLock = true;
+  const it = SF[sfi], th = $('sfThing');
+  const btn = said ? $('sfFloat') : $('sfSink');
+  plop();
+  th.classList.add(it.f ? 'float' : 'sunk');
+  setTimeout(() => {
+    if (said === it.f) { sfScore++; btn.classList.add('right'); ding(); $('sfFb').textContent = '✅ ' + it.why; $('sfFb').className = 'fb good'; if (sfi === SF.length - 1) party(); }
+    else { btn.classList.add('bad'); buzz(); $('sfFb').textContent = '😮 ' + it.why; $('sfFb').className = 'fb bad'; }
+  }, 1300);
+  setTimeout(() => { sfi++; sfLock = false; renderSF(); }, 3900);
+}
+
+/* ===================== 6 · COLOUR SORT ===================== */
+const PAPERS = [
+  { n:'Red',   bg:'#ef4444', fg:'#fff', rock:'#dc2626' },
+  { n:'Grey',  bg:'#9ca3af', fg:'#fff', rock:'#6b7280' },
+  { n:'White', bg:'#f8fafc', fg:'#334155', rock:'#f1f5f9' },
+  { n:'Black', bg:'#1f2937', fg:'#fff', rock:'#374151' },
+  { n:'Pink',  bg:'#f9a8d4', fg:'#831843', rock:'#f472b6' },
+  { n:'Brown', bg:'#92400e', fg:'#fff', rock:'#b45309' }
+];
+let sortQ = [], sortI = 0, sortLock = false;
+function buildSort(){
+  const p = $('papers');
+  p.innerHTML = '';
+  PAPERS.forEach((x, i) => {
+    const d = document.createElement('div');
+    d.className = 'paper';
+    d.style.background = x.bg;
+    d.innerHTML = '<span class="lbl" style="color:' + x.fg + '">' + x.n + '</span>';
+    d.onclick = () => sortPick(i, d);
+    p.appendChild(d);
+  });
+  sortQ = shuffle([0,1,2,3,4,5,0,1,4,3]);
+  sortI = 0; sortLock = false;
+  renderSort();
+}
+function renderSort(){
+  $('sortFb').textContent = ''; $('sortFb').className = 'fb';
+  if (sortI >= sortQ.length) {
+    $('sortStage').innerHTML = '<div style="font-size:5rem">🏆</div>';
+    $('sortScore').textContent = 'All 10 rocks sorted!';
+    $('sortFb').textContent = 'God made rocks in SO many colours!'; $('sortFb').className = 'fb good';
+    party();
+    return;
+  }
+  $('sortScore').textContent = 'Rock ' + (sortI + 1) + ' of ' + sortQ.length;
+  const c = PAPERS[sortQ[sortI]];
+  $('sortStage').innerHTML = rockHTML(c.rock, sortI % 4 === 3 ? 'sparkle' : '');
+}
+function sortPick(i, el){
+  if (sortLock || sortI >= sortQ.length) return;
+  const want = sortQ[sortI];
+  if (i === want) {
+    sortLock = true; clack();
+    $('sortFb').textContent = '✅ Yes! A ' + PAPERS[want].n.toLowerCase() + ' rock!'; $('sortFb').className = 'fb good';
+    const r = $('sortStage').querySelector('.rock');
+    if (r) r.classList.add('fly');
+    setTimeout(() => {
+      el.insertAdjacentHTML('beforeend', rockHTML(PAPERS[want].rock, '', 30, 22));
+      sortI++; sortLock = false; renderSort();
+    }, 650);
+  } else {
+    el.classList.add('bad'); buzz();
+    $('sortFb').textContent = '❌ Look at the colour again!'; $('sortFb').className = 'fb bad';
+    setTimeout(() => el.classList.remove('bad'), 420);
+  }
+}
+
+/* ===================== 7 · BUILD ON THE ROCK ===================== */
+let baseKind = null, raining = false;
+function pickBase(k){
+  if (raining) return;
+  baseKind = k;
+  const b = $('base'), h = $('house');
+  b.className = 'base ' + (k === 'rock' ? 'rockbase' : 'sandbase');
+  b.textContent = k === 'rock' ? 'ROCK' : 'SAND';
+  h.className = 'house'; h.style.display = 'block';
+  $('optRock').classList.toggle('on', k === 'rock');
+  $('optSand').classList.toggle('on', k === 'sand');
+  $('rainBtn').disabled = false;
+  $('bQ').textContent = k === 'rock' ? 'A house on the ROCK!' : 'A house on the SAND!';
+  $('bFb').textContent = 'Now… here comes the storm!'; $('bFb').className = 'fb';
+  k === 'rock' ? clack() : dig();
+}
+function makeRain(){
+  if (!baseKind || raining) return;
+  raining = true;
+  $('rainBtn').disabled = true;
+  $('weather').classList.add('storm');
+  const box = $('rainBox');
+  box.innerHTML = '';
+  for (let i = 0; i < 40; i++) {
+    const d = document.createElement('div');
+    d.className = 'drop';
+    d.style.left = Math.random() * 100 + '%';
+    d.style.animationDelay = (Math.random() * 0.7) + 's';
+    box.appendChild(d);
+  }
+  thunder();
+  $('bFb').textContent = '🌧️ The rain came down… and the floods came up…'; $('bFb').className = 'fb';
+  setTimeout(() => $('flood').classList.add('up'), 300);
+  const h = $('house');
+  setTimeout(() => h.classList.add('wobble'), 1600);
+  setTimeout(() => {
+    h.classList.remove('wobble');
+    if (baseKind === 'sand') {
+      h.classList.add('fall'); crash();
+      $('bFb').textContent = '💥 Oh no — the house on the sand fell down FLAT!'; $('bFb').className = 'fb bad';
+    } else {
+      h.classList.add('strong'); ding(); party();
+      $('bFb').textContent = '💪 The house on the rock stood STRONG!'; $('bFb').className = 'fb good';
+    }
+  }, 2900);
+  setTimeout(() => { box.innerHTML = ''; $('weather').classList.remove('storm'); }, 3600);
+}
+function resetBuild(){
+  raining = false; baseKind = null;
+  $('rainBox').innerHTML = '';
+  $('weather').classList.remove('storm');
+  $('flood').classList.remove('up');
+  const h = $('house'); h.className = 'house'; h.style.display = 'none';
+  const b = $('base'); b.className = 'base'; b.textContent = 'pick a place →';
+  $('optRock').classList.remove('on'); $('optSand').classList.remove('on');
+  $('rainBtn').disabled = true;
+  $('bQ').textContent = 'Where will you build?';
+  $('bFb').textContent = ''; $('bFb').className = 'fb';
+}
+
+/* ===================== 8 · STORY IN ORDER + ACTIONS ===================== */
+const SEQ = [
+  { e:'👷🪨', t:'The wise man builds on the rock' },
+  { e:'🤪🏖️', t:'The foolish man builds on the sand' },
+  { e:'🌧️', t:'The rain comes down' },
+  { e:'💥', t:'The house on the sand falls down' },
+  { e:'🏠💪', t:'The house on the rock stands strong!' }
+];
+let seqNext = 0;
+function buildSeq(){
+  seqNext = 0;
+  $('chant').textContent = '';
+  const row = $('seqRow');
+  row.innerHTML = '';
+  shuffle(SEQ.map((s, i) => ({ ...s, idx:i }))).forEach(s => {
+    const d = document.createElement('div');
+    d.className = 'seqcard';
+    d.innerHTML = '<div class="ord"></div><div class="e">' + s.e + '</div><div class="t">' + s.t + '</div>';
+    d.onclick = () => {
+      if (d.classList.contains('done')) return;
+      if (s.idx === seqNext) {
+        d.classList.add('done');
+        d.querySelector('.ord').textContent = seqNext + 1;
+        seqNext++; ding();
+        $('chant').textContent = SEQ.slice(0, seqNext).map(x => x.e).join(' → ');
+        if (seqNext === SEQ.length) {
+          $('chant').textContent = '🎉 Be wise — listen to Jesus and do what He says!';
+          setTimeout(party, 300);
+        }
+      } else {
+        d.classList.add('bad'); buzz();
+        setTimeout(() => d.classList.remove('bad'), 420);
+      }
+    };
+    row.appendChild(d);
+  });
+}
+const ACTS = [
+  { e:'✊🖐️', w:'“…built his house upon the rock”', d:'Fist on a flat hand, tap-tap-tap' },
+  { e:'🌧️', w:'“the rains came down”',              d:'Wiggle your fingers down' },
+  { e:'🌊', w:'“the floods came up”',                d:'Hands rise up, up, up' },
+  { e:'💪', w:'“…the house on the rock stood firm”',  d:'Fists stacked — STRONG!' },
+  { e:'👏', w:'“…the house on the sand went SPLAT!”', d:'Clap — and flop down!' }
+];
+function buildActs(){
+  const c = $('actStrip');
+  c.innerHTML = '';
+  ACTS.forEach((a, i) => {
+    const d = document.createElement('div');
+    d.className = 'act';
+    d.innerHTML = '<div class="e">' + a.e + '</div><div class="w">' + a.w + '</div><div class="d">' + a.d + '</div>';
+    d.onclick = () => { d.classList.toggle('on'); i === 4 ? crash() : i === 1 ? noise(0.5, 3000, 0.3) : ding(); };
+    c.appendChild(d);
+  });
+}
+
+/* ===================== 9 · ROCK SCULPTURES ===================== */
+const SCULPT = [
+  { e:'📰', b:'Newspaper on the table — smocks on!' },
+  { e:'🟫', b:'Pick a cardboard square.' },
+  { e:'🪨', b:'Dip the bottom of a rock in the glue.' },
+  { e:'✋', b:'Press it down and hold it… 1 – 2 – 3 – 4 – 5!' },
+  { e:'🧱', b:'Stack little rocks and gravel on top — make it tall or wide!' },
+  { e:'🖌️', b:'Paint your rocks (if you want to).' },
+  { e:'🏷️', b:'Give your sculpture a name!' },
+  { e:'☀️', b:'Lay it flat to dry. Hands washed!' }
+];
+function buildSculpt(){
+  const c = $('sculptSteps');
+  c.innerHTML = '';
+  SCULPT.forEach((s, i) => {
+    const d = document.createElement('div');
+    d.className = 'cstep';
+    d.innerHTML = '<div class="n">' + (i + 1) + '</div><div class="e">' + s.e + '</div><div class="b">' + s.b + '</div>';
+    d.onclick = () => { d.classList.add('on'); i === 2 || i === 4 ? clack() : ding(); if (i === SCULPT.length - 1) party(); };
+    c.appendChild(d);
+  });
+}
+let towerN = 0;
+function addRock(){
+  const t = $('tower');
+  if (towerN >= 9) {
+    t.classList.remove('shaky'); void t.offsetWidth; t.classList.add('shaky'); crash();
+    $('towerCount').textContent = '💥 CRASH! ' + towerN + ' rocks — so tall! Start again?';
+    setTimeout(resetTower, 1400);
+    return;
+  }
+  towerN++;
+  const w = Math.max(40, 140 - towerN * 10 + rnd(18));
+  t.insertAdjacentHTML('beforeend', rockHTML(ROCKCOLS[rnd(ROCKCOLS.length)], '', w, Math.round(w * 0.42)));
+  clack();
+  if (towerN >= 6) { t.classList.remove('shaky'); void t.offsetWidth; t.classList.add('shaky'); }
+  $('towerCount').textContent = towerN + ' rock' + (towerN === 1 ? '' : 's') + (towerN >= 6 ? ' — careful, it’s wobbling!' : '');
+}
+function resetTower(){ towerN = 0; $('tower').innerHTML = ''; $('tower').classList.remove('shaky'); $('towerCount').textContent = '0 rocks'; }
+
+/* ===================== 10 · QUESTIONS + SONG ===================== */
+const QS = [
+  { q:'What did you learn about rocks?', a:'Big, little, smooth, rough, heavy, light — some sink, some float, lots of colours! 🪨' },
+  { q:'Who made the rocks?', a:'GOD did! On Day 3! ⛰️' },
+  { q:'Where did the wise man build his house?', a:'On the ROCK! 🏠💪' }
+];
+function buildQs(){
+  const c = $('qs');
+  c.innerHTML = '';
+  QS.forEach(x => {
+    const d = document.createElement('div');
+    d.className = 'qcard';
+    d.innerHTML = '<div class="q">' + x.q + '</div><div class="a">tap for the answer</div>';
+    d.onclick = () => { d.classList.add('on'); d.querySelector('.a').textContent = x.a; ding(); };
+    c.appendChild(d);
+  });
+}
+const SONG = [
+  { w:'I’m a little lamb today;',            act:'Crouch down small' },
+  { w:'Jesus is my Shepherd.',               act:'Hook your arm like a staff' },
+  { w:'My Shepherd loves me day to day;',    act:'Hands on your heart' },
+  { w:'Jesus is my Shepherd.',               act:'Hook your arm like a staff' },
+  { w:'I will follow where He leads;',       act:'March on the spot' },
+  { w:'He gives me everything I need;',      act:'Open both hands' },
+  { w:'I’m a little lamb today,',            act:'Crouch down small' },
+  { w:'Jesus is my Shepherd.',               act:'Arms up high!' }
+];
+function buildSong(){
+  const c = $('songLines');
+  c.innerHTML = '';
+  SONG.forEach((s, i) => {
+    const d = document.createElement('div');
+    d.className = 'lyr';
+    d.id = 's' + i;
+    d.innerHTML = '<span class="w">' + s.w + '</span><span class="act2">👉 ' + s.act + '</span>';
+    d.onclick = () => { d.classList.add('on'); ding(); };
+    c.appendChild(d);
+  });
+}
+function songAll(){
+  songReset();
+  SONG.forEach((_, i) => setTimeout(() => {
+    $('s' + i).classList.add('on');
+    ding();
+    if (i === SONG.length - 1) setTimeout(party, 400);
+  }, i * 1000));
+}
+function songReset(){ document.querySelectorAll('.lyr').forEach(v => v.classList.remove('on')); }
+
+/* ===================== CONFETTI ===================== */
+function party(){
+  const box = $('confetti');
+  const bits = ['🪨','💎','⭐','🎉','💛','✨','🐑'];
+  for (let i = 0; i < 32; i++) {
+    const s = document.createElement('span');
+    s.className = 'conf';
+    s.textContent = bits[rnd(bits.length)];
+    s.style.left = Math.random() * 100 + '%';
+    s.style.top = '-50px';
+    s.style.animationDelay = (Math.random() * 0.6) + 's';
+    box.appendChild(s);
+    setTimeout(() => s.remove(), 3400);
+  }
+  ding();
+}
+
+/* ===================== INIT ===================== */
+try { const m = localStorage.getItem('ll-mascot'); if (m) { $('mascotIn').value = m; } } catch(e) {}
+setMascot($('mascotIn').value);
+buildQuiz(); renderStory(); buildHunt(); buildCmp(); buildSF(); buildSort();
+resetBuild(); buildSeq(); buildActs(); buildSculpt(); resetTower(); buildQs(); buildSong(); go(0);
+</script>
+</body></html>
