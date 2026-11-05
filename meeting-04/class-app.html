@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Hooray for Me — Little Lamb Meeting 4</title>
+<style>
+/* ============================ BASE ============================ */
+* { box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent; }
+body {
+  font-family:"Comic Sans MS","Chalkboard SE",system-ui,sans-serif;
+  background:linear-gradient(180deg,#fde2f3 0%,#f3e8ff 50%,#fff3d6 100%);
+  color:#2d3142; min-height:100vh; overflow-x:hidden;
+}
+/* ============================ TOPBAR ============================ */
+#topbar {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:10px 18px; background:rgba(255,255,255,.75); backdrop-filter:blur(6px);
+  border-bottom:3px solid #f9a8d4; position:sticky; top:0; z-index:50;
+}
+#topbar .brand { font-weight:800; color:#7c3aed; font-size:1.05rem; }
+#topbar .tools { display:flex; gap:8px; }
+.tbtn {
+  background:#fff; border:2px solid #7c3aed; color:#7c3aed; font-family:inherit;
+  font-weight:800; font-size:.9rem; padding:7px 14px; border-radius:999px; cursor:pointer;
+}
+.tbtn:hover { background:#7c3aed; color:#fff; }
+/* ============================ PAGES ============================ */
+.page { display:none; max-width:1140px; margin:0 auto; padding:22px 18px 110px; }
+.page.active { display:block; animation:fade .35s ease; }
+@keyframes fade { from { opacity:0; transform:translateY(12px);} to { opacity:1; transform:none; } }
+.page h1 { font-size:2.1rem; color:#7c3aed; text-align:center; margin-bottom:6px; }
+.page .sub { text-align:center; color:#4b5563; font-size:1.05rem; margin-bottom:18px; }
+.teach {
+  max-width:820px; margin:0 auto 18px; background:rgba(255,255,255,.72); border:2px dashed #c4b5fd;
+  border-radius:14px; padding:9px 16px; font-size:.92rem; color:#475569; text-align:center;
+}
+.teach b { color:#9d174d; }
+.center { text-align:center; }
+h2.mini { text-align:center; color:#b45309; font-size:1.4rem; margin:22px 0 4px; }
+/* ============================ BUTTONS ============================ */
+.big {
+  display:inline-block; background:linear-gradient(135deg,#34d399,#059669); color:#fff;
+  border:none; font-family:inherit; font-weight:800; font-size:1.3rem;
+  padding:16px 38px; border-radius:999px; cursor:pointer; box-shadow:0 6px 0 #047857; margin:4px;
+}
+.big:active { transform:translateY(4px); box-shadow:0 2px 0 #047857; }
+.big.blue { background:linear-gradient(135deg,#60a5fa,#1d4ed8); box-shadow:0 6px 0 #1e40af; }
+.big.pink { background:linear-gradient(135deg,#f9a8d4,#be185d); box-shadow:0 6px 0 #9d174d; }
+.big.gold { background:linear-gradient(135deg,#fcd34d,#d97706); box-shadow:0 6px 0 #b45309; }
+.big.purple { background:linear-gradient(135deg,#c4b5fd,#7c3aed); box-shadow:0 6px 0 #5b21b6; }
+.big:disabled { opacity:.4; cursor:not-allowed; }
+/* ============================ WELCOME ============================ */
+.hero { text-align:center; padding:10px 0 0; }
+.hero .lamb { font-size:7rem; line-height:1; animation:bob 2.4s ease-in-out infinite; }
+@keyframes bob { 0%,100%{transform:translateY(0) rotate(-2deg);} 50%{transform:translateY(-14px) rotate(2deg);} }
+.hero .kicker { letter-spacing:4px; font-weight:800; color:#b45309; font-size:.95rem; }
+.hero h2 { font-size:3rem; color:#9d174d; margin:4px 0 8px; }
+.hero .meta { color:#4b5563; font-size:1.05rem; margin-bottom:18px; }
+.starbar {
+  background:#fffbeb; border:3px dashed #f59e0b; border-radius:20px;
+  padding:14px 26px; max-width:700px; margin:0 auto 22px; font-size:1.2rem; color:#92400e; font-weight:700;
+}
+.howto {
+  max-width:780px; margin:26px auto 0; background:rgba(255,255,255,.8);
+  border:2px solid #e9d5ff; border-radius:16px; padding:16px 22px; text-align:left; font-size:.95rem; color:#334155;
+}
+.howto b { color:#7c3aed; }
+.howto li { margin:5px 0 5px 18px; }
+.namebox { margin:16px auto 0; font-size:1rem; color:#334155; }
+.namebox input, .txt {
+  font-family:inherit; font-size:1.1rem; padding:8px 14px; border-radius:999px;
+  border:3px solid #f9a8d4; width:220px; text-align:center; margin-left:6px;
+}
+/* ============================ THUMBS QUIZ ============================ */
+.quizbox {
+  background:#fff; border:6px solid #f9a8d4; border-radius:28px; padding:36px 26px;
+  text-align:center; max-width:780px; margin:0 auto 20px; min-height:240px;
+  display:flex; flex-direction:column; justify-content:center; gap:14px;
+}
+.quizbox .emoji { font-size:4rem; }
+.quizbox .q { font-size:2rem; font-weight:800; color:#7c3aed; line-height:1.3; }
+.fb { font-size:1.4rem; font-weight:800; min-height:1.6em; text-align:center; }
+.fb.good { color:#059669; }
+.fb.bad { color:#dc2626; }
+.thumbrow { display:flex; gap:20px; justify-content:center; }
+.thumb {
+  font-family:inherit; font-size:3rem; padding:14px 42px; border-radius:24px;
+  border:5px solid #cbd5e1; background:#fff; cursor:pointer; transition:transform .12s;
+}
+.thumb:hover { transform:scale(1.08); }
+.thumb.yes:hover { border-color:#34d399; }
+.thumb.no:hover  { border-color:#f87171; }
+.score { text-align:center; font-size:1.2rem; font-weight:800; color:#059669; margin-bottom:12px; }
+@keyframes shake { 0%,100%{transform:translateX(0);} 20%{transform:translateX(-10px);} 60%{transform:translateX(10px);} }
+@keyframes pop { 0%{transform:scale(.6);} 70%{transform:scale(1.15);} 100%{transform:scale(1);} }
+/* ============================ STORY ============================ */
+.storybox {
+  background:#fff; border:6px solid #fcd34d; border-radius:28px; padding:30px 28px;
+  text-align:center; max-width:860px; margin:0 auto 18px; min-height:330px;
+  display:flex; flex-direction:column; justify-content:center; gap:16px;
+}
+.storybox .e { font-size:5.5rem; line-height:1.1; }
+.storybox .t { font-size:1.9rem; font-weight:800; color:#6b21a8; line-height:1.35; }
+.storybox .ref { font-size:.95rem; color:#64748b; font-weight:700; }
+.storybox .cue { font-size:1.05rem; color:#7c3aed; font-weight:800; }
+.dots { display:flex; gap:8px; justify-content:center; margin-bottom:14px; }
+.dot { width:14px; height:14px; border-radius:50%; background:#cbd5e1; }
+.dot.on { background:#ec4899; }
+/* ============================ SONG ACTION CARDS ============================ */
+.songcard {
+  background:#fff; border:6px solid #c4b5fd; border-radius:30px; max-width:640px; margin:0 auto 16px;
+  padding:26px; text-align:center; min-height:300px; display:flex; flex-direction:column; justify-content:center; gap:10px;
+}
+.songcard .e { font-size:7rem; line-height:1; animation:pop .5s; }
+.songcard .part { font-size:2.2rem; font-weight:800; color:#9d174d; }
+.songcard .do { font-size:1.8rem; font-weight:800; color:#059669; }
+.songcard.chorus { border-color:#fcd34d; background:#fffbeb; }
+.player { max-width:640px; margin:0 auto 14px; text-align:center; }
+.player audio { width:100%; }
+.nosong { text-align:center; font-weight:800; color:#b45309; margin-bottom:14px; display:none; }
+/* ============================ STATIONS ============================ */
+.stations { display:grid; grid-template-columns:repeat(5,1fr); gap:14px; max-width:1080px; margin:0 auto; }
+.st {
+  background:#fff; border:5px solid #f9a8d4; border-radius:22px; padding:16px 10px; text-align:center;
+  cursor:pointer; min-height:220px; display:flex; flex-direction:column; justify-content:center; gap:8px; transition:transform .15s;
+}
+.st:hover { transform:translateY(-5px); }
+.st .e { font-size:3.6rem; }
+.st .t { font-size:1.15rem; font-weight:800; color:#7c3aed; }
+.st .d { font-size:1rem; color:#cbd5e1; font-weight:700; }
+.st.on { border-color:#34d399; background:#f0fdf4; }
+.st.on .d { color:#065f46; }
+/* ============================ VOICE ============================ */
+.voicewrap { display:grid; grid-template-columns:1fr 1fr; gap:20px; max-width:1040px; margin:0 auto; align-items:start; }
+.panel { background:#fff; border:5px solid #c4b5fd; border-radius:24px; padding:18px; text-align:center; }
+.panel h3 { color:#7c3aed; font-size:1.4rem; margin-bottom:10px; }
+.msg { min-height:1.6em; font-weight:800; color:#9d174d; margin:10px 0; }
+#recBtn.live { background:linear-gradient(135deg,#f87171,#dc2626); box-shadow:0 6px 0 #991b1b; animation:pulse 1s infinite; }
+@keyframes pulse { 0%,100%{transform:scale(1);} 50%{transform:scale(1.06);} }
+.reclist { list-style:none; margin-top:10px; text-align:left; }
+.reclist li { display:flex; align-items:center; gap:10px; padding:7px 10px; border-bottom:2px dotted #e9d5ff; font-size:1.15rem; font-weight:800; color:#334155; }
+.reclist li span { flex:1; }
+.mini-btn { font-family:inherit; border:3px solid #c4b5fd; background:#fff; border-radius:12px; font-size:1.1rem; padding:4px 10px; cursor:pointer; }
+.namebtns { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-top:12px; }
+.namebtn {
+  font-family:inherit; font-size:1.3rem; font-weight:800; padding:12px 20px; border-radius:18px;
+  border:5px solid #cbd5e1; background:#fff; color:#6b21a8; cursor:pointer;
+}
+.namebtn.bad { animation:shake .4s; border-color:#ef4444; background:#fef2f2; }
+.namebtn.right { border-color:#34d399; background:#ecfdf5; }
+/* ============================ FINGERPRINTS ============================ */
+.fpmain { text-align:center; margin-bottom:10px; }
+.fpmain svg { width:220px; height:260px; background:#fff; border:6px solid #f9a8d4; border-radius:28px; padding:8px; }
+.fprow { display:flex; gap:18px; justify-content:center; flex-wrap:wrap; }
+.fpopt { background:#fff; border:5px solid #cbd5e1; border-radius:22px; padding:6px; cursor:pointer; transition:transform .12s; }
+.fpopt:hover { transform:scale(1.05); }
+.fpopt svg { width:150px; height:178px; display:block; }
+.fpopt.bad { animation:shake .4s; border-color:#ef4444; background:#fef2f2; }
+.fpopt.right { border-color:#34d399; background:#ecfdf5; }
+/* ============================ FRUIT OR VEG ============================ */
+.food { text-align:center; font-size:7rem; line-height:1.1; min-height:1.2em; }
+.food.go { animation:pop .45s; }
+.foodname { text-align:center; font-size:1.9rem; font-weight:800; color:#6b21a8; margin-bottom:12px; }
+.baskets { display:flex; gap:26px; justify-content:center; }
+.basket {
+  font-family:inherit; background:#fff; border:6px solid #cbd5e1; border-radius:28px; width:260px; padding:16px;
+  cursor:pointer; text-align:center; transition:transform .12s;
+}
+.basket:hover { transform:scale(1.05); }
+.basket .e { font-size:3.6rem; }
+.basket .t { font-size:1.6rem; font-weight:800; color:#334155; }
+.basket .got { min-height:2.2rem; font-size:1.6rem; }
+.basket.bad { animation:shake .4s; border-color:#ef4444; background:#fef2f2; }
+.basket.right { border-color:#34d399; background:#ecfdf5; }
+.likes { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; max-width:900px; margin:0 auto; }
+.like { background:#fff; border:4px solid #fde68a; border-radius:18px; padding:8px 12px; text-align:center; cursor:pointer; min-width:80px; }
+.like .e { font-size:2.6rem; }
+.like .s { font-size:1.4rem; min-height:1.6rem; }
+.like.on { border-color:#f59e0b; background:#fffbeb; }
+/* ============================ WHO HELPS ============================ */
+.toolbox { text-align:center; background:#fff; border:6px solid #fcd34d; border-radius:28px; max-width:600px; margin:0 auto 16px; padding:20px; }
+.toolbox .e { font-size:5.5rem; line-height:1.1; }
+.toolbox .t { font-size:1.6rem; font-weight:800; color:#6b21a8; }
+.helpers { display:flex; gap:20px; justify-content:center; flex-wrap:wrap; }
+.helper {
+  font-family:inherit; background:#fff; border:6px solid #cbd5e1; border-radius:26px; width:220px; padding:16px 10px;
+  cursor:pointer; text-align:center; transition:transform .12s;
+}
+.helper:hover { transform:scale(1.05); }
+.helper .e { font-size:4.6rem; line-height:1.1; }
+.helper .t { font-size:1.3rem; font-weight:800; color:#334155; }
+.helper.bad { animation:shake .4s; border-color:#ef4444; background:#fef2f2; }
+.helper.right { border-color:#34d399; background:#ecfdf5; }
+/* ============================ STEPS (shared) ============================ */
+.csteps { max-width:840px; margin:0 auto; }
+.cstep {
+  background:#fff; border:4px solid #fda4af; border-radius:22px; padding:14px 22px;
+  display:flex; align-items:center; gap:18px; margin-bottom:10px; opacity:.5;
+  transition:opacity .3s, transform .2s; cursor:pointer;
+}
+.cstep.on { opacity:1; transform:scale(1.02); border-color:#be185d; background:#fff1f2; }
+.cstep .n {
+  min-width:48px; height:48px; border-radius:50%; background:#be185d; color:#fff;
+  display:flex; align-items:center; justify-content:center; font-size:1.4rem; font-weight:800;
+}
+.cstep .b { font-size:1.18rem; }
+.cstep .e { font-size:2.2rem; }
+/* ============================ TRACING ============================ */
+.tracewrap { max-width:760px; margin:0 auto; text-align:center; }
+#trace {
+  width:100%; aspect-ratio:700/420; background:#fff; border:6px solid #c4b5fd; border-radius:24px;
+  touch-action:none; cursor:crosshair; box-shadow:0 6px 18px rgba(0,0,0,.08);
+}
+.tracelbl { font-size:1.6rem; font-weight:800; color:#9d174d; min-height:1.4em; margin-bottom:8px; }
+.colors { display:flex; gap:12px; justify-content:center; margin:12px 0; }
+.sw { width:46px; height:46px; border-radius:50%; border:4px solid #fff; box-shadow:0 0 0 3px #cbd5e1; cursor:pointer; }
+.sw.on { box-shadow:0 0 0 4px #7c3aed; }
+/* ============================ SONG / QUESTIONS ============================ */
+.lyrics { max-width:760px; margin:0 auto; }
+.lyr {
+  background:#fff; border:4px solid #fcd34d; border-radius:18px; padding:12px 22px;
+  margin-bottom:9px; cursor:pointer; display:flex; align-items:center; gap:18px;
+  transition:transform .15s, background .2s;
+}
+.lyr:hover { transform:translateX(8px); }
+.lyr.on { background:#fffbeb; border-color:#d97706; }
+.lyr .w { font-size:1.45rem; font-weight:800; color:#92400e; flex:1; }
+.lyr .act2 { font-size:.95rem; color:#475569; text-align:right; }
+.qs { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; max-width:980px; margin:0 auto 22px; }
+.qcard { background:#fff; border:5px solid #f9a8d4; border-radius:22px; padding:16px; text-align:center; cursor:pointer; }
+.qcard .q { font-size:1.25rem; font-weight:800; color:#7c3aed; }
+.qcard .a { font-size:1.15rem; font-weight:800; color:#cbd5e1; margin-top:10px; }
+.qcard.on { border-color:#34d399; background:#f0fdf4; }
+.qcard.on .a { color:#059669; }
+.finish { text-align:center; padding:22px 0; }
+.finish .big-emo { font-size:6rem; animation:bob 2s ease-in-out infinite; }
+/* ============================ NAV ============================ */
+#nav {
+  position:fixed; bottom:0; left:0; right:0; display:flex; gap:12px; justify-content:center;
+  padding:14px; background:rgba(255,255,255,.9); backdrop-filter:blur(6px); border-top:3px solid #f9a8d4; z-index:50;
+}
+.nbtn { font-family:inherit; font-weight:800; font-size:1.05rem; padding:12px 30px; border-radius:999px; border:none; cursor:pointer; }
+.nbtn.back { background:#e5e7eb; color:#374151; }
+.nbtn.next { background:linear-gradient(135deg,#34d399,#059669); color:#fff; box-shadow:0 4px 0 #047857; }
+.nbtn:disabled { opacity:.35; cursor:not-allowed; }
+.pill { align-self:center; font-weight:800; color:#6b7280; font-size:.9rem; }
+/* ============================ CONFETTI ============================ */
+#confetti { position:fixed; inset:0; pointer-events:none; z-index:99; }
+.conf { position:absolute; font-size:1.8rem; animation:fall 2.6s linear forwards; }
+@keyframes fall { to { transform:translateY(110vh) rotate(620deg); opacity:0; } }
+/* ============================ RESPONSIVE ============================ */
+@media (max-width:860px) {
+  .stations { grid-template-columns:repeat(2,1fr); }
+  .voicewrap, .qs { grid-template-columns:1fr; }
+  .hero h2 { font-size:2.1rem; }
+  .hero .lamb { font-size:5rem; }
+  .page h1 { font-size:1.6rem; }
+  .quizbox .q, .storybox .t { font-size:1.4rem; }
+  .songcard .e { font-size:5rem; }
+  .basket { width:46%; }
+  .helper { width:30%; min-width:140px; }
+  .fpopt svg { width:110px; height:130px; }
+  .fpmain svg { width:170px; height:200px; }
+  .food { font-size:5rem; }
+}
+</style></head>
+<body>
+
+<div id="topbar">
+  <div class="brand">💛 Hooray for Me · Meeting 4</div>
+  <div class="tools">
+    <button class="tbtn" onclick="go(0)">🏠 Home</button>
+    <button class="tbtn" onclick="fs()">🖥️ Full Screen</button>
+  </div>
+</div>
+
+<!-- ============ 0 · WELCOME ============ -->
+<section class="page active" id="p0">
+  <div class="hero">
+    <div class="lamb">🐑💛</div>
+    <div class="kicker">LITTLE LAMB · 2026–2027</div>
+    <h2>Hooray for Me!</h2>
+    <div class="meta">Meeting 4 · Ages 4–5 · Sabbath, November 7</div>
+    <div class="starbar">💛 God made me special — there's only one ME! &nbsp;·&nbsp; Requirement: My Self I</div>
+    <button class="big pink" onclick="go(1)">🚀 Let's Start!</button>
+    <button class="big purple" onclick="fs()">🖥️ Full Screen</button>
+    <div class="namebox">🐑 Our lamb mascot's name is <input id="mascotIn" placeholder="type the name" oninput="setMascot(this.value)"></div>
+    <div class="howto">
+      <b>📖 How to use this app (1 minute, read first)</b>
+      <ul>
+        <li>Type in the <b>mascot's name</b>. Tap <b>Full Screen</b>, then <b>Let's Start!</b>. There are <b>11 pages</b>; go forward with <b>Next ➡</b> or the <b>→</b> key.</li>
+        <li><b>Page 4 (the song)</b> plays <b>what-a-miracle.mp3</b>, which must sit in the <b>same folder</b> as this app. Without it, just sing together.</li>
+        <li><b>Page 6 (Whose Voice?)</b> uses the laptop <b>microphone</b>: click <b>Allow</b> when the browser asks. Recordings stay on this screen only and are gone when you close it.</li>
+        <li>Real games with right/wrong answers: <b>I Am Special</b>, <b>Whose Voice?</b>, <b>Fingerprint Twins</b>, <b>Fruit or Vegetable?</b> and <b>Who Helps?</b>. Let a different child take each turn.</li>
+        <li>The app supports the Leader's Guide (pp. 49–54). The <b>paper-bag puppets, discovery stations, dress-up box and crayons</b> are still the lesson.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 1 · I AM SPECIAL ============ -->
+<section class="page" id="p1">
+  <h1>👍 I Am Special!</h1>
+  <div class="sub">Thumbs UP if it's true. Thumbs DOWN if it's silly!</div>
+  <div class="teach">Leader's Guide · <b>Lamb Tales</b> (10 min). First let <b>each child say something they are good at</b>, and tell them <b>God made each of them special</b>. Then play this.</div>
+  <div class="score" id="quizScore">Question 1</div>
+  <div class="quizbox">
+    <div class="emoji" id="qEmoji">💛</div>
+    <div class="q" id="qText">Ready?</div>
+    <div class="fb" id="qFb"></div>
+  </div>
+  <div class="thumbrow">
+    <button class="thumb yes" onclick="answer(true)">👍</button>
+    <button class="thumb no"  onclick="answer(false)">👎</button>
+  </div>
+  <div class="center" style="margin-top:16px"><button class="big gold" onclick="buildQuiz()">🔄 Play Again</button></div>
+</section>
+
+<!-- ============ 2 · THE STORY ============ -->
+<section class="page" id="p2">
+  <h1>📖 Hooray for Me! God Made Me Special</h1>
+  <div class="sub">A story about how God made YOU: Psalm 139:14, Isaiah 43:1</div>
+  <div class="teach">Leader's Guide · <b>Lamb Tales</b>: read the printed read-aloud, or tell it from here. The purple lines are the class's cue to <b>join in</b> with an action.</div>
+  <div class="dots" id="storyDots"></div>
+  <div class="storybox">
+    <div class="e" id="stE"></div>
+    <div class="t" id="stT"></div>
+    <div class="ref" id="stR"></div>
+    <div class="cue" id="stC"></div>
+  </div>
+  <div class="center">
+    <button class="big blue" onclick="storyStep(-1)">⬅ Back</button>
+    <button class="big" onclick="storyStep(1)">Turn the page ➡</button>
+  </div>
+</section>
+
+<!-- ============ 3 · SONG: WHAT A MIRACLE ============ -->
+<section class="page" id="p3">
+  <h1>🎵 What a Miracle!</h1>
+  <div class="sub">Stand up! Tap each card, then do the action as you sing</div>
+  <div class="teach">Leader's Guide · <b>Lamb Tales</b>: after the story, sing <b>"What a Miracle" by Hap Palmer</b>. It's the same song as last year's investiture. These cards show the actions only.</div>
+  <div class="player" id="player"><audio id="songAudio" controls preload="metadata" src="what-a-miracle.mp3" onerror="noSong()"></audio></div>
+  <div class="nosong" id="noSong">🎤 Sing it together, because there's no music file here.</div>
+  <div class="dots" id="songDots"></div>
+  <div class="songcard" id="songCard">
+    <div class="e" id="scE"></div>
+    <div class="part" id="scP"></div>
+    <div class="do" id="scD"></div>
+  </div>
+  <div class="center">
+    <button class="big blue" onclick="songCardStep(-1)">⬅ Back</button>
+    <button class="big pink" onclick="songCardStep(1)">Next action ➡</button>
+  </div>
+</section>
+
+<!-- ============ 4 · UNIQUE ME STATIONS ============ -->
+<section class="page" id="p4">
+  <h1>🌟 Unique Me: Discovery Stations</h1>
+  <div class="sub">Tap a station to see what we do there</div>
+  <div class="teach">Leader's Guide · <b>Activity 2: Unique Me</b> (p. 52, 10 min). Set up the stations ahead of time. Each one helps a child discover something about <b>themselves</b>. Nobody else is exactly like you!</div>
+  <div class="stations" id="stations"></div>
+</section>
+
+<!-- ============ 5 · WHOSE VOICE? ============ -->
+<section class="page" id="p5">
+  <h1>🎤 Whose Voice?</h1>
+  <div class="sub">Nobody sounds just like YOU! Record each friend, then guess who's talking.</div>
+  <div class="teach">Leader's Guide · <b>Unique Me, station 5</b>: record the children's voices (best done <b>at arrival</b>, before the lesson), then let the class guess. Each child says <b>"Baa! Hi, I'm a little lamb!"</b></div>
+  <div class="voicewrap">
+    <div class="panel">
+      <h3>1 · Record</h3>
+      <div><input class="txt" id="vName" placeholder="child's name" onkeydown="if(event.key==='Enter')recToggle()"></div>
+      <button class="big pink" id="recBtn" onclick="recToggle()">🎤 Record</button>
+      <div class="msg" id="vMsg">Type a name, then tap Record (4 seconds).</div>
+      <ul class="reclist" id="recList"></ul>
+    </div>
+    <div class="panel">
+      <h3>2 · Guess!</h3>
+      <button class="big purple" id="playBtn" onclick="voicePlay()">▶️ Play a Mystery Voice</button>
+      <button class="big gold" onclick="voiceReplay()">🔁 Hear it again</button>
+      <div class="fb" id="vFb" style="margin-top:10px"></div>
+      <div class="namebtns" id="nameBtns"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 6 · FINGERPRINT TWINS ============ -->
+<section class="page" id="p6">
+  <h1>🔍 Fingerprint Twins</h1>
+  <div class="sub">Look closely! Which fingerprint below is EXACTLY the same as this one?</div>
+  <div class="teach">Leader's Guide · <b>Unique Me, station 3</b>: press each finger on the <b>ink pad</b>, print it on paper, then look with a <b>magnifying glass</b>. Swirls, loops and arches!</div>
+  <div class="score" id="fpScore">Round 1 of 6</div>
+  <div class="fpmain" id="fpMain"></div>
+  <div class="fb" id="fpFb"></div>
+  <div class="fprow" id="fpRow"></div>
+  <div class="center" style="margin-top:14px"><button class="big gold" onclick="buildFP()">🔄 Play Again</button></div>
+</section>
+
+<!-- ============ 7 · FRUIT OR VEGETABLE ============ -->
+<section class="page" id="p7">
+  <h1>🍎 Fruit or Vegetable? 🥕</h1>
+  <div class="sub">Which basket does it go in?</div>
+  <div class="teach">Leader's Guide · <b>Unique Me, station 4: Taste test</b>. Children taste small pieces, then put a <b>star sticker</b> by the foods they liked. <b>Check for allergies first!</b> Everyone likes different foods, because God made us all different.</div>
+  <div class="score" id="fvScore">1 of 10</div>
+  <div class="food" id="fvFood"></div>
+  <div class="foodname" id="fvName"></div>
+  <div class="fb" id="fvFb"></div>
+  <div class="baskets">
+    <button class="basket" id="bFruit" onclick="fvGuess('fruit')"><div class="e">🧺</div><div class="t">🍎 Fruit</div><div class="got" id="gotFruit"></div></button>
+    <button class="basket" id="bVeg" onclick="fvGuess('veg')"><div class="e">🧺</div><div class="t">🥕 Vegetable</div><div class="got" id="gotVeg"></div></button>
+  </div>
+  <div class="center" style="margin-top:14px"><button class="big gold" onclick="buildFV()">🔄 Play Again</button></div>
+  <h2 class="mini">⭐ Which did YOU like?</h2>
+  <div class="sub" style="margin-bottom:8px">Tap to give a star. There's no wrong answer!</div>
+  <div class="likes" id="likes"></div>
+</section>
+
+<!-- ============ 8 · WHO HELPS? ============ -->
+<section class="page" id="p8">
+  <h1>🧑‍🚒 Who Helps?</h1>
+  <div class="sub">Who uses these things? Tap the helper!</div>
+  <div class="teach">Leader's Guide · <b>Activity 3: I Can Be Anything</b> (15 min). Show the <b>pictures of people doing different jobs</b>, women and men from many backgrounds, then open the <b>dress-up box</b>. Play this first, or between costumes.</div>
+  <div class="score" id="whScore">Round 1 of 8</div>
+  <div class="toolbox"><div class="e" id="whTool"></div><div class="t" id="whName"></div></div>
+  <div class="fb" id="whFb"></div>
+  <div class="helpers" id="whRow"></div>
+  <div class="center" style="margin-top:14px"><button class="big gold" onclick="buildWH()">🔄 Play Again</button></div>
+</section>
+
+<!-- ============ 9 · PUPPET + I CAN WRITE ============ -->
+<section class="page" id="p9">
+  <h1>🛍️ My Self-Portrait Puppet</h1>
+  <div class="sub">Tap each step as we go</div>
+  <div class="teach">Leader's Guide · <b>Activity 1: Self-portrait Puppet</b> (10 min): paper lunch bags, yarn in the children's hair colours (10 cm and 25 cm pieces), buttons, glue, crayons. Show <b>your finished puppet</b> first. It's fine if a puppet doesn't match its maker. Let them have fun!</div>
+  <div class="csteps" id="puppetSteps"></div>
+  <h2 class="mini">✏️ I Can Write!</h2>
+  <div class="teach">Leader's Guide · <b>Activity 4: I Can Write</b> (5 min). Trace with your finger: shapes first, then <b>your name</b>! Then copy them on paper with crayons.</div>
+  <div class="tracewrap">
+    <div class="namebox" style="margin:0 0 10px">✏️ Name to trace: <input id="traceName" placeholder="type a name" oninput="setTraceName(this.value)"></div>
+    <div class="tracelbl" id="traceLbl"></div>
+    <canvas id="trace" width="700" height="420"></canvas>
+    <div class="colors" id="colors"></div>
+    <button class="big gold" onclick="traceClear()">🧽 Clear</button>
+    <button class="big pink" onclick="traceNext()">Next ➡</button>
+  </div>
+</section>
+
+<!-- ============ 10 · GOOD-BAA ============ -->
+<section class="page" id="p10">
+  <h1>🎵 Good-baa, Little Lambs!</h1>
+  <div class="sub">Tap a question, then tap to see the answer</div>
+  <div class="teach">Leader's Guide · <b>Good-baa Little Lambs</b> (5 min). Circle up and ask <b>"Why is it good to be you?"</b> Give every child a turn. Sing "Jesus Is My Shepherd" (p. 175) and rejoin the Adventurers.</div>
+  <div class="qs" id="qs"></div>
+  <div class="lyrics" id="songLines"></div>
+  <div class="center" style="margin-top:16px">
+    <button class="big" onclick="songAll()">▶️ Sing the Whole Song</button>
+    <button class="big gold" onclick="songReset()">🔄 Again</button>
+  </div>
+  <div class="finish">
+    <div class="big-emo">🐑💛🎉</div>
+    <h1>Hooray for YOU! God made only one you 💛</h1>
+    <p style="font-size:1.4rem;color:#059669;font-weight:800;margin:14px 0">Well done, Little Lambs! 🎉</p>
+    <button class="big gold" onclick="party()">🎉 Celebrate!</button>
+    <button class="big blue" onclick="go(0)">🏠 Back to Start</button>
+  </div>
+</section>
+
+<div id="nav">
+  <button class="nbtn back" id="btnBack" onclick="go(cur-1)">⬅ Back</button>
+  <span class="pill" id="pagePill">1 / 11</span>
+  <button class="nbtn next" id="btnNext" onclick="go(cur+1)">Next ➡</button>
+</div>
+
+<div id="confetti"></div>
+
+<script>
+/* ===================== HELPERS ===================== */
+const $ = id => document.getElementById(id);
+const shuffle = arr => arr.map(v => [Math.random(), v]).sort((a,b) => a[0]-b[0]).map(p => p[1]);
+const rnd = n => Math.floor(Math.random() * n);
+function flash(el, cls){ el.classList.remove(cls); void el.offsetWidth; el.classList.add(cls); }
+
+/* ===================== MASCOT NAME ===================== */
+let mascot = '';
+function setMascot(v){
+  mascot = v.trim();
+  try { localStorage.setItem('ll-mascot', mascot); } catch(e) {}
+  document.querySelectorAll('.mascot').forEach(s => s.textContent = mascot || 'Our lamb');
+}
+
+/* ===================== NAVIGATION ===================== */
+const PAGES = 11;
+let cur = 0;
+function go(n){
+  if (n < 0 || n >= PAGES) return;
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  $('p' + n).classList.add('active');
+  cur = n;
+  $('pagePill').textContent = (n + 1) + ' / ' + PAGES;
+  $('btnBack').disabled = (n === 0);
+  $('btnNext').disabled = (n === PAGES - 1);
+  if (n !== 3) { try { $('songAudio').pause(); } catch(e) {} }
+  if (n === 9) traceDraw();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+function fs(){
+  if (!document.fullscreenElement) document.documentElement.requestFullscreen().catch(()=>{});
+  else document.exitFullscreen();
+}
+document.addEventListener('keydown', e => {
+  if (e.target.tagName === 'INPUT') return;
+  if (e.key === 'ArrowRight') go(cur + 1);
+  if (e.key === 'ArrowLeft')  go(cur - 1);
+});
+
+/* ===================== SOUNDS (synthesized) ===================== */
+let ac = null;
+function ctx(){ return ac = ac || new (window.AudioContext || window.webkitAudioContext)(); }
+function baa(pitch, vol){
+  try {
+    const a = ctx(), t = a.currentTime, p = pitch || 1, v0 = vol || 0.18;
+    const o = a.createOscillator(), g = a.createGain(), v = a.createOscillator(), vg = a.createGain();
+    o.type = 'sawtooth';
+    o.frequency.setValueAtTime(420 * p, t);
+    o.frequency.exponentialRampToValueAtTime(300 * p, t + 0.45);
+    v.frequency.value = 18; vg.gain.value = 26 * p;        /* the wobbly bleat */
+    v.connect(vg); vg.connect(o.frequency);
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.exponentialRampToValueAtTime(v0, t + 0.05);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + 0.5);
+    const f = a.createBiquadFilter(); f.type = 'lowpass'; f.frequency.value = 1400;
+    o.connect(f); f.connect(g); g.connect(a.destination);
+    o.start(t); v.start(t); o.stop(t + 0.55); v.stop(t + 0.55);
+  } catch(e) {}
+}
+function tone(f1, f2, dur, type, vol){
+  try {
+    const a = ctx(), t = a.currentTime, o = a.createOscillator(), g = a.createGain();
+    o.type = type || 'sine';
+    o.frequency.setValueAtTime(f1, t);
+    o.frequency.exponentialRampToValueAtTime(f2, t + dur * 0.8);
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.exponentialRampToValueAtTime(vol || 0.2, t + 0.02);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    o.connect(g); g.connect(a.destination); o.start(t); o.stop(t + dur + 0.05);
+  } catch(e) {}
+}
+const ding   = () => tone(880, 1320, 0.35);
+const buzz   = () => tone(200, 120, 0.3, 'square');
+const boing  = () => tone(300, 900, 0.3, 'triangle', 0.25);
+const pop    = () => tone(700, 300, 0.12, 'sine', 0.25);
+
+/* ===================== 1 · I AM SPECIAL ===================== */
+const FACTS = [
+  { q:'God made only one YOU.',                          a:true,  e:'💛', why:'Yes! There is nobody else exactly like you.' },
+  { q:'Everybody’s fingerprints are the same.',          a:false, e:'🔍', why:'No! Every fingerprint in the world is different.' },
+  { q:'God knows your name.',                            a:true,  e:'📛', why:'Yes! “I have called you by name; you are mine.” Isaiah 43:1' },
+  { q:'You have to be big to be special.',               a:false, e:'🦒', why:'No! Little ones are special too. Jesus said, “Let the children come to me.”' },
+  { q:'God made your eyes, your hands and your feet.',   a:true,  e:'👀', why:'Yes! Every little part of you.' },
+  { q:'Jesus only loves grown-ups.',                     a:false, e:'🧒', why:'No! Jesus loves children. He hugged them and blessed them (Mark 10:14).' },
+  { q:'You are good at some things, and still learning others.', a:true, e:'🌱', why:'Yes! Everyone is still learning, even grown-ups!' },
+  { q:'We all look exactly alike.',                      a:false, e:'🪞', why:'No! Different hair, eyes, skin, voices. God loves variety!' },
+  { q:'God made you amazing and wonderful.',             a:true,  e:'🌟', why:'Yes! “How you made me is amazing and wonderful.” Psalm 139:14' }
+];
+let qi = 0, qScore = 0, qLock = false;
+function buildQuiz(){ qi = 0; qScore = 0; qLock = false; renderQuiz(); }
+function renderQuiz(){
+  if (qi >= FACTS.length) {
+    $('qEmoji').textContent = '🏆';
+    $('qText').textContent = 'You got ' + qScore + ' out of ' + FACTS.length + '!';
+    $('qFb').textContent = 'You are SO special!';
+    $('qFb').className = 'fb good';
+    $('quizScore').textContent = 'All done!';
+    party();
+    return;
+  }
+  const f = FACTS[qi];
+  $('qEmoji').textContent = f.e;
+  $('qText').textContent = f.q;
+  $('qFb').textContent = '';
+  $('qFb').className = 'fb';
+  $('quizScore').textContent = 'Question ' + (qi + 1) + ' of ' + FACTS.length;
+}
+function answer(said){
+  if (qLock || qi >= FACTS.length) return;
+  const f = FACTS[qi], fb = $('qFb');
+  qLock = true;
+  if (said === f.a) { qScore++; fb.textContent = '✅ ' + f.why; fb.className = 'fb good'; ding(); }
+  else              { fb.textContent = '❌ ' + f.why;            fb.className = 'fb bad';  buzz(); }
+  setTimeout(() => { qi++; qLock = false; renderQuiz(); }, 2400);
+}
+
+/* ===================== 2 · THE STORY ===================== */
+const STORY = [
+  { e:'🌍✨🧒', t:'God made the whole wide world: the sky, the sea, the animals… and then He made YOU!', r:'Genesis 1', c:'Everybody: point to yourself. ME!', s:'party' },
+  { e:'👏🙌', t:'God made your hands. Hands can clap, and wave, and help a friend!', r:'', c:'Everybody: clap-clap-clap!' },
+  { e:'🦶👟', t:'God made your feet. Feet can stand, and jump, and run, run, run!', r:'', c:'Everybody: stomp-stomp-stomp!' },
+  { e:'👀👂', t:'God made your eyes to see the flowers, and your ears to hear the birds sing.', r:'', c:'Everybody: point to your eyes… now cup your ears!' },
+  { e:'🗣️🎵', t:'God made your voice. Nobody in the whole world sounds just like you!', r:'', c:'Everybody: say “Baa!” in your very own voice!', s:'baa' },
+  { e:'☝️🌀', t:'Look at your fingertips: tiny swirly lines! Nobody in the world has fingerprints like yours.', r:'', c:'Everybody: wiggle your fingers!' },
+  { e:'🎨🎤🧱🤗', t:'You are good at things: drawing, singing, building, hugging! And some things you are still learning. That’s OK!', r:'', c:'Everybody: thumbs up! 👍' },
+  { e:'📛💛', t:'God knows your name. He says, “I have called you by name; you are mine.”', r:'Isaiah 43:1', c:'Everybody: whisper your name…' },
+  { e:'🌟🧒🎉', t:'The Bible says, “How you made me is amazing and wonderful!” Hooray for me!', r:'Psalm 139:14', c:'Everybody: jump up and cheer, HOORAY!', s:'party' }
+];
+let si = 0;
+function renderStory(){
+  const s = STORY[si];
+  $('stE').textContent = s.e;
+  $('stT').textContent = s.t;
+  $('stR').textContent = s.r ? '📜 ' + s.r : '';
+  $('stC').textContent = '👉 ' + s.c;
+  $('storyDots').innerHTML = STORY.map((_, i) => '<span class="dot' + (i <= si ? ' on' : '') + '"></span>').join('');
+}
+function storyStep(d){
+  const n = si + d;
+  if (n < 0 || n >= STORY.length) return;
+  si = n; renderStory();
+  const s = STORY[si].s;
+  if (s === 'baa') baa(); else if (s === 'party') party(); else ding();
+}
+
+/* ===================== 3 · SONG ACTION CARDS ===================== */
+const SONGCARDS = [
+  { e:'👏', p:'Hands!',     d:'👉 CLAP, clap!' },
+  { e:'🧍', p:'Feet!',      d:'👉 STAND up tall!' },
+  { e:'✨', p:'Oh, what a miracle!', d:'👉 Arms open WIDE!', chorus:true },
+  { e:'🙆', p:'Arms!',      d:'👉 SWING them!' },
+  { e:'🦩', p:'One foot!',  d:'👉 BALANCE… wobble wobble!' },
+  { e:'✨', p:'Oh, what a miracle!', d:'👉 Arms open WIDE, then point to yourself!', chorus:true }
+];
+let sci = 0;
+function renderSongCard(){
+  const c = SONGCARDS[sci], box = $('songCard');
+  box.className = 'songcard' + (c.chorus ? ' chorus' : '');
+  $('scE').textContent = c.e; flash($('scE'), 'e');
+  $('scP').textContent = c.p;
+  $('scD').textContent = c.d;
+  $('songDots').innerHTML = SONGCARDS.map((_, i) => '<span class="dot' + (i <= sci ? ' on' : '') + '"></span>').join('');
+}
+function songCardStep(d){
+  const n = sci + d;
+  if (n < 0) return;
+  if (n >= SONGCARDS.length) { party(); return; }
+  sci = n; renderSongCard(); ding();
+}
+function noSong(){ $('player').style.display = 'none'; $('noSong').style.display = 'block'; }
+
+/* ===================== 4 · STATIONS ===================== */
+const STATIONS = [
+  { e:'⚖️📏', t:'Weigh & Measure', d:'Stand on the scale, then stand tall by the yardstick. How big are you?' },
+  { e:'🎈', t:'Balloon Breath', d:'Take a BIG breath and blow into a balloon. How big can you make it? (A grown-up holds it.)' },
+  { e:'🔍☝️', t:'Fingerprints', d:'Press a finger on the ink pad, print it, then look with a magnifying glass!' },
+  { e:'🍎🥕', t:'Taste Test', d:'Taste the fruits and vegetables. Put a star sticker by the ones you liked!' },
+  { e:'🎤', t:'My Voice', d:'Record your voice, then everyone guesses: whose voice is that?' }
+];
+function buildStations(){
+  const c = $('stations');
+  c.innerHTML = '';
+  STATIONS.forEach((s, i) => {
+    const d = document.createElement('div');
+    d.className = 'st';
+    d.innerHTML = '<div class="e">' + s.e + '</div><div class="t">' + (i + 1) + ' · ' + s.t + '</div><div class="d">tap to see</div>';
+    d.onclick = () => { d.classList.add('on'); d.querySelector('.d').textContent = s.d; ding(); };
+    c.appendChild(d);
+  });
+}
+
+/* ===================== 5 · WHOSE VOICE? ===================== */
+let recs = [], mediaRec = null, recChunks = [], recTimer = null, recStream = null;
+let vCur = null, vLast = null, vLock = false, vAudio = null;
+const MIC_BLOCKED = '🎤 Microphone blocked. Use a phone to record instead.';
+async function recToggle(){
+  if (mediaRec && mediaRec.state === 'recording') { stopRec(); return; }
+  const name = $('vName').value.trim();
+  if (!name) { $('vMsg').textContent = '✏️ Type a name first!'; return; }
+  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia || !window.MediaRecorder) { $('vMsg').textContent = MIC_BLOCKED; return; }
+  try { recStream = await navigator.mediaDevices.getUserMedia({ audio:true }); }
+  catch(e) { $('vMsg').textContent = MIC_BLOCKED; return; }
+  recChunks = [];
+  try { mediaRec = new MediaRecorder(recStream); }
+  catch(e) { $('vMsg').textContent = MIC_BLOCKED; recStream.getTracks().forEach(t => t.stop()); return; }
+  mediaRec.ondataavailable = e => { if (e.data && e.data.size) recChunks.push(e.data); };
+  mediaRec.onstop = () => {
+    const blob = new Blob(recChunks, { type: mediaRec.mimeType || 'audio/webm' });
+    recs.push({ name, url: URL.createObjectURL(blob) });
+    recStream.getTracks().forEach(t => t.stop());
+    $('vName').value = '';
+    $('recBtn').textContent = '🎤 Record';
+    $('recBtn').classList.remove('live');
+    $('vMsg').textContent = '✅ Got ' + name + '’s voice!';
+    ding(); renderRecs(); renderNameBtns();
+  };
+  mediaRec.start();
+  $('recBtn').textContent = '⏹️ Stop';
+  $('recBtn').classList.add('live');
+  $('vMsg').textContent = '🔴 Recording ' + name + '… say “Baa! Hi, I’m a little lamb!”';
+  recTimer = setTimeout(stopRec, 4000);
+}
+function stopRec(){ clearTimeout(recTimer); if (mediaRec && mediaRec.state === 'recording') mediaRec.stop(); }
+function playUrl(url){ try { if (vAudio) vAudio.pause(); vAudio = new Audio(url); vAudio.play().catch(()=>{}); } catch(e) {} }
+function renderRecs(){
+  const ul = $('recList');
+  ul.innerHTML = '';
+  recs.forEach((r, i) => {
+    const li = document.createElement('li');
+    li.innerHTML = '<span>🐑 ' + r.name.replace(/</g,'&lt;') + '</span>';
+    const p = document.createElement('button'); p.className = 'mini-btn'; p.textContent = '▶'; p.onclick = () => playUrl(r.url);
+    const x = document.createElement('button'); x.className = 'mini-btn'; x.textContent = '✕';
+    x.onclick = () => { URL.revokeObjectURL(r.url); recs.splice(i, 1); if (vCur === r) vCur = null; renderRecs(); renderNameBtns(); };
+    li.appendChild(p); li.appendChild(x); ul.appendChild(li);
+  });
+}
+function renderNameBtns(){
+  const c = $('nameBtns');
+  c.innerHTML = '';
+  const names = [...new Set(recs.map(r => r.name))];
+  shuffle(names).forEach(n => {
+    const b = document.createElement('button');
+    b.className = 'namebtn';
+    b.textContent = n;
+    b.onclick = () => voiceGuess(n, b);
+    c.appendChild(b);
+  });
+}
+function voicePlay(){
+  const names = new Set(recs.map(r => r.name));
+  if (names.size < 2) { $('vFb').textContent = 'Record at least 2 friends first!'; $('vFb').className = 'fb bad'; return; }
+  let pick, tries = 0;
+  do { pick = recs[rnd(recs.length)]; tries++; } while (pick === vLast && tries < 10);
+  vCur = vLast = pick; vLock = false;
+  $('vFb').textContent = '👂 Listen… whose voice is that?'; $('vFb').className = 'fb';
+  renderNameBtns();
+  playUrl(pick.url);
+}
+function voiceReplay(){ if (vCur) playUrl(vCur.url); }
+function voiceGuess(name, btn){
+  if (!vCur || vLock) return;
+  if (name === vCur.name) {
+    vLock = true; btn.classList.add('right');
+    $('vFb').textContent = '🎉 Yes! It was ' + name + '! Nobody sounds just like you!'; $('vFb').className = 'fb good';
+    party();
+  } else {
+    flash(btn, 'bad'); buzz();
+    $('vFb').textContent = 'Not ' + name + '… listen again!'; $('vFb').className = 'fb bad';
+  }
+}
+
+/* ===================== 6 · FINGERPRINT TWINS ===================== */
+const FP_TYPES = ['whorl','loop','arch'], FP_TILT = [-22, 0, 22], FP_RINGS = [6, 8, 11], FP_OFF = [-14, 0, 14];
+let fpUid = 0;
+function fpParams(){ return { type:FP_TYPES[rnd(3)], tilt:FP_TILT[rnd(3)], rings:FP_RINGS[rnd(3)], off:FP_OFF[rnd(3)] }; }
+function fpSVG(p){
+  const id = 'fpc' + (fpUid++), cx = 100 + p.off, cy = 115;
+  let lines = '';
+  for (let i = 0; i < p.rings; i++) {
+    const r = 9 + i * (88 / p.rings);
+    if (p.type === 'whorl') lines += '<ellipse cx="' + cx + '" cy="' + cy + '" rx="' + r.toFixed(1) + '" ry="' + (r * 1.15).toFixed(1) + '"/>';
+    else if (p.type === 'loop') lines += '<path d="M' + (cx - r).toFixed(1) + ' 260 L' + (cx - r).toFixed(1) + ' ' + cy + ' A' + r.toFixed(1) + ' ' + r.toFixed(1) + ' 0 0 1 ' + (cx + r).toFixed(1) + ' ' + cy + ' L' + (cx + r).toFixed(1) + ' ' + (cy + 40) + '"/>';
+    else { const b = 40 + i * (200 / p.rings); lines += '<path d="M-20 ' + (b + 30).toFixed(1) + ' Q' + cx + ' ' + (b - 45).toFixed(1) + ' 220 ' + (b + 30).toFixed(1) + '"/>'; }
+  }
+  return '<svg viewBox="0 0 200 236" xmlns="http://www.w3.org/2000/svg">' +
+    '<defs><clipPath id="' + id + '"><ellipse cx="100" cy="118" rx="76" ry="104"/></clipPath></defs>' +
+    '<ellipse cx="100" cy="118" rx="76" ry="104" fill="#fde7d9"/>' +
+    '<g clip-path="url(#' + id + ')"><g transform="rotate(' + p.tilt + ' 100 118)" fill="none" stroke="#7c2d12" stroke-width="4.5" stroke-linecap="round">' + lines + '</g></g>' +
+    '<ellipse cx="100" cy="118" rx="76" ry="104" fill="none" stroke="#e2b9a3" stroke-width="3"/></svg>';
+}
+let fpRound = 0, fpScore = 0, fpLock = false;
+const FP_ROUNDS = 6;
+function buildFP(){ fpRound = 0; fpScore = 0; renderFP(); }
+function renderFP(){
+  if (fpRound >= FP_ROUNDS) {
+    $('fpScore').textContent = 'All done! ' + fpScore + ' out of ' + FP_ROUNDS + ' on the first try!';
+    $('fpMain').innerHTML = '<div style="font-size:5rem">🔍💛</div>';
+    $('fpRow').innerHTML = '';
+    $('fpFb').textContent = 'No two fingerprints are the same. God made only one YOU!';
+    $('fpFb').className = 'fb good';
+    party();
+    return;
+  }
+  fpLock = false;
+  const target = fpParams(), opts = [target];
+  while (opts.length < 4) {
+    const d = fpParams();
+    if (opts.every(o => o.type !== d.type || (o.rings !== d.rings && o.tilt !== d.tilt))) opts.push(d);
+  }
+  $('fpScore').textContent = 'Round ' + (fpRound + 1) + ' of ' + FP_ROUNDS;
+  $('fpMain').innerHTML = fpSVG(target);
+  $('fpFb').textContent = ''; $('fpFb').className = 'fb';
+  const row = $('fpRow');
+  row.innerHTML = '';
+  let firstTry = true;
+  shuffle(opts).forEach(o => {
+    const b = document.createElement('div');
+    b.className = 'fpopt';
+    b.innerHTML = fpSVG(o);
+    b.onclick = () => {
+      if (fpLock) return;
+      if (o === target) {
+        fpLock = true; b.classList.add('right'); ding();
+        if (firstTry) fpScore++;
+        $('fpFb').textContent = '✅ Twins! You looked so carefully!'; $('fpFb').className = 'fb good';
+        setTimeout(() => { fpRound++; renderFP(); }, 1600);
+      } else {
+        firstTry = false; flash(b, 'bad'); buzz();
+        $('fpFb').textContent = '❌ Look again: are the lines the same?'; $('fpFb').className = 'fb bad';
+      }
+    };
+    row.appendChild(b);
+  });
+}
+
+/* ===================== 7 · FRUIT OR VEGETABLE ===================== */
+const FOODS = [
+  { e:'🍎', n:'Apple', k:'fruit' }, { e:'🥕', n:'Carrot', k:'veg' }, { e:'🍌', n:'Banana', k:'fruit' },
+  { e:'🥦', n:'Broccoli', k:'veg' }, { e:'🍇', n:'Grapes', k:'fruit' }, { e:'🌽', n:'Corn', k:'veg' },
+  { e:'🍓', n:'Strawberry', k:'fruit' }, { e:'🥔', n:'Potato', k:'veg' }, { e:'🍊', n:'Orange', k:'fruit' },
+  { e:'🥬', n:'Lettuce', k:'veg' }
+];
+let fvList = [], fvi = 0, fvLock = false, fvScore = 0;
+function buildFV(){
+  fvList = shuffle(FOODS); fvi = 0; fvScore = 0; fvFirst = true;
+  $('gotFruit').textContent = ''; $('gotVeg').textContent = '';
+  renderFV();
+}
+function renderFV(){
+  fvLock = false;
+  ['bFruit','bVeg'].forEach(id => $(id).classList.remove('right','bad'));
+  if (fvi >= fvList.length) {
+    $('fvFood').textContent = '🧺🎉';
+    $('fvName').textContent = 'All sorted! ' + fvScore + ' out of ' + fvList.length + '!';
+    $('fvFb').textContent = 'God made SO many good foods!'; $('fvFb').className = 'fb good';
+    $('fvScore').textContent = 'All done!';
+    party();
+    return;
+  }
+  const f = fvList[fvi];
+  $('fvFood').textContent = f.e; flash($('fvFood'), 'go');
+  $('fvName').textContent = f.n;
+  $('fvFb').textContent = ''; $('fvFb').className = 'fb';
+  $('fvScore').textContent = (fvi + 1) + ' of ' + fvList.length;
+}
+let fvFirst = true;
+function fvGuess(k){
+  if (fvLock || fvi >= fvList.length) return;
+  const f = fvList[fvi], btn = $(k === 'fruit' ? 'bFruit' : 'bVeg');
+  if (k === f.k) {
+    fvLock = true; btn.classList.add('right'); ding();
+    if (fvFirst) fvScore++;
+    fvFirst = true;
+    $(k === 'fruit' ? 'gotFruit' : 'gotVeg').textContent += f.e;
+    $('fvFb').textContent = '✅ Yes! ' + f.n + ' is a ' + (k === 'fruit' ? 'fruit' : 'vegetable') + '!'; $('fvFb').className = 'fb good';
+    setTimeout(() => { fvi++; renderFV(); }, 1300);
+  } else {
+    fvFirst = false; flash(btn, 'bad'); buzz();
+    $('fvFb').textContent = '❌ Try the other basket!'; $('fvFb').className = 'fb bad';
+  }
+}
+function buildLikes(){
+  const c = $('likes');
+  c.innerHTML = '';
+  FOODS.forEach(f => {
+    const d = document.createElement('div');
+    d.className = 'like';
+    d.innerHTML = '<div class="e">' + f.e + '</div><div class="s"></div>';
+    d.onclick = () => { const on = d.classList.toggle('on'); d.querySelector('.s').textContent = on ? '⭐' : ''; on ? pop() : null; };
+    c.appendChild(d);
+  });
+}
+
+/* ===================== 8 · WHO HELPS? ===================== */
+const HELPERS = [
+  { id:'fire',   e:'👩🏾‍🚒', n:'Firefighter',         tool:'🧯🚒', tn:'A fire hose and a fire truck' },
+  { id:'doctor', e:'👨🏻‍⚕️', n:'Nurse / Doctor',      tool:'🩺🩹', tn:'A stethoscope and a Band-Aid' },
+  { id:'chef',   e:'👩🏼‍🍳', n:'Chef',                tool:'🍳🥄', tn:'A frying pan and a big spoon' },
+  { id:'artist', e:'👨🏿‍🎨', n:'Artist',              tool:'🎨🖌️', tn:'Paints and a paintbrush' },
+  { id:'build',  e:'👷🏽‍♀️', n:'Construction worker', tool:'🔨🪵', tn:'A hammer and some wood' },
+  { id:'vet',    e:'👩🏻‍⚕️🐶', n:'Vet (animal doctor)', tool:'🐶🩹', tn:'A puppy with a sore paw' },
+  { id:'police', e:'👮🏾‍♀️', n:'Police officer',      tool:'🚓📝', tn:'A police car and a notepad' },
+  { id:'pilot',  e:'👨🏽‍✈️', n:'Pilot',               tool:'✈️🧳', tn:'An airplane and a suitcase' },
+  { id:'farmer', e:'🧑🏿‍🌾', n:'Farmer',              tool:'🚜🌽', tn:'A tractor and some corn' },
+  { id:'teacher',e:'👩🏻‍🏫', n:'Teacher',             tool:'📚✏️', tn:'Books and a pencil' }
+];
+const WH_ROUNDS = 8;
+let whList = [], whi = 0, whScore = 0, whLock = false, whFirst = true;
+function buildWH(){ whList = shuffle(HELPERS).slice(0, WH_ROUNDS); whi = 0; whScore = 0; renderWH(); }
+function renderWH(){
+  whLock = false; whFirst = true;
+  if (whi >= whList.length) {
+    $('whScore').textContent = 'All done! ' + whScore + ' out of ' + WH_ROUNDS + '!';
+    $('whTool').textContent = '🎁💛';
+    $('whName').textContent = 'God gave YOU gifts to help others! (1 Peter 4:10)';
+    $('whRow').innerHTML = '';
+    $('whFb').textContent = 'What will YOU be when you grow up?'; $('whFb').className = 'fb good';
+    party();
+    return;
+  }
+  const h = whList[whi];
+  const others = shuffle(HELPERS.filter(x => x.id !== h.id)).slice(0, 2);
+  $('whScore').textContent = 'Round ' + (whi + 1) + ' of ' + WH_ROUNDS;
+  $('whTool').textContent = h.tool;
+  $('whName').textContent = h.tn;
+  $('whFb').textContent = ''; $('whFb').className = 'fb';
+  const row = $('whRow');
+  row.innerHTML = '';
+  shuffle([h, ...others]).forEach(o => {
+    const b = document.createElement('button');
+    b.className = 'helper';
+    b.innerHTML = '<div class="e">' + o.e + '</div><div class="t">' + o.n + '</div>';
+    b.onclick = () => {
+      if (whLock) return;
+      if (o.id === h.id) {
+        whLock = true; b.classList.add('right'); ding();
+        if (whFirst) whScore++;
+        $('whFb').textContent = '✅ Yes! A ' + o.n.toLowerCase() + ' helps people!'; $('whFb').className = 'fb good';
+        setTimeout(() => { whi++; renderWH(); }, 1600);
+      } else {
+        whFirst = false; flash(b, 'bad'); buzz();
+        $('whFb').textContent = '❌ Hmm, who else might use these?'; $('whFb').className = 'fb bad';
+      }
+    };
+    row.appendChild(b);
+  });
+}
+
+/* ===================== 9 · PUPPET + TRACING ===================== */
+const PUPPET = [
+  { e:'👀', b:'Look at the leader’s finished puppet. Ours will look like US!' },
+  { e:'🛍️', b:'Get a paper lunch bag. The flap at the bottom is the face.' },
+  { e:'🧶', b:'Glue on yarn hair: short pieces (10 cm) on top, long pieces (25 cm) for long hair.' },
+  { e:'🔘', b:'Glue on two buttons for eyes.' },
+  { e:'🖍️', b:'Draw a nose, a mouth, ears and eyebrows with crayons.' },
+  { e:'👋', b:'Put your hand inside… make it say hello!' }
+];
+function buildPuppet(){
+  const c = $('puppetSteps');
+  c.innerHTML = '';
+  PUPPET.forEach((s, i) => {
+    const d = document.createElement('div');
+    d.className = 'cstep';
+    d.innerHTML = '<div class="n">' + (i + 1) + '</div><div class="e">' + s.e + '</div><div class="b">' + s.b + '</div>';
+    d.onclick = () => { d.classList.add('on'); ding(); if (i === PUPPET.length - 1) party(); };
+    c.appendChild(d);
+  });
+}
+const SHAPES = ['circle','square','star','heart'];
+const SHAPE_NAMES = { circle:'⭕ a circle', square:'🟥 a square', star:'⭐ a star', heart:'💜 a heart' };
+const INKS = ['#ec4899','#7c3aed','#2563eb','#059669','#f59e0b','#dc2626'];
+let traceList = SHAPES.slice(), tri = 0, ink = INKS[0], drawing = false, lastPt = null;
+function setTraceName(v){
+  const letters = v.toUpperCase().replace(/[^A-ZÀ-Ý]/g, '').split('');
+  traceList = SHAPES.concat(letters);
+  if (tri >= traceList.length) tri = 0;
+  if (letters.length) tri = SHAPES.length;   /* jump straight to the name */
+  traceDraw();
+}
+function traceGuide(c, g){
+  c.save();
+  c.setLineDash([14, 12]); c.lineWidth = 8; c.strokeStyle = '#c4b5fd'; c.lineCap = 'round'; c.lineJoin = 'round';
+  const W = 700, H = 420, cx = W / 2, cy = H / 2;
+  c.beginPath();
+  if (g === 'circle') c.arc(cx, cy, 150, 0, Math.PI * 2);
+  else if (g === 'square') c.rect(cx - 150, cy - 150, 300, 300);
+  else if (g === 'star') {
+    for (let i = 0; i < 10; i++) { const a = -Math.PI / 2 + i * Math.PI / 5, r = i % 2 ? 68 : 170; const x = cx + r * Math.cos(a), y = cy + 10 + r * Math.sin(a); i ? c.lineTo(x, y) : c.moveTo(x, y); }
+    c.closePath();
+  } else if (g === 'heart') {
+    c.moveTo(cx, cy + 150);
+    c.bezierCurveTo(cx - 230, cy + 10, cx - 140, cy - 190, cx, cy - 80);
+    c.bezierCurveTo(cx + 140, cy - 190, cx + 230, cy + 10, cx, cy + 150);
+  }
+  c.stroke();
+  if (g.length === 1) {
+    c.font = 'bold 340px "Comic Sans MS", "Chalkboard SE", sans-serif';
+    c.textAlign = 'center'; c.textBaseline = 'middle'; c.lineWidth = 6;
+    c.strokeText(g, cx, cy + 20);
+  }
+  c.restore();
+}
+function traceDraw(){
+  const cv = $('trace'), c = cv.getContext('2d');
+  c.clearRect(0, 0, cv.width, cv.height);
+  const g = traceList[tri];
+  traceGuide(c, g);
+  $('traceLbl').textContent = g.length === 1 ? 'Trace the letter ' + g + '!' : 'Trace ' + SHAPE_NAMES[g] + '!';
+}
+function traceClear(){ traceDraw(); }
+function traceNext(){ tri = (tri + 1) % traceList.length; party(); traceDraw(); }
+function tracePt(e){
+  const cv = $('trace'), r = cv.getBoundingClientRect();
+  return { x:(e.clientX - r.left) * cv.width / r.width, y:(e.clientY - r.top) * cv.height / r.height };
+}
+function initTrace(){
+  const cv = $('trace'), c = cv.getContext('2d');
+  cv.addEventListener('pointerdown', e => { drawing = true; lastPt = tracePt(e); try { cv.setPointerCapture(e.pointerId); } catch(_) {} });
+  cv.addEventListener('pointermove', e => {
+    if (!drawing) return;
+    const p = tracePt(e);
+    c.strokeStyle = ink; c.lineWidth = 16; c.lineCap = 'round'; c.lineJoin = 'round'; c.setLineDash([]);
+    c.beginPath(); c.moveTo(lastPt.x, lastPt.y); c.lineTo(p.x, p.y); c.stroke();
+    lastPt = p;
+  });
+  ['pointerup','pointercancel','pointerleave'].forEach(t => cv.addEventListener(t, () => { drawing = false; }));
+  const sw = $('colors');
+  INKS.forEach((col, i) => {
+    const s = document.createElement('div');
+    s.className = 'sw' + (i ? '' : ' on');
+    s.style.background = col;
+    s.onclick = () => { ink = col; document.querySelectorAll('.sw').forEach(x => x.classList.remove('on')); s.classList.add('on'); pop(); };
+    sw.appendChild(s);
+  });
+}
+
+/* ===================== 10 · QUESTIONS + SONG ===================== */
+const QS = [
+  { q:'Why is it good to be you?', a:'God made me special. There is only one ME! 💛' },
+  { q:'What are you good at?', a:'Everybody gets a turn to answer! 🎨🎤🧱🤗' },
+  { q:'Who knows your name?', a:'GOD does! “I have called you by name.” Isaiah 43:1 📛' }
+];
+function buildQs(){
+  const c = $('qs');
+  c.innerHTML = '';
+  QS.forEach(x => {
+    const d = document.createElement('div');
+    d.className = 'qcard';
+    d.innerHTML = '<div class="q">' + x.q + '</div><div class="a">tap for the answer</div>';
+    d.onclick = () => { d.classList.add('on'); d.querySelector('.a').textContent = x.a; ding(); };
+    c.appendChild(d);
+  });
+}
+const SONG = [
+  { w:'I’m a little lamb today;',            act:'Crouch down small' },
+  { w:'Jesus is my Shepherd.',               act:'Hook your arm like a staff' },
+  { w:'My Shepherd loves me day to day;',    act:'Hands on your heart' },
+  { w:'Jesus is my Shepherd.',               act:'Hook your arm like a staff' },
+  { w:'I will follow where He leads;',       act:'March on the spot' },
+  { w:'He gives me everything I need;',      act:'Open both hands' },
+  { w:'I’m a little lamb today,',            act:'Crouch down small' },
+  { w:'Jesus is my Shepherd.',               act:'Arms up high!' }
+];
+function buildSong(){
+  const c = $('songLines');
+  c.innerHTML = '';
+  SONG.forEach((s, i) => {
+    const d = document.createElement('div');
+    d.className = 'lyr';
+    d.id = 's' + i;
+    d.innerHTML = '<span class="w">' + s.w + '</span><span class="act2">👉 ' + s.act + '</span>';
+    d.onclick = () => { d.classList.add('on'); ding(); };
+    c.appendChild(d);
+  });
+}
+function songAll(){
+  songReset();
+  SONG.forEach((_, i) => setTimeout(() => {
+    $('s' + i).classList.add('on');
+    ding();
+    if (i === SONG.length - 1) setTimeout(party, 400);
+  }, i * 1000));
+}
+function songReset(){ document.querySelectorAll('.lyr').forEach(v => v.classList.remove('on')); }
+
+/* ===================== CONFETTI ===================== */
+function party(){
+  const box = $('confetti');
+  const bits = ['💛','⭐','🎉','✨','🐑','🌟','💜','🎈'];
+  for (let i = 0; i < 32; i++) {
+    const s = document.createElement('span');
+    s.className = 'conf';
+    s.textContent = bits[rnd(bits.length)];
+    s.style.left = Math.random() * 100 + '%';
+    s.style.top = '-50px';
+    s.style.animationDelay = (Math.random() * 0.6) + 's';
+    box.appendChild(s);
+    setTimeout(() => s.remove(), 3400);
+  }
+  ding();
+}
+
+/* ===================== INIT ===================== */
+try { const m = localStorage.getItem('ll-mascot'); if (m) { $('mascotIn').value = m; } } catch(e) {}
+setMascot($('mascotIn').value);
+buildQuiz(); renderStory(); renderSongCard(); buildStations(); renderRecs(); renderNameBtns();
+buildFP(); buildFV(); buildLikes(); buildWH(); buildPuppet(); initTrace(); traceDraw();
+buildQs(); buildSong(); go(0);
+</script>
+</body></html>
